@@ -1,0 +1,19 @@
+<nav>
+  <ul class="pagination pages" ng-if="items.length > 0">
+    <li>
+      <a class="previous" href="javascript:;" ng-class="{'disabled': currentPage === 1}" ng-click="paginate(currentPage - 1)" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item" ng-repeat="page in pages" ng-class="{'active': page === currentPage}"><a ng-click="paginate(page)">{{page}}</a></li>
+    <li>
+      <a class="next" href="javascript:;" ng-class="{'disabled': currentPage >= pages.length}" ng-click="paginate(currentPage + 1)" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+  &nbsp;
+  <ul class="pagination page-size" ng-if="items.length > 0">
+    <li ng-repeat="size in pageSizes" ng-class="{ 'active': size === pageSize}"><a href="javascript:;" ng-click="changeSize(size)">{{size}}</a></li>
+  </ul>
+</nav>

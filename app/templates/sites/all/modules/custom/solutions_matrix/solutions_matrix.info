@@ -1,0 +1,7 @@
+name = Manage Solutions Matrix
+description = Module that manages solutions within the Solution Finder
+core = 7.x
+version = 1.0
+package = Acquisition Gateway
+
+stylesheets[all][] = './css/solutions_matrix.css'

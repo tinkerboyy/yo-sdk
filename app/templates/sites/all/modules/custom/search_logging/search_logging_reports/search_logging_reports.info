@@ -1,0 +1,6 @@
+name = Search Logging Reports
+description = Module that creates reports pages for search logging.
+core = 7.x
+version = 1.0
+package = Acquisition Gateway
+dependencies[] = search_logging

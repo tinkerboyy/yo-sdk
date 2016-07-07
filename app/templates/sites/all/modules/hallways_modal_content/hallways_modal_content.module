@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Hallways Modal Content feature.
+ */
+
+include_once 'hallways_modal_content.features.inc';

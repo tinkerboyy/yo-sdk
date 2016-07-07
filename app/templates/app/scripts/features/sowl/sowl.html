@@ -1,0 +1,10 @@
+<div id="ag-sowl" class="ag-app-with-sidebar" ag-loader data-target-type="page" data-requests="pageLoader.requests">
+  <div class="ag-left-menu" id="sowl-left-rail">
+    <div ng-include="'scripts/features/sowl/sowl-menu.html'" class="ag-menu-first-child"></div>
+  </div>
+  <div class="ag-main-content" ng-class="{'has-results': sowl.currentPage == 'search-results'}" id="sowl-content">
+    <div  ng-if="sowl.currentPage == 'landing'" ng-include="'scripts/features/sowl/landing.html'"></div>
+    <div  ng-if="sowl.currentPage == 'search-results'" ng-include="'scripts/features/sowl/search.html'" ng-controller="SOWLSearchController"></div>
+    <div  ng-if="sowl.currentPage == 'document'" ng-include="'scripts/features/sowl/document.html'" ng-controller="DocumentCtrl"></div>
+  </div>
+</div>

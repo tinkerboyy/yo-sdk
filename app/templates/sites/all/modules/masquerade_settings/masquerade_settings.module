@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Masquerade Settings feature.
+ */
+
+include_once 'masquerade_settings.features.inc';

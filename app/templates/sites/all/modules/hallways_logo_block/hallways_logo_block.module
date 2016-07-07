@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Hallways Logo Block feature.
+ */
+
+include_once 'hallways_logo_block.features.inc';

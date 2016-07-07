@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Organic Groups and Forums Views feature.
+ */
+
+include_once 'organic_groups_and_forums_views.features.inc';

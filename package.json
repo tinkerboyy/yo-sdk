@@ -1,0 +1,43 @@
+{
+  "name": "generator-ag-sdk",
+  "version": "1.0.0",
+  "description": "Acquisition Gateway Toolkit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GSA/Acquisition-Gateway-Toolkit.git"
+  },
+  "keywords": [
+    "Acquisition",
+    "Gateway",
+    "sdk",
+    "toolkit",
+    "yo",
+    "scaffold",
+    "ag"
+  ],
+  "author": "Madhukar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GSA/Acquisition-Gateway-Toolkit/issues"
+  },
+  "homepage": "https://github.com/GSA/Acquisition-Gateway-Toolkit#readme",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "eval": "^0.1.1",
+    "fs": "0.0.2",
+    "inquirer": "^0.12.0",
+    "lodash": "^4.6.1",
+    "mkdirp": "^0.5.1",
+    "mv": "^2.1.1",
+    "path": "^0.12.7",
+    "shelljs": "^0.6.0",
+    "spawn-command": "0.0.2-1",
+    "util": "^0.10.3",
+    "yeoman-generator": "^0.22.5",
+    "yosay": "^1.1.0"
+  }
+}

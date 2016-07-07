@@ -1,0 +1,11 @@
+<button 
+  id="button-follow"
+  ng-click="toggleFollow(item)"
+  class="btn btn-xs follow-button"
+  ng-disabled="processing"
+  data-ag-gtm-selector="follow"
+>
+  <i class="fa" ng-if="!noIcon" ng-class="{ 'fa-spin fa-spinner': processing, 'fa-square-o': !processing && !item.followed, 'fa-check-square-o': !processing && item.followed }"></i>
+  <span class="follow-btn" ng-if="!processing">{{ follows[type].indexOf(itemId) >= 0  ? unfollowText || 'Unfollow' : followText || 'Follow'}}</span>
+  <span ng-if="processing">Processing...</span>
+</button>

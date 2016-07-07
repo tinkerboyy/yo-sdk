@@ -1,0 +1,154 @@
+@link-color: #46899b;
+
+#ag-user-profile {
+  position: relative;
+
+  h1 {
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+  }
+
+  .profile-picture {
+    height: 172px;
+    max-width: none !important;
+  }
+
+  h4.user-name {
+    color: @link-color;
+    font-weight: bold;
+    position: relative;
+  }
+
+  a.edit-profile {
+    color: @link-color;
+    margin-left: 10px;
+    position: absolute;
+    right: -0px;
+  }
+
+  .profile-view-all {
+    margin-bottom: 30px;
+    margin-top: -35px;
+  }
+
+  .img-circle {
+    border-radius: 50%;
+    border: 2px solid #BBB;
+    height: 172px;
+    overflow: hidden;
+    width: 172px;
+  }
+}
+
+.user-profile-form {
+  right: 75px;
+  overflow-y: visible;
+  overflow: visible !important;
+  position: absolute;
+  top: 22px;
+  width: auto;
+
+  .modal-dialog {
+    padding: 20px;
+    width: 760px;
+
+    h2 {
+      padding: 10px 20px;
+    }
+  }
+
+  label {
+    color: #000;
+    font-weight: bold;
+  }
+
+  .arrow {
+    color: #fff;
+    font-size: 50px;
+    left: -28px;
+    position: absolute;
+    text-shadow: -4px 0 2px #cccccc;
+    top: 20px;
+  }
+
+  input {
+    max-width: 100%;
+    overflow-text: '...';
+    overflow-x: hidden;
+  }
+
+  h2, form {
+    padding-left: 20px;
+  }
+
+  .user-profile-certifications {
+    display: inline-block;
+
+    //input[type='text'] {
+    //  border-radius: 8px 0 0 8px;
+    //}
+  }
+
+  .user-profile-add-icon {
+    background-color: #eeeeee;
+    border-radius: 0 8px 8px 0;
+    display: inline-block;
+    float: right;
+    height: 34px;
+    width: 8%;
+    cursor: pointer;
+
+    .fa-plus {
+      transform: translate(100%, 50%);
+    }
+  }
+}
+
+.user-profile-certifications-list-block {
+  margin: 10px;
+}
+
+#edit-profile-button {
+  position: relative;
+  button {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    z-index: 999;
+
+  }
+}
+
+.user-profile-certifications-block {
+
+  .col-md-12, .colmd-10, .col-md-2 {
+    padding: 0;
+  }
+
+  .user-profile-certifications {
+    padding: 0;
+  }
+}
+
+.user-profile-certifications-list {
+  display: inline-block;
+  padding: 0;
+  min-height: 10px;
+
+  .user-profile-certifications-list-item {
+    float: left;
+    margin: 0 5px;
+    list-style: none;
+    line-height: 24px;
+    vertical-align: middle;
+
+    &:hover {
+      color: #ff1a04;
+      font-weight: bold;
+      text-decoration: line-through;
+      cursor: pointer;
+    }
+  }
+}

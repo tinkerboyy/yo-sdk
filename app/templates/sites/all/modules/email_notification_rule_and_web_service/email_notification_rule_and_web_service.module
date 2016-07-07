@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Email Notification Rule and Web Service feature.
+ */
+
+include_once 'email_notification_rule_and_web_service.features.inc';

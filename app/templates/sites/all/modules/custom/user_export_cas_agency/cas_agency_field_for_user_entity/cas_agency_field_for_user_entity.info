@@ -1,0 +1,9 @@
+name = CAS Agency Field
+description = Adds an agency field to the User entity
+core = 7.x
+package = Acquisition Gateway
+dependencies[] = features
+dependencies[] = text
+features[features_api][] = api:2
+features[field_base][] = field_user_cas_agency
+features[field_instance][] = user-user-field_user_cas_agency

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Hallways Transaction Platform feature.
+ */
+
+include_once 'hallways_transaction_platform.features.inc';

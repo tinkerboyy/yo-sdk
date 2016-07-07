@@ -1,0 +1,70 @@
+<?php
+
+function sow_custom_init() {
+  $type = null;
+  $nid = 0;
+
+  if (arg(0) == 'node' && is_numeric(arg(1))) {
+    $nid = arg(1);
+    $node = node_load($nid);
+    $type = $node->type;
+  }
+
+  // if it's for sow search
+  if (arg(0) == 'sow-search' || $type == 'sow' || $nid == 270 || arg(0) == 'sow-label') {
+    drupal_add_css(path_to_theme() . '/sow/css/SOW-CORE-v1.css', array('group' => CSS_THEME, 'every_page' => TRUE, 'weight' => 1003));
+    drupal_add_css(path_to_theme() . '/sow/css/SOW-widgets-v1.css', array('group' => CSS_THEME, 'every_page' => TRUE, 'weight' => 1004));
+    drupal_add_css(path_to_theme() . '/sow/css/fileinput.css', array('group' => CSS_THEME, 'every_page' => TRUE, 'weight' => 1005));
+  }
+
+  if (arg(0) == 'sow-search' || arg(0) == 'sow-label') {
+     drupal_add_js(path_to_theme() . '/sow/js/jquery.collapser.js',array('weight' => 5000,));
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function sow_custom_form_alter(&$form, &$form_state, $form_id) {
+  if($form_id === 'views_exposed_form') {
+    $form['sow_search']['#attributes']['class'][] = 'tags';
+    $form['sow_search']['#attributes']['id'][] = 'tags_2';
+    $form['sow_search']['#prefix'] = null;
+    $form['sow_search']['#suffix'] = null;
+    $form['view_all'] = array(
+          '#markup' => l(t('View All'),  'sow-search', array('attributes' => array('class' => array('btn','btn-default','btn-search')))),
+    );
+
+    $vid = 7; // Vocabulary ID
+    $vocabulary = taxonomy_get_tree($vid);
+    $count = 1;
+    $form['labels']['#type'] = 'checkboxes';
+    unset($form['labels']['#options']);
+    foreach ($vocabulary as $id => $term) {
+      $form['labels']['#options'][$count] = $term->name;
+      $count++;
+    }
+
+    unset($form['submit']['#attributes']['class']);
+    $form['submit']['#attributes']['class'][] = 'btn';
+    $form['submit']['#attributes']['class'][] = 'btn-default';
+    $form['submit']['#attributes']['class'][] = 'btn-search';
+    $form['submit']['#value'] = '<span class="fa fa-search"></span> Search';
+  }
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ */
+function sow_custom_preprocess_views_view(&$variables) {
+  $view = $variables['view'];
+
+  unset($variables['view']->exposed_raw_input['labels']);
+
+  $variables['pager']      = '';
+
+  if ($view->display_handler->render_pager()) {
+    $exposed_input = isset($view->exposed_raw_input) ? $view->exposed_raw_input : NULL;
+    $variables['pager']      = $view->query->render_pager($exposed_input);
+  }
+}

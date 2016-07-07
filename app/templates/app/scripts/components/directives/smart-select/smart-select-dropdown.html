@@ -1,0 +1,24 @@
+<ul tabindex="-1" class="ag-smart-select-dropdown select dropdown-menu" ng-show="$isVisible()" role="select">
+  <li ng-if="$showAllNoneButtons">
+    <div class="btn-group" style="margin-bottom: 5px; margin-left: 5px">
+      <button type="button" class="btn btn-default btn-xs" ng-click="$selectAll()"><span>{{ $allText }}</span></button>
+      <button type="button" class="btn btn-default btn-xs" ng-click="$selectNone()"><span>{{ $noneText }}</span></button>
+    </div>
+  </li>
+  <li role="presentation" ng-repeat="match in $matches" ng-class="{active: $isActive($index)}">
+    <a ng-if="$parent.optionFlagKey && !match.value.fkOptionParentId && !match.value.categoryId">
+      <strong ng-bind="match.label"></strong>
+    </a>
+    <a style="cursor: default;" role="menuitem" tabindex="-1" ng-click="$select($index, $event)" ng-if="!$parent.optionFlagKey || match.value[$parent.optionFlagKey]">
+      <i class="fa" ng-class="{'fa-check-square-o': $isActive($index), 'fa-square-o': !$isActive($index)}"></i>
+      <span ng-bind="match.label"></span>
+      <span class="filter-count"
+        ng-if="!$isActive($index) && $parent.filterCounts[match.value[$parent.filterCountKey]] != undefined">
+        ({{$parent.filterCounts[match.value[$parent.filterCountKey]]}})
+      </span>
+      <span class="filter-count" ng-if="!$isActive($index) && $parent.filterCounts[match.value] != undefined">
+        ({{$parent.filterCounts[match.value]}})
+      </span>
+    </a>
+  </li>
+</ul>

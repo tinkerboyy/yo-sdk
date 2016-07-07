@@ -1,0 +1,3206 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Acquisition Gateway API",
+        "version": "1.0.0"
+    },
+    "basePath": "/api/v1.0",
+    "paths": {
+        "/gateway-tiles/": {
+            "get": {
+                "tags": [
+                    "gateway-tiles"
+                ],
+                "summary": "Performs a list of created gateway tiles",
+                "responses": {
+                    "200": {
+                        "description": "List of created gateway tiles",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/gateway-tiles"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/footers": {
+            "get": {
+                "tags": [
+                    "Footer"
+                ],
+                "summary": "Returns all available Footer Labels",
+                "responses": {
+                    "200": {
+                        "description": "List of Footer Labels",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Get a list of entities.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Footer"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/help": {
+            "get": {
+                "tags": [
+                    "HelpResource"
+                ],
+                "summary": "Returns all available Help Items",
+                "responses": {
+                    "200": {
+                        "description": "List of Help Items",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Get a list of entities.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/HelpResource"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/hallway-transactional/": {
+            "get": {
+                "tags": [
+                    "hallway-transactional"
+                ],
+                "summary": "Performs a list of hallway transactions",
+                "responses": {
+                    "200": {
+                        "description": "List of hallway transactions",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/comments": {
+            "get": {
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Retrieves list of comments",
+                "responses": {
+                    "200": {
+                        "description": "List of Comments",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Get a list of entities.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/comments"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Creates new comment",
+                "parameters": [
+                    {
+                        "name": "comment",
+                        "in": "body",
+                        "description": "Comment to add",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/comments"
+                        },
+                        "type": "object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "New comment created successfully"
+                    }
+                }
+            }
+        },
+        "/topics": {
+            "get": {
+                "tags": [
+                    "Communities"
+                ],
+                "summary": "Returns all available Community Topics",
+                "responses": {
+                    "200": {
+                        "description": "List of Community Topics",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Get a list of entities.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Topics"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Communities"
+                ],
+                "summary": "Creates a new Community Topic",
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "group",
+                        "in": "formData",
+                        "description": "ID of the Community Group",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "label",
+                        "in": "formData",
+                        "description": "Title of the Community Group",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "formData",
+                        "description": "Body content of the Community Group",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Community Topics",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Get a list of entities.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Topics"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/hallway-portfolio": {
+            "get": {
+                "tags": [
+                    "Hallway-portfolio"
+                ],
+                "summary": "Provides sesion information for the currently logged in user session",
+                "responses": {
+                    "200": {
+                        "description": "Current session information",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/hallway-documents/": {
+            "get": {
+                "tags": [
+                    "Hallway Documents"
+                ],
+                "summary": "Retrieves list of Hallway Documents",
+                "responses": {
+                    "200": {
+                        "description": "list of Hallway Articles",
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/hallwaydocuments"
+                        }
+                    }
+                }
+            }
+        },
+        "/hallway-documents/{id}": {
+            "get": {
+                "tags": [
+                    "Hallway Documents"
+                ],
+                "summary": "Retrieve a single Hallway Documents",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of Hallway Documents",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Hallway Documents",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/hallwaydocuments"
+                        }
+                    }
+                }
+            }
+        },
+        "/hallway-articles": {
+            "get": {
+                "tags": [
+                    "Hallway Articles"
+                ],
+                "summary": "Retrieves list of Hallway Articles",
+                "responses": {
+                    "200": {
+                        "description": "list of Hallway Articles",
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/hallwayArticles"
+                        }
+                    }
+                }
+            }
+        },
+        "/hallway-articles/{id}": {
+            "get": {
+                "tags": [
+                    "Hallway Articles"
+                ],
+                "summary": "Retrieve a single Hallway Article",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID ofhallwayArticles",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "hallway Articles",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/hallwayArticles"
+                        }
+                    }
+                }
+            }
+        },
+        "/hallway_resources": {
+            "get": {
+                "tags": [
+                    "Resources"
+                ],
+                "summary": "Retrieve all Resources",
+                "parameters": [
+                    {
+                        "name": "Group",
+                        "in": "path",
+                        "description": "Name of Group",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Resources",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Resources"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/hallway-videoarticles/": {
+            "get": {
+                "tags": [
+                    "Hallway Videoarticles"
+                ],
+                "summary": "Retrieves list of Hallway Video Articles",
+                "responses": {
+                    "200": {
+                        "description": "list of Hallway Video Articles",
+                        "schema": {
+                            "type": "array",
+                            "$ref": "#/definitions/hallwayvideoarticles"
+                        }
+                    }
+                }
+            }
+        },
+        "/hallway-videoarticles/{id}": {
+            "get": {
+                "tags": [
+                    "Hallway Videoarticles"
+                ],
+                "summary": "Retrieve a single Hallway Video Articles",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of Hallway Video Articles",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Hallway Videoarticles",
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/hallwayvideoarticles"
+                        }
+                    }
+                }
+            }
+        },
+        "/sow-modal/": {
+            "get": {
+                "tags": [
+                    "sow-modal"
+                ],
+                "summary": "Performs a display of sow-modal content",
+                "responses": {
+                    "200": {
+                        "description": "Displays content of sow-modal content",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/hallway-historical": {
+            "get": {
+                "tags": [
+                    "Hallway Historical"
+                ],
+                "summary": "Provides a list of hallways history objects",
+                "responses": {
+                    "200": {
+                        "description": "list of hallways history objects",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Hallway-Historical"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/sow": {
+            "get": {
+                "tags": [
+                    "Sow"
+                ],
+                "summary": "Provides List of Sow",
+                "responses": {
+                    "200": {
+                        "description": "List of Sow",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Auth"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Provides sesion information for the currently logged in user session",
+                "responses": {
+                    "200": {
+                        "description": "Current session information",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Overrides \\RestfulEntityBaseUser::getList()",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Auth"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Terminates the current user session",
+                "responses": {
+                    "200": {
+                        "description": "confirms session was terminated successfully"
+                    }
+                }
+            }
+        },
+        "/sowl/{keyword}": {
+            "get": {
+                "tags": [
+                    "sowl"
+                ],
+                "summary": "Performs search on SOWL documents",
+                "parameters": [
+                    {
+                        "name": "keyword",
+                        "in": "path",
+                        "description": "Keywords to use to search SOWL library",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of search results",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/SOWLSearchResultItem"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Returns all available Users",
+                "responses": {
+                    "200": {
+                        "description": "List of Users",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Get a list of entities.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Users"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/solutions-finder-user-agency": {
+            "get": {
+                "tags": [
+                    "Solutions Finder"
+                ],
+                "summary": "Machine-Learning endpoint for guessing user agency in Solutions Finder",
+                "responses": {
+                    "200": {
+                        "description": "List of agency selections",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "{@inheritdoc}",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/UserAgency"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Solutions Finder"
+                ],
+                "summary": "Submits a new selection to machine learning",
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "availableTo",
+                        "in": "formData",
+                        "description": "ID of the availableTo option selected in Solutions Finder",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "agency",
+                        "in": "formData",
+                        "description": "CAS Agency string of the user that made the selection",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of agency selections",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "{@inheritdoc}",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/UserAgency"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/solutions-finder-user-agency/{agency}": {
+            "get": {
+                "tags": [
+                    "Solutions Finder"
+                ],
+                "summary": "Retrieves user agency guessses for defined agency",
+                "parameters": [
+                    {
+                        "name": "agency",
+                        "in": "path",
+                        "description": "Name of the CAS agency to find suggestions for",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of agency selections",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/UserAgency"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/Votes/{type}/{id}": {
+            "get": {
+                "tags": [
+                    "Votes"
+                ],
+                "summary": "Retrieves Votes information",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "The type that needs to be fetched. Use 'solution' for testing.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Votes"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The Id that needs to be fetched. Use 105 for testing.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Votes"
+                        },
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Vote Information is not found"
+                    }
+                }
+            }
+        },
+        "/history/": {
+            "get": {
+                "tags": [
+                    "history"
+                ],
+                "summary": "Performs a list of user ids and timestamps of the specific nodes accessed by users",
+                "responses": {
+                    "200": {
+                        "description": "List of users with timestamps of node access",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/History"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/preferences": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Returns list of User Preferences for currently logged in user",
+                "responses": {
+                    "200": {
+                        "description": "List of user preferences",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Create an item from the request object.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/UserPreference"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Registers a new user preference",
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "itemId",
+                        "in": "formData",
+                        "description": "Unique ID of the item the preference is being stored for",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "type",
+                        "in": "formData",
+                        "description": "Type of preference being stored",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "action",
+                        "in": "formData",
+                        "description": "The action being stored for the type",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "data",
+                        "in": "formData",
+                        "description": "Extra data needed for the preference being stored",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of user preferences",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Create an item from the request object.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/UserPreference"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/preferences?filter[action]={action}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Returns list of User Preferences for currently logged in user",
+                "parameters": [
+                    {
+                        "name": "action",
+                        "in": "path",
+                        "description": "The preference action being retrieved",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of user preferences",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/UserPreference"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/preferences?filter[type]={type}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Returns list of User Preferences for currently logged in user",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "The preference type being retrieved",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of user preferences",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "To find preferences by type",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/UserPreference"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/preferences/{itemId}": {
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Unregisters a specific user preference",
+                "parameters": [
+                    {
+                        "name": "itemId",
+                        "in": "path",
+                        "description": "Unique ID of the item the preference is being stored for",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Type of preference to be deleted",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "action",
+                        "in": "query",
+                        "description": "The action to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of user preferences",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Remove the item from the data source.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/UserPreference"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/navigation": {
+            "get": {
+                "tags": [
+                    "Navigation"
+                ],
+                "summary": "Returns all available Menu Labels",
+                "responses": {
+                    "200": {
+                        "description": "List of Menu Labels",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Get a list of entities.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Navigation"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-profile": {
+            "get": {
+                "tags": [
+                    "User Profile"
+                ],
+                "summary": "Returns all available Users profile",
+                "responses": {
+                    "200": {
+                        "description": "List of Users profile",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Get a list of entities.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/user-profile"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/projects/": {
+            "get": {
+                "tags": [
+                    "projects"
+                ],
+                "summary": "Performs a list of projects and timestamps of the specific project creatio, changes and due times",
+                "responses": {
+                    "200": {
+                        "description": "list of projects",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Returns Tasks list",
+                "responses": {
+                    "200": {
+                        "description": "List of Project Center Tasks",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Task"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Update an existing task",
+                "description": "This can only be done if current UID matches task UID",
+                "operationId": "updateTask",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "Updated task name",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "due",
+                        "in": "formData",
+                        "description": "Updated task due date",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "key",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    },
+                    "200": {
+                        "description": "Acknowleges Task was successfully added to list"
+                    }
+                },
+                "security": [
+                    {
+                        "auth": [
+                            "write:task",
+                            "read:task"
+                        ]
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Created new Task object",
+                "description": "This can only be done if current UID matches task UID",
+                "operationId": "addPet",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "task",
+                        "in": "path",
+                        "description": "Task object to be added ",
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "key",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/tasks/{id}": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Finds Task by Id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The Id that needs to be fetched. Use 8 for testing.",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Task"
+                        },
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Delete Task using ID",
+                "description": "This can only be done if current UID matches task UID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the Task that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "key",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "403": {
+                        "description": "Access denied"
+                    },
+                    "404": {
+                        "description": "Task not found"
+                    }
+                }
+            }
+        },
+        "/certifications": {
+            "get": {
+                "tags": [
+                    "certifications"
+                ],
+                "summary": "Retrieves list of certifications",
+                "responses": {
+                    "200": {
+                        "description": "List of certifications",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/certifications"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "certifications"
+                ],
+                "summary": "Created new Certification object",
+                "description": "Certification to add",
+                "operationId": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "certification",
+                        "in": "path",
+                        "description": "Certification to add",
+                        "schema": {
+                            "$ref": "#/definitions/certifications"
+                        },
+                        "type": "string"
+                    },
+                    {
+                        "name": "key",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/search-suggestions": {
+            "post": {
+                "tags": [
+                    "Search"
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "formData",
+                        "description": "Search Term to add to Search Suggestions",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Acknowleges suggestion was successfully added to list"
+                    }
+                }
+            }
+        },
+        "/sowl-typeahead": {
+            "get": {
+                "tags": [
+                    "Search",
+                    "SOWL"
+                ],
+                "summary": "Returns search terms to use in building a search typeahead dropdown",
+                "responses": {
+                    "200": {
+                        "description": "List of commonly used search terms",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Returns search suggestions",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/SearchSuggestion"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/projectsentity/": {
+            "get": {
+                "tags": [
+                    "projectsentity"
+                ],
+                "summary": "List of project entities",
+                "responses": {
+                    "200": {
+                        "description": "List of project entities",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/ProjectsEntity"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/sow-categories/": {
+            "get": {
+                "tags": [
+                    "sow-categories"
+                ],
+                "summary": "Performs a list of sow categories",
+                "responses": {
+                    "200": {
+                        "description": "List of sow categories",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/sow-categories"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/communities": {
+            "get": {
+                "tags": [
+                    "Communities"
+                ],
+                "summary": "Retrieve all Community Groups",
+                "parameters": [
+                    {
+                        "name": "Group",
+                        "in": "path",
+                        "description": "Name of Group",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of community Groups",
+                        "schema": {
+                            "properties": {
+                                "data": {
+                                    "description": "Get a list of entities.",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Communities"
+                                    }
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/products": {
+            "get": {
+                "summary": "list products",
+                "responses": {
+                    "200": {
+                        "description": "A list with products"
+                    },
+                    "default": {
+                        "description": "an \"unexpected\" error"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "DrupalFile": {
+            "properties": {
+                "url": {
+                    "description": "URL to use to view/download the file",
+                    "type": "string"
+                },
+                "filename": {
+                    "description": "Filename",
+                    "type": "string"
+                },
+                "filemime": {
+                    "description": "File MIME Type",
+                    "type": "string"
+                },
+                "filesize": {
+                    "description": "File size in bytes",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "Type of file (i.e. image, default, etc)",
+                    "type": "string",
+                    "enum": [
+                        "image",
+                        "default"
+                    ]
+                }
+            }
+        },
+        "DrupalUser": {
+            "properties": {
+                "uid": {
+                    "description": "User ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "User's name",
+                    "type": "string"
+                },
+                "mail": {
+                    "description": "User's email address",
+                    "type": "string"
+                },
+                "created": {
+                    "description": "Timestamp for when user account was created",
+                    "type": "integer"
+                },
+                "access": {
+                    "description": "Timestamp for when user account last logged in",
+                    "type": "integer"
+                },
+                "login": {
+                    "description": "Timestamp for when user account last logged in",
+                    "type": "integer"
+                },
+                "online": {
+                    "description": "Whether or not the user is currently online",
+                    "type": "boolean"
+                },
+                "picture": {
+                    "description": "User's profile picture",
+                    "type": "object",
+                    "$ref": "#/definitions/DrupalFile"
+                }
+            }
+        },
+        "DrupalRevision": {
+            "properties": {
+                "timestamp": {
+                    "description": "Implements hook_ctools_plugin_directory().  Global definitions for API documentation go here",
+                    "type": "integer"
+                },
+                "author": {
+                    "description": "Implements hook_ctools_plugin_directory().  Global definitions for API documentation go here",
+                    "type": "object",
+                    "$ref": "#/definitions/DrupalUser"
+                }
+            }
+        },
+        "portfoliohallway": {
+            "properties": {
+                "id": {
+                    "description": "portfoliohallway id",
+                    "type": "string"
+                }
+            }
+        },
+        "interaction": {
+            "properties": {
+                "tid": {
+                    "description": "tid",
+                    "type": "string"
+                },
+                "vid": {
+                    "description": "vid",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "name",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "description",
+                    "type": "string"
+                },
+                "format": {
+                    "description": "format",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "weight",
+                    "type": "string"
+                },
+                "uuid": {
+                    "description": "uuid",
+                    "type": "string"
+                },
+                "vocabulary_machine_name": {
+                    "description": "vocabulary machine name",
+                    "type": "string"
+                }
+            }
+        },
+        "author": {
+            "properties": {
+                "uid": {
+                    "description": "Auther's UID",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Authur's name",
+                    "type": "string"
+                },
+                "mail": {
+                    "description": "Author's mail",
+                    "type": "string"
+                },
+                "created": {
+                    "description": "Timestamp of created hallway",
+                    "type": "integer"
+                },
+                "access": {
+                    "description": "Timestamp of access",
+                    "type": "integer"
+                },
+                "login": {
+                    "description": "Timestamp of author's login",
+                    "type": "integer"
+                },
+                "online": {
+                    "description": "online status",
+                    "type": "boolean"
+                },
+                "picture": {
+                    "description": "Implements hook_ctools_plugin_directory().  Global definitions for API documentation go here",
+                    "type": "object",
+                    "$ref": "#/definitions/picture"
+                }
+            }
+        },
+        "portfolioclassification": {
+            "properties": {
+                "tid": {
+                    "description": "tid",
+                    "type": "string"
+                },
+                "vid": {
+                    "description": "vid",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "portfolioclassification name",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "portfolioclassification description",
+                    "type": "string"
+                },
+                "format": {
+                    "description": "Output format",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "node weight",
+                    "type": "string"
+                },
+                "uuid": {
+                    "description": "Users UID",
+                    "type": "string"
+                },
+                "vocabulary_machine_name": {
+                    "description": "Vocabulary machine name",
+                    "type": "string"
+                },
+                "rdf_mapping": {
+                    "description": "Vocabulary machine name",
+                    "type": "object"
+                }
+            }
+        },
+        "portfoliocategory": {
+            "properties": {
+                "tid": {
+                    "description": "tid",
+                    "type": "string"
+                },
+                "vid": {
+                    "description": "vid",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "portfoliocategory name",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "portfoliocategory description",
+                    "type": "string"
+                },
+                "format": {
+                    "description": "Output format",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "node weight",
+                    "type": "string"
+                },
+                "uuid": {
+                    "description": "Users UID",
+                    "type": "string"
+                },
+                "vocabulary_machine_name": {
+                    "description": "Vocabulary machine name",
+                    "type": "string"
+                },
+                "rdf_mapping": {
+                    "description": "Vocabulary machine name",
+                    "type": "object"
+                }
+            }
+        },
+        "picture": {
+            "properties": {
+                "Url": {
+                    "description": "picture url",
+                    "type": "string"
+                },
+                "filename": {
+                    "description": "Img filename",
+                    "type": "string"
+                },
+                "filemime": {
+                    "description": "Img mime type",
+                    "type": "string"
+                }
+            }
+        },
+        "gatewayimage": {
+            "properties": {
+                "fid": {
+                    "description": "username",
+                    "type": "string"
+                },
+                "uid": {
+                    "description": "Drupal User's id",
+                    "type": "string"
+                },
+                "filename": {
+                    "description": "Filename of the image",
+                    "type": "string"
+                },
+                "uri": {
+                    "description": "Timestamp of when the user was created",
+                    "type": "string"
+                },
+                "filemime": {
+                    "description": "Mime type of image",
+                    "type": "string"
+                },
+                "filesize": {
+                    "description": "Filesize of the image",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Status of the image",
+                    "type": "string"
+                },
+                "timestamp": {
+                    "description": "Timestamp of when the image was created",
+                    "type": "string"
+                },
+                "origname": {
+                    "description": "original name of the image",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of medium",
+                    "type": "object"
+                },
+                "uuid": {
+                    "description": "Drupals's uuid for the image",
+                    "type": "string"
+                },
+                "rdf_mapping": {
+                    "description": "",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "image_dimensions": {
+                    "description": "Displays dimension of the image",
+                    "type": "object"
+                },
+                "alt": {
+                    "description": "Displays alternative text for image",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Displays the title of the image",
+                    "type": "string"
+                },
+                "width": {
+                    "description": "The width of the image",
+                    "type": "string"
+                },
+                "height": {
+                    "description": "The height of the image",
+                    "type": "string"
+                }
+            }
+        },
+        "gateway-tiles": {
+            "properties": {
+                "id": {
+                    "description": "Id of the gateway tile",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "Title of the gateway tile",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "Permalink to a specific gateway tile's api",
+                    "type": "string"
+                },
+                "body": {
+                    "description": "Content of the gateway tile",
+                    "type": "string"
+                },
+                "gatewayimage": {
+                    "description": "Discription of the gateway image",
+                    "type": "object",
+                    "$ref": "#/definitions/gatewayimage"
+                },
+                "gatewaylink": {
+                    "description": "Timestamp of user access to specific node",
+                    "type": "object"
+                }
+            }
+        },
+        "Footer": {
+            "properties": {
+                "id": {
+                    "description": "ID of footer label",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "Display name of footer",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "permalink to the currently shown up footer label",
+                    "type": "string"
+                },
+                "body": {
+                    "description": "Body Description of footer label with HTML tags",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Header Description of footer label",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Status of enable/disable",
+                    "type": "string"
+                },
+                "public": {
+                    "description": "Whether its accessible to public user ot not",
+                    "type": "string"
+                }
+            }
+        },
+        "HelpResource": {
+            "properties": {
+                "id": {
+                    "description": "Id of Help Item",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "Label of Help Item",
+                    "type": "string"
+                },
+                "body": {
+                    "description": "Description of Help Item",
+                    "type": "string"
+                },
+                "flag": {
+                    "description": "The feature/application to which this help Item belongs to",
+                    "type": "string"
+                },
+                "path": {
+                    "description": "View/edit link for the shown up Help Item",
+                    "type": "String"
+                },
+                "lc": {
+                    "description": "",
+                    "type": "String"
+                },
+                "count": {
+                    "description": "The number of available Menu Items",
+                    "type": "integer"
+                },
+                "self": {
+                    "description": "permalink to the currently shown up Help Item",
+                    "type": "Object"
+                }
+            }
+        },
+        "hallway-transactional": {
+            "properties": {
+                "id": {
+                    "description": "Id of user",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "Display name of the transaction",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "Permalink to a specific transaction's api",
+                    "type": "string"
+                },
+                "author": {
+                    "description": "Discription of author of a specific transaction",
+                    "type": "object"
+                },
+                "uid": {
+                    "description": "Drupal user id",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Status of a specfic transaction",
+                    "type": "string"
+                },
+                "tranurl": {
+                    "description": "Permalink to a specific transaction",
+                    "type": "object"
+                },
+                "body": {
+                    "description": "Content of the transaction",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Url to the hallways transaction",
+                    "type": "string"
+                }
+            }
+        },
+        "comments": {
+            "properties": {
+                "id": {
+                    "description": "Id of comments",
+                    "type": "integer"
+                },
+                "nid": {
+                    "description": "Drupal Node Id of comments",
+                    "type": "integer"
+                },
+                "parentType": {
+                    "description": "Type of Parent Item (Forum, articles, etc.,)",
+                    "type": "string"
+                },
+                "parentTitle": {
+                    "description": "Title of Parent Item (Forum, articles, etc.,)",
+                    "type": "string"
+                },
+                "pid": {
+                    "description": " ",
+                    "type": "string"
+                },
+                "uid": {
+                    "description": "User Id for the comments",
+                    "type": "integer"
+                },
+                "author": {
+                    "description": "Provides author/user information for the comments",
+                    "type": "object",
+                    "$ref": "#/definitions/User"
+                },
+                "is_new": {
+                    "description": "Represents whether its new comment or not",
+                    "type": "boolean"
+                },
+                "has_children": {
+                    "description": "Represents whether comment has children or not",
+                    "type": "boolean"
+                },
+                "created": {
+                    "description": "Comment created date",
+                    "type": "integer"
+                },
+                "edited": {
+                    "description": "Comment edited date",
+                    "type": "integer"
+                },
+                "body": {
+                    "description": "Body text of comment",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Status of comment",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "Type of comment",
+                    "type": "string"
+                }
+            }
+        },
+        "Topics": {
+            "properties": {
+                "id": {
+                    "description": "ID of Community Topic",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "Title of the community topic",
+                    "type": "string"
+                },
+                "body": {
+                    "description": "Body content of the Community Topic",
+                    "type": "string"
+                },
+                "comment_count": {
+                    "description": "Number of comments on the Community Topic",
+                    "type": "integer"
+                },
+                "community_category_id": {
+                    "description": "ID of the Group the Community Topic belongs to",
+                    "type": "integer"
+                },
+                "community_category_name": {
+                    "description": "Name of the Group the Community Topic belongs to",
+                    "type": "string"
+                },
+                "group": {
+                    "description": "Slug of the Group the Community Topic belongs to",
+                    "type": "string"
+                },
+                "is_new": {
+                    "description": "Indicates if the Community Topic is new",
+                    "type": "boolean"
+                },
+                "created": {
+                    "description": "Timestamp of when the Community Topic was created",
+                    "type": "integer"
+                },
+                "changed": {
+                    "description": "Timestamp of when the Community Topic was last updated",
+                    "type": "integer"
+                },
+                "last_activity": {
+                    "description": "Timestamp of when the last activity on the Community Topic",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "Indicates the type of entity this is",
+                    "type": "string"
+                }
+            }
+        },
+        "HallwayPortfolio": {
+            "properties": {
+                "id": {
+                    "description": "Id of user",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "Display name of the hallway portfolio",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "permalink to the hallway-historical with a specific id",
+                    "type": "string"
+                },
+                "body": {
+                    "description": "Body text of hallway portfolio",
+                    "type": "object"
+                },
+                "status": {
+                    "description": "Id of user",
+                    "type": "string"
+                },
+                "portfolioimage": {
+                    "description": "Portfolioimage",
+                    "type": "array",
+                    "$ref": "#/definitions/portfolioimage"
+                },
+                "portfoliotagline": {
+                    "description": "Display portfolio tagline",
+                    "type": "object"
+                },
+                "portfolioheadertextareanew": {
+                    "description": "Portfolio header test area new",
+                    "type": "object"
+                },
+                "portfolioarticleembed": {
+                    "description": "PortfolioArticleEmbed",
+                    "type": "string"
+                },
+                "portfolioaction": {
+                    "description": "Display portfolio action",
+                    "type": "string"
+                },
+                "portfoliocategory": {
+                    "description": "Display portfolio category",
+                    "type": "array",
+                    "$ref": "#/definitions/portfoliocategory"
+                },
+                "portfolioclassification": {
+                    "description": "PortfolioClassification",
+                    "type": "object",
+                    "$ref": "#/definitions/portfolioclassification"
+                },
+                "publisher": {
+                    "description": "publisher",
+                    "type": "object",
+                    "$ref": "#/definitions/publisher"
+                },
+                "moderator": {
+                    "description": "moderator",
+                    "type": "object",
+                    "$ref": "#/definitions/moderator"
+                },
+                "categoryTeamWelcome": {
+                    "description": "categoryTeamWelcome",
+                    "type": "string"
+                },
+                "communityhallway": {
+                    "description": "CommunityHallway",
+                    "type": "object"
+                },
+                "solutionFindercat": {
+                    "description": "SolutionFinderCat",
+                    "type": "string"
+                },
+                "solutionfindersubcat": {
+                    "description": "SolutionFinderSubcat",
+                    "type": "string"
+                },
+                "slug": {
+                    "description": "Slug",
+                    "type": "string"
+                }
+            }
+        },
+        "hallwaydocuments": {
+            "properties": {
+                "id": {
+                    "description": "Hallway Documents Id",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "label text of Hallway Documents",
+                    "type": "string"
+                },
+                "views": {
+                    "description": "node views",
+                    "type": "string"
+                },
+                "author": {
+                    "description": "User details for currently logged in user",
+                    "type": "object",
+                    "$ref": "#/definitions/author"
+                },
+                "documentupload": {
+                    "description": "documentupload object",
+                    "type": "object",
+                    "$ref": "#/definitions/documentupload"
+                },
+                "status": {
+                    "description": "node status",
+                    "type": "integer"
+                },
+                "Public": {
+                    "description": "node Public/Private status",
+                    "type": "integer"
+                },
+                "newtagexpiration": {
+                    "description": "node newtagexpiration date",
+                    "type": "integer"
+                },
+                "weight": {
+                    "description": "node weight",
+                    "type": "integer"
+                },
+                "expiration": {
+                    "description": "node expiration date",
+                    "type": "integer"
+                },
+                "body ": {
+                    "description": "Node body",
+                    "type": "string"
+                },
+                "portfoliocategory": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/portfoliocategory"
+                    }
+                },
+                "portfoliohallway": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/portfoliohallway"
+                    }
+                },
+                "interaction": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/interaction"
+                    }
+                },
+                "shortdescription": {
+                    "description": "description",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "user image",
+                    "type": "object"
+                }
+            }
+        },
+        "documentupload": {
+            "properties": {
+                "Url": {
+                    "description": "Documents url",
+                    "type": "string"
+                },
+                "filename": {
+                    "description": "Doc filename",
+                    "type": "string"
+                },
+                "filemime": {
+                    "description": "Img mime type",
+                    "type": "string"
+                },
+                "filesize": {
+                    "description": "filesize",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "file type",
+                    "type": "string"
+                }
+            }
+        },
+        "hallwayArticles": {
+            "properties": {
+                "id": {
+                    "description": "Hallway Articles id",
+                    "type": "integer"
+                },
+                "expired": {
+                    "description": "Check on expiration of articles",
+                    "type": "boolean"
+                },
+                "since_modified": {
+                    "description": "Timestamp since modified",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "label text of Hallway Articles",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "Url of hallway Article api",
+                    "type": "string"
+                },
+                "author": {
+                    "description": "User details for currently logged in user",
+                    "type": "object",
+                    "$ref": "#/definitions/author"
+                },
+                "uid": {
+                    "description": "Drupal user id",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "node status",
+                    "type": "integer"
+                },
+                "created": {
+                    "description": "node Public/Private status",
+                    "type": "integer"
+                },
+                "url": {
+                    "description": "node newtagexpiration date",
+                    "type": "integer"
+                },
+                "weight": {
+                    "description": "node weight",
+                    "type": "integer"
+                },
+                "expiration": {
+                    "description": "node expiration date",
+                    "type": "integer"
+                },
+                "body ": {
+                    "description": "Node body",
+                    "type": "string"
+                },
+                "portfoliocategory": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/portfoliocategory"
+                    }
+                },
+                "portfoliohallway": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/portfoliohallway"
+                    }
+                },
+                "interaction": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/interaction"
+                    }
+                },
+                "shortdescription": {
+                    "description": "description",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "user image",
+                    "type": "object"
+                }
+            }
+        },
+        "Resources": {
+            "properties": {
+                "id": {
+                    "description": "ID of resource",
+                    "type": "string"
+                },
+                "label": {
+                    "description": "Title of Resource",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "URL api endpoint",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Resource description",
+                    "type": "string"
+                },
+                "interaction_mode": {
+                    "description": "Selection of Learn, Connect, or Act interaction",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "link": {
+                    "description": "relative url",
+                    "type": "object"
+                },
+                "modal_content": {
+                    "description": "modal content",
+                    "type": "object"
+                },
+                "display_locations": {
+                    "description": "modal content",
+                    "type": "object"
+                }
+            }
+        },
+        "modal_content": {
+            "properties": {
+                "title": {
+                    "description": "title of modal content",
+                    "type": "string"
+                },
+                "body": {
+                    "description": "body of modal content",
+                    "type": "string"
+                }
+            }
+        },
+        "link": {
+            "properties": {
+                "url": {
+                    "description": "url link of resource",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "title of resource",
+                    "type": "string"
+                },
+                "attributes": {
+                    "description": "resource link attributes",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "hallwayvideoarticles": {
+            "properties": {
+                "id": {
+                    "description": "Hallway Videoarticles Id",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "label text of Hallway Videoarticles",
+                    "type": "string"
+                },
+                "views": {
+                    "description": "node views",
+                    "type": "string"
+                },
+                "author": {
+                    "description": "User details for currently logged in user",
+                    "type": "object",
+                    "$ref": "#/definitions/author"
+                },
+                "videoarticlevideoembed": {
+                    "description": "videoarticlevideoembed object",
+                    "type": "object",
+                    "$ref": "#/definitions/videoarticlevideoembed"
+                },
+                "status": {
+                    "description": "node status",
+                    "type": "integer"
+                },
+                "newtagexpiration": {
+                    "description": "node newtagexpiration date",
+                    "type": "integer"
+                },
+                "weight": {
+                    "description": "node weight",
+                    "type": "integer"
+                },
+                "expiration": {
+                    "description": "node expiration date",
+                    "type": "integer"
+                },
+                "portfoliocategory": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/portfoliocategory"
+                    }
+                },
+                "portfoliohallway": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/portfoliohallway"
+                    }
+                },
+                "interaction": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/interaction"
+                    }
+                },
+                "shortdescription": {
+                    "description": "description",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "user image",
+                    "type": "object"
+                }
+            }
+        },
+        "videoarticlevideoembed": {
+            "properties": {
+                "video_url": {
+                    "description": "video url",
+                    "type": "string"
+                },
+                "thumbnail_path": {
+                    "description": "thumbnail path",
+                    "type": "string"
+                },
+                "video_data": {
+                    "description": "video_data object",
+                    "type": "string"
+                },
+                "embed_code": {
+                    "description": "embed code",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "description",
+                    "type": "string"
+                }
+            }
+        },
+        "Sow-modal": {
+            "properties": {
+                "id": {
+                    "description": "id of the modal content been displayed",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "Title of the modal content",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "The URL of the specific content been displayed",
+                    "type": "string"
+                },
+                "body": {
+                    "description": "Main content of the modal window",
+                    "type": "string"
+                }
+            }
+        },
+        "histfile": {
+            "properties": {
+                "fid": {
+                    "description": "fid",
+                    "type": "string"
+                },
+                "uid": {
+                    "description": "uid",
+                    "type": "string"
+                },
+                "filename": {
+                    "description": "filename",
+                    "type": "string"
+                },
+                "uri": {
+                    "description": "uri",
+                    "type": "string"
+                },
+                "filemime": {
+                    "description": "mime type of file",
+                    "type": "string"
+                },
+                "filesize": {
+                    "description": "size of file",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "status",
+                    "type": "string"
+                },
+                "timestamp": {
+                    "description": "timestamp",
+                    "type": "string"
+                },
+                "origname": {
+                    "description": "origname",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "type",
+                    "type": "string"
+                },
+                "uuid": {
+                    "description": "uuid",
+                    "type": "string"
+                },
+                "rdf_mapping": {
+                    "description": "rdf_mapping",
+                    "type": "array"
+                },
+                "display": {
+                    "description": "display",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "description",
+                    "type": "string"
+                }
+            }
+        },
+        "HallwayHistorical": {
+            "properties": {
+                "id": {
+                    "description": "Id of hallway-historical resource",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "Display name of the hallway history resource",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "permalink to the hallway-historical with a specific id",
+                    "type": "string"
+                },
+                "author": {
+                    "description": "Provides author/user information for the hallway historical",
+                    "type": "object",
+                    "$ref": "#/definitions/author"
+                },
+                "uid": {
+                    "description": "Id of user",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Status",
+                    "type": "string"
+                },
+                "histlinkabletitle": {
+                    "description": "Display the linkable historical title",
+                    "type": "object"
+                },
+                "histtitleasfile": {
+                    "description": "history title as file",
+                    "type": "string"
+                },
+                "histtitlefilelabel": {
+                    "description": "Label of history title file",
+                    "type": "string"
+                },
+                "histurl": {
+                    "description": "history url",
+                    "type": "string"
+                },
+                "histfile": {
+                    "description": "List of history file",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/histfile"
+                    }
+                },
+                "body": {
+                    "description": "Body text of hallway historical",
+                    "type": "string"
+                },
+                "url": {
+                    "description": "Url of hallway",
+                    "type": "string"
+                }
+            }
+        },
+        "keywords": {
+            "properties": {
+                "tid": {
+                    "description": "tid",
+                    "type": "string"
+                },
+                "vid": {
+                    "description": "vid",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of keyword",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Description of the keyword",
+                    "type": "string"
+                },
+                "format": {
+                    "description": "The format of the keyword",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "weight of keyword",
+                    "type": "string"
+                },
+                "uuid": {
+                    "description": "Uuid",
+                    "type": "string"
+                },
+                "vocabulary_machine_name": {
+                    "description": "vocabulary machine name",
+                    "type": "string"
+                },
+                "rdf_mapping": {
+                    "description": "",
+                    "type": "object"
+                }
+            }
+        },
+        "Categories": {
+            "properties": {
+                "tid": {
+                    "description": "tid",
+                    "type": "string"
+                },
+                "vid": {
+                    "description": "vid",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of category",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Description of the category",
+                    "type": "string"
+                },
+                "format": {
+                    "description": "The format of the category",
+                    "type": "string"
+                },
+                "weight": {
+                    "description": "The weight of the category",
+                    "type": "string"
+                },
+                "uuid": {
+                    "description": "Uuid",
+                    "type": "string"
+                },
+                "vocabulary_machine_name": {
+                    "description": "vocabulary machine name",
+                    "type": "string"
+                },
+                "rdf_mapping": {
+                    "description": "",
+                    "type": "object"
+                }
+            }
+        },
+        "Sow": {
+            "properties": {
+                "id": {
+                    "description": "ID of sow resource",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "Label of specific sow",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "Url of the sow api",
+                    "type": "string"
+                },
+                "body": {
+                    "description": "Content of the SOW",
+                    "type": "string"
+                },
+                "agency": {
+                    "description": "Displays agency name",
+                    "type": "string"
+                },
+                "categories": {
+                    "description": "Displays list of categories",
+                    "type": "object",
+                    "$ref": "#/definitions/categories"
+                },
+                "keywords": {
+                    "description": "Display list of keywords",
+                    "type": "object",
+                    "$ref": "#/definitions/keywords"
+                },
+                "pdf": {
+                    "description": "Displays the property-value pairs for the pdf object",
+                    "type": "object"
+                },
+                "word": {
+                    "description": "Displays the property-value pairs for the word object",
+                    "type": "object"
+                },
+                "sow_type": {
+                    "description": "Sow type",
+                    "type": "string"
+                },
+                "views": {
+                    "description": "Number of views",
+                    "type": "integer"
+                },
+                "downloads": {
+                    "description": "Number of downloads",
+                    "type": "integer",
+                    "$ref": "#/definitions/UserInfo"
+                },
+                "sow_type_name": {
+                    "description": "Current session details",
+                    "type": "string"
+                }
+            }
+        },
+        "UserInfo": {
+            "properties": {
+                "name": {
+                    "description": "username",
+                    "type": "string"
+                },
+                "theme": {
+                    "description": "User's preferred theme",
+                    "type": "string"
+                },
+                "signature_format": {
+                    "description": "Format of user signature",
+                    "type": "string"
+                },
+                "created": {
+                    "description": "Timestamp of when the user was created",
+                    "type": "string"
+                },
+                "access": {
+                    "description": "Timestamp of when the user last accessed the application",
+                    "type": "string"
+                },
+                "login": {
+                    "description": "Timestamp of when the user last signed in",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "User account status",
+                    "type": "string"
+                },
+                "timezone": {
+                    "description": "User timezone",
+                    "type": "string"
+                },
+                "language": {
+                    "description": "User's preferred language",
+                    "type": "string"
+                },
+                "picture": {
+                    "description": "User's display picture",
+                    "type": "object"
+                },
+                "init": {
+                    "description": "Overrides \\RestfulEntityBase::publicFieldsInfo().",
+                    "type": "string"
+                },
+                "roles": {
+                    "description": "User system roles",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "field_job_title": {
+                    "description": "User's job title",
+                    "type": "object"
+                },
+                "field_user_cas_agency": {
+                    "description": "User's CAS Agency",
+                    "type": "object"
+                },
+                "cas_names": {
+                    "description": "Overrides \\RestfulEntityBase::publicFieldsInfo().",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "cas_name": {
+                    "description": "Overrides \\RestfulEntityBase::publicFieldsInfo().",
+                    "type": "string"
+                },
+                "realname": {
+                    "description": "User's display name ",
+                    "type": "string"
+                },
+                "cas": {
+                    "description": "",
+                    "type": "object"
+                }
+            }
+        },
+        "Auth": {
+            "properties": {
+                "id": {
+                    "description": "ID of currently logged in user",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "Display name of currently logged in user",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "permalink to the currently logged in user's unique resource",
+                    "type": "string"
+                },
+                "user_info": {
+                    "description": "User details for currently logged in user",
+                    "type": "object",
+                    "$ref": "#/definitions/UserInfo"
+                },
+                "session": {
+                    "description": "Current session details",
+                    "type": "object"
+                }
+            }
+        },
+        "SOWLSearchResultItem": {
+            "properties": {
+                "id": {
+                    "description": "ID of SOWL document",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "Title of SOWL document",
+                    "type": "string"
+                },
+                "body": {
+                    "description": "Body text of SOWL document",
+                    "type": "string"
+                }
+            }
+        },
+        "Users": {
+            "properties": {
+                "id": {
+                    "description": "ID of User",
+                    "type": "integer"
+                },
+                "label": {
+                    "description": "Title of the User",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "Self Url of User",
+                    "type": "string"
+                },
+                "mail": {
+                    "description": "Email id of User",
+                    "type": "string"
+                }
+            }
+        },
+        "UserAgency": {
+            "properties": {
+                "id": {
+                    "description": "Unigue ID",
+                    "type": "string"
+                },
+                "availableTo": {
+                    "description": "Solutions Finder Available To agency value",
+                    "type": "string"
+                },
+                "agency": {
+                    "description": "CAS Agency of users that selected this availableTo value",
+                    "type": "string"
+                },
+                "count": {
+                    "description": "Number of users that made this selection",
+                    "type": "string"
+                }
+            }
+        },
+        "Votes": {
+            "properties": {
+                "itemId": {
+                    "description": "Item Id of votes",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "Provides the type of Vote (Solution, sowl, community, etc.,)",
+                    "type": "string"
+                },
+                "count": {
+                    "description": "Provides the total number of Votes (Solution, sowl, community, etc.,)",
+                    "type": "integer"
+                },
+                "Votes": {
+                    "description": "Provides the number of Votes (Solution, sowl, community, etc.,)",
+                    "type": "integer"
+                },
+                "myVote": {
+                    "description": "Provides the number of Votes per User (Solution, sowl, community, etc.,)",
+                    "type": "integer"
+                }
+            }
+        },
+        "History": {
+            "properties": {
+                "nid": {
+                    "description": "Drupal node id",
+                    "type": "string"
+                },
+                "uid": {
+                    "description": "Drupal user id",
+                    "type": "string"
+                },
+                "timestamp": {
+                    "description": "Timestamp of user access to specific node",
+                    "type": "string"
+                }
+            }
+        },
+        "UserPreference": {
+            "properties": {
+                "id": {
+                    "description": "Unique ID of the User Preference entry",
+                    "type": "integer"
+                },
+                "userId": {
+                    "description": "Unique ID of the User",
+                    "type": "integer"
+                },
+                "itemId": {
+                    "description": "Unique ID of the item the preference is being stored for",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "Type of preference being stored",
+                    "type": "string"
+                },
+                "action": {
+                    "description": "The action being stored for the type",
+                    "type": "string"
+                },
+                "data": {
+                    "description": "Extra data needed for the preference being stored",
+                    "type": "string"
+                }
+            }
+        },
+        "Navigation": {
+            "properties": {
+                "label": {
+                    "description": "Display label of Menu",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "Description of menu label",
+                    "type": "string"
+                },
+                "menuName": {
+                    "description": "Displays the Menu Name",
+                    "type": "string"
+                },
+                "count": {
+                    "description": "Displays the number of available Menu Items",
+                    "type": "integer"
+                },
+                "self": {
+                    "description": "permalink to the currently shown up Navigation label",
+                    "type": "Object"
+                }
+            }
+        },
+        "user-profile": {
+            "properties": {
+                "id": {
+                    "description": "ID of user",
+                    "type": "string"
+                },
+                "label": {
+                    "description": "Display name of user",
+                    "type": "string"
+                },
+                "self": {
+                    "description": "Display url of user's user profile",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Displays Username",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "Displays email of user",
+                    "type": "string"
+                },
+                "picture": {
+                    "description": "Displays url of user's picture",
+                    "type": "string"
+                },
+                "jobTitle": {
+                    "description": "Display jobtitle of user",
+                    "type": "string"
+                },
+                "agency": {
+                    "description": "Display agency user belongs to",
+                    "type": "string"
+                }
+            }
+        },
+        "projects": {
+            "properties": {
+                "id": {
+                    "description": "id of a specific project",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Name of the project created",
+                    "type": "string"
+                },
+                "uid": {
+                    "description": "User id of the user that created the project",
+                    "type": "string"
+                },
+                "created": {
+                    "description": "Timestamp of project creation",
+                    "type": "integer"
+                },
+                "changed": {
+                    "description": "Timestamp of project changed",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "Status of the project",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "The description of the project",
+                    "type": "string"
+                },
+                "notes": {
+                    "description": "A note on the project",
+                    "type": "string"
+                },
+                "due": {
+                    "description": "Timestamp of project due time",
+                    "type": "integer"
+                }
+            }
+        },
+        "Task": {
+            "properties": {
+                "id": {
+                    "description": "Task id",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Task name",
+                    "type": "string"
+                },
+                "uid": {
+                    "description": "ID of currently logged in user",
+                    "type": "integer"
+                },
+                "created": {
+                    "description": "Timestamp of when the user task was created",
+                    "type": "integer"
+                },
+                "changed": {
+                    "description": "Timestamp of when the user task was changed",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "User created task status",
+                    "type": "integer"
+                },
+                "due": {
+                    "description": "Task due date",
+                    "type": "integer"
+                },
+                "completed": {
+                    "description": "Task stauts",
+                    "type": "integer"
+                },
+                "prid": {
+                    "description": "Refrence id to project from task",
+                    "type": "string"
+                },
+                "projectId": {
+                    "description": "Project this task belongs to",
+                    "type": "string"
+                },
+                "projectName": {
+                    "description": "Project name",
+                    "type": "string"
+                },
+                "projectStatus": {
+                    "description": "Project status",
+                    "type": "string"
+                }
+            }
+        },
+        "certifications": {
+            "properties": {
+                "id": {
+                    "description": "Users Certification Id ",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Users Certification name ",
+                    "type": "string"
+                }
+            }
+        },
+        "SearchSuggestion": {
+            "properties": {
+                "query": {
+                    "description": "Search term",
+                    "type": "string"
+                },
+                "results_returned": {
+                    "description": "Number of results returned for that search term at last use",
+                    "type": "string"
+                },
+                "count": {
+                    "description": "Number of times this term has been used",
+                    "type": "string"
+                }
+            }
+        },
+        "ProjectsEntity": {
+            "properties": {
+                "id": {
+                    "description": "ID of the Project entity",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Name of the Project Entity",
+                    "type": "string"
+                },
+                "uid": {
+                    "description": "User id of the Project Entity",
+                    "type": "integer"
+                },
+                "created": {
+                    "description": "Created date of Project Entity",
+                    "type": "integer"
+                },
+                "changed": {
+                    "description": "changed date of Project Entity",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "Status of Project Entity",
+                    "type": "boolean"
+                },
+                "pid": {
+                    "description": "Process Id of Project Entity",
+                    "type": "integer"
+                },
+                "entity_id": {
+                    "description": "Entity id of Project Entity",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "Type of Content added for the Project Entity",
+                    "type": "string"
+                },
+                "data": {
+                    "description": "Content type URL added for the Project",
+                    "type": "string"
+                },
+                "count": {
+                    "description": "count/number of Projects avialable",
+                    "type": "integer"
+                },
+                "self": {
+                    "description": "Self Url of User",
+                    "type": "string"
+                }
+            }
+        },
+        "Sow-Categories": {
+            "properties": {
+                "id": {
+                    "description": "Id of user",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "Display name of the sow category",
+                    "type": "string"
+                },
+                "category_icon": {
+                    "description": "Display category icon",
+                    "type": "string"
+                },
+                "children": {
+                    "description": "User system roles",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Communities": {
+            "properties": {
+                "revision": {
+                    "description": "Revision information",
+                    "type": "object",
+                    "$ref": "#/definitions/DrupalRevision"
+                },
+                "label": {
+                    "description": "Title of Group",
+                    "type": "string"
+                },
+                "body": {
+                    "description": "Body text of Group",
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Communities",
+            "description": "Communities Groups and Topics"
+        },
+        {
+            "name": "SOWL",
+            "description": "Statement of Work Library Search"
+        },
+        {
+            "name": "Users",
+            "description": "User functions"
+        },
+        {
+            "name": "Communities",
+            "description": "Communities Groups and Topics"
+        },
+        {
+            "name": "SOWL",
+            "description": "Statement of Work Library Search"
+        },
+        {
+            "name": "Users",
+            "description": "User functions"
+        }
+    ]
+}

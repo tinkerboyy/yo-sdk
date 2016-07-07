@@ -1,0 +1,21 @@
+<div class="ag-loader">
+  <div ng-if="requests.length > 0">
+    <div ng-if="targetType === 'page'" class="page-loader">
+      <center class="text-info">
+        <div><i class="fa fa-spinner fa-spin fa-5x"></i></div>
+        <h4>{{ text }}</h4>
+      </center>
+    </div>
+    <div ng-if="targetType == 'widget'" class="widget-loader">
+      <center>
+        <i class="fa fa-spinner fa-spin fa-3x"></i>
+        <h5>{{ text }}</h5>
+      </center>
+    </div>
+
+    <span ng-if="!targetType || targetType === 'item'">
+      <i class="fa fa-spinner fa-spin"></i> {{ text }}
+    </span>
+  </div>
+  <div ng-if="!requests.length || requests.length == 0" ng-transclude></div>
+</div>

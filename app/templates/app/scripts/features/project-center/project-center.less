@@ -1,0 +1,121 @@
+.project-center {
+  .accordion-header {margin-bottom:2px;}
+  .heavy-mute {color:#555!important;}
+  .panel-heading a {font-weight:bold;}
+  .btn.btn-link {
+    color: #46899B;
+    &:focus, &:hover { text-decoration: none; }
+  }
+  .project-label,.entity-due-md{ font-size:85%; }
+  .entity-due-md { font-size: 75%;}
+  .fa:not(.fa-plus-circle){
+    color: #555;
+  }
+  .my-tasks {
+    .act-color {color: #38923E!important;}
+  }
+  .btn-new-entity { padding-top: 5px; }
+
+  .pcWelcome {
+    margin-top: 30px;
+    text-align:center;
+
+    p {
+      text-align:left;
+    }
+
+    .btn-primary {
+      background-color: #B1B1B1;
+      border: 1px solid rgba(51, 51, 51, 0.09);
+      font-size: .85em;
+      padding: 2px 12px;
+    }
+
+  }
+
+  .tab-content {
+    .scrollable {
+      max-height: 145px ;
+      overflow: auto;
+    }
+  }
+  .nav.nav-tabs {
+    font-size:12px;
+    a { padding: 10px; }
+  }
+
+  .scrollable {
+    .list-group {
+      margin: 0px;
+
+      .list-group-item {
+        a {
+          width: 1.3em;
+          .fa-ellipsis-h { font-size: 65%; }
+        }
+        .task { width: calc(~"100% - (1.8 * 2em)"); }
+        .project-entity { width: calc(~"100% - 2em"); }
+      }
+    }
+  }
+
+  .my-events {
+    .date-body {font-size:13px;}
+    .accordion-header {
+      h5, span { color: rgba(10, 3, 3, 0.8); }
+    }
+    .accordion-body { margin: 0px; }
+  }
+
+  .content {
+    height: 100%;
+    display: none;
+
+    &:last-child { display: block; }
+  }
+  .my-project-body-full {
+    .date-body {font-size: 13px;}
+  }
+}
+
+.popover {
+  form.project-center-entry {
+    min-width: 200px;
+
+    .form-group {
+      margin-bottom: 5px;
+      label { margin-bottom: 0px; }
+    }
+
+    .actions a { padding: 5px; }
+
+    &.events-entry {
+      width:400px;
+    }
+  }
+}
+.my-project-body {
+  line-height:13px;
+  .date-body {
+    font-size: 13px;
+  }
+  div:nth-child(1){
+   margin-bottom:4px;
+  }
+  strong{
+    font-size: 85%;
+  }
+}
+.project-center-full {
+  .btn-link {
+    color: #46899B;
+  }
+  .my-project-body-full {
+    .medium-icon-pc-lg {
+      font-size: 65%;
+    }
+    .fa:not(.fa-plus-circle) {
+        color: #555;
+    }
+  }
+}

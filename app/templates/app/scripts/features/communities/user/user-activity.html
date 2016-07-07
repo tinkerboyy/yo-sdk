@@ -1,0 +1,38 @@
+<div id="community-group-header" class="col-md-12" ng-if="curUser">
+  <div class="col-md-2">
+    <div class="img-circle user-profile-picture pull-left">
+      <img class="" ng-src="{{curUser.picture.url || '/app/assets/images/default-user-image.jpg'}}" alt="{{topic.author.name}}"/>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h2 class="user-profile-name"> {{ curUser.name || curUser.label }} </h2>
+    <a ng-href="mailto:{{ curUser.email }}">{{ curUser.email }}</a>
+    <div id="user-activity-job-title">{{ curUser.jobTitle }}</div>
+    <div id="user-activity-agency">{{ curUser.agency }}</div>
+    <ul class="user-activity-certifications-list">
+      <li ng-repeat="certificate in curUser.certifications"
+          class="user-activity-certifications-list-item">
+        {{ certificate.name }}
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-4 icon-spaced action-buttons">
+    <ag-follow ng-if="!me"
+               class="btn btn-block add-topic-button follow-group"
+               callback="updateMyGroups"
+               data-follow-text="Follow this user"
+               data-unfollow-text="Unfollow this user"
+               data-type="user"
+               data-item="curUser">
+    </ag-follow>
+  </div>
+</div>
+
+<ag-topics-list
+  ng-if="curUser"
+  data-entity="curUser"
+  data-set-active-community="setActiveCommunity"
+  data-single-topic="singleTopic"
+  data-entity-type="user">
+</ag-topics-list>
+

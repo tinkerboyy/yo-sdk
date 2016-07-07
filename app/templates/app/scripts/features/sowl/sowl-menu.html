@@ -1,0 +1,198 @@
+<h1 class="DINCondensedBold ag-app-header">Statement of Work</h1>
+<div class="ag-left-menu-content"  ag-as-scrollable>
+  <div>
+    <form name="sowlSearchForm" class="form form-horizontal sowl-search-form">
+      <div class="row" ng-if="suggestions.length > 0">
+        <div class="col-md-12">
+          <label for="sowl-keyword-search" class="sr-only">Search</label>
+          <div class="keyword-search-dotted">
+            <div class="input-group">
+              <input
+              id="sowl-keyword-search"
+              ng-model="moreSearch.search"
+              ng-model-options="{debounce: 500}"
+              ng-change="performSearch()"
+              class="form-control"
+              placeholder="Enter search term..."
+              bs-options="suggestion.query as suggestion.query for suggestion in suggestions"
+              bs-typeahead>
+
+              <div class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                  <span class="fa fa-search"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sowl-filters">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Filter By</h4>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="sowl-category" class="sr-only">Category</label>
+            <button
+             ng-init="setSubcategories()"
+             data-animation="am-flip-x"
+             data-placement="bottom"
+             data-multiple="true"
+             id="sowl-category"
+             data-collection="$parent.categories"
+             display-text-field="name"
+             value-field="id"
+             placeholder="Category"
+             data-target="$parent.moreSearch"
+             data-target-field="categories"
+             data-change="changeCategory"
+             data-expanded="false"
+             help="category"
+             help-data="help"
+             order-by="name"
+             ag-accordion-select
+            ></button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="sowl-subcategories" class="sr-only">Subcategory</label>
+            <button
+              data-animation="am-flip-x"
+              id="sowl-subcategories"
+              placeholder="Subcategory"
+              data-multiple="true"
+              data-collection="$parent.subCategories"
+              display-text-field="name"
+              value-field=""
+              data-target="$parent.moreSearch"
+              data-target-field="subcategories"
+              is-parent-on-empty="categoryId"
+              data-change="performSearch"
+              data-expanded="false"
+              help="subcategory"
+              help-data="help"
+              ag-accordion-select
+            ></button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="sowl-workstatementtype" class="sr-only">Work Statement Type</label>
+            <button
+             data-animation="am-flip-x"
+             data-placement="bottom"
+             data-multiple="true"
+             id="sowl-workstatementtype"
+             data-collection="$parent.workStatementTypes"
+             display-text-field="name"
+             value-field="id"
+             placeholder="Work Statement Type"
+             data-target="$parent.moreSearch"
+             data-target-field="workStatementType"
+             help="work-statement-type"
+             data-change="performSearch"
+             data-expanded="false"
+             help-data="help"
+             order-by="name"
+             ag-accordion-select
+            ></button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="sowl-related-solutions" class="sr-only">Related Solutions</label>
+            <button
+             data-animation="am-flip-x"
+             data-placement="bottom"
+             data-multiple="true"
+             id="sowl-related-solutions"
+             data-collection="$parent.relatedSolutions"
+             display-text-field="name"
+             value-field="id"
+             placeholder="Related Solutions"
+             data-target="$parent.moreSearch"
+             data-target-field="relatedSolutions"
+             help="related-solutions"
+             help-data="help"
+             data-change="performSearch"
+             data-expanded="false"
+             order-by="name"
+             ag-accordion-select
+            ></button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="sowl-contract-formats" class="sr-only">Contract Format</label>
+            <button
+             data-animation="am-flip-x"
+             data-placement="bottom"
+             data-multiple="true"
+             id="sowl-contract-formats"
+             data-collection="$parent.contractFormats"
+             display-text-field="name"
+             value-field="id"
+             placeholder="Contract Format"
+             data-target="$parent.moreSearch"
+             data-target-field="contractFormats"
+             help="related-solutions"
+             data-change="performSearch"
+             data-expanded="false"
+             help-data="help"
+             order-by="name"
+             ag-accordion-select
+            ></button>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <label for="sowl-additional-options" class="sr-only">Additional Options</label>
+            <button
+             data-animation="am-flip-x"
+             data-placement="bottom"
+             data-multiple="true"
+             id="sowl-additional-options"
+             data-collection="$parent.additionalOptions"
+             display-text-field="name"
+             value-field="id"
+             placeholder="Additional Options"
+             data-target="$parent.moreSearch"
+             data-target-field="additionalOptions"
+             help="additional-options"
+             help-data="help"
+             data-change="performSearch"
+             data-expanded="false"
+             order-by="name"
+             ag-accordion-select
+            ></button>
+          </div>
+        </div>
+
+        <div class="row bottom-buttons" ng-if="!welcome.visible">
+          <div class="col-md-12">
+            <button id="sowl-show-welcome" type="button" class="btn btn-black col-md-12" title="Click here to see the SOW Library description again" ng-click="toggleWelcome(true)">About SOW Library</button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="col-md-12">
+      <div id="alerts-container" class="alert alert-info" ng-hide="hideAlert">
+        <button type="button" class="close" ng-click="hideAlert = true"><i class="fa fa-close"></i></button>
+        <p>You no longer need to use the apply button. Select a filter and the results will update automaically.</p>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div id="sowl-menu-upload-contact" ng-if="$parent.sowl.currentPage != 'landing'" ng-include="'scripts/features/sowl/upload-contact.html'"></div>
+    </div>
+</div>

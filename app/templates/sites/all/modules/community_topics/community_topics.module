@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Community Topics feature.
+ */
+
+include_once 'community_topics.features.inc';

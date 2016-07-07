@@ -1,0 +1,13 @@
+<div class="my-groups-container">
+  <p class="no-message alert alert-info" role="alert" ng-if="groups.length <= 0">
+    You are not following any groups</p>
+  <ul id="my-groups" class="list-group"  ng-if="groups.length > 0">
+    <li class="list-group-item" ng-repeat="(key, group) in groups">
+      <a ng-click="changeGroup(group.slug);">
+        <i class="fa fa-1x" ng-class="group.icon || 'fa-compass' "></i>
+        {{ ::group.label }}
+      </a>
+    </li>
+  </ul>
+</div>
+

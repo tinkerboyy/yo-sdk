@@ -1,0 +1,21 @@
+<div class="widget communities-widget" ng-if="(community || !communityId) && !publicUser">
+  <div class="widget-header row">
+    <h5 class="title-banner col-xs-8">Community</h5>
+    <a ng-href="#/communities/{{ community.slug }}" class="text-right col-xs-4">View More</a>
+  </div>
+  <ul class="list-group">
+    <li class="list-group-item no-outer-borders" ng-repeat="topic in topics">
+      <div class="row">
+        <i class="col-xs-2 fa fa-fw community-icon {{topic.community_cagetory_name | stringReplace : '&' : 'amp' | kebabCase}}-com-icon" ></i>
+        <div class="col-xs-10">
+          <h4 class="topic-title">
+            <a ng-href="#/communities/{{topic.community_cagetory_name | labelToUrl }}/{{topic.id}}">{{ ::topic.label }}</a>
+          </h4>
+          <p class="topic-community">{{ ::topic.community_cagetory_name }}</p>
+          <p class="topic-post-info">{{ ::topic.author.name }}, {{ ::topic.last_activity | agDateFormat : 'long' }}</p>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<hr class="feedRule" ng-if="!publicUser">

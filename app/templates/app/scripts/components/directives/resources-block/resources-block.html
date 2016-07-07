@@ -1,0 +1,25 @@
+<div class="widget resources">
+  <header class="widget-header text-center">
+    <h5 class="title-banner">Resources</h5>
+  </header>
+  <div class="row scrollable-content">
+    <ag-accordion-container class="col-xs-12">
+      <ag-accordion ng-repeat="resource in resources track by $index">
+        <ag-accordion-header>
+          <img ng-if="resource.label === 'Shared Services'" ng-src="../sites/all/themes/bootstrap/art/shared-services.png" alt="Shared Services" class="img-responsive center-block" >
+          <i ng-if="resource.label !== 'Shared Services'" class="fa fa-fw" ng-class="{'fa-street-view' : resource.label === 'TechFAR Hub', 'fa-bar-chart' : resource.label === 'Prices Paid Portal', 'fa-cubes' : resource.label === 'eBuy Open', 'fa-university' : resource.label === 'Statement of Work Library'}"></i>
+
+          <h5>
+            <a ng-if="resource.label !== 'Statement of Work Library'" ng-href="{{resource.link.url}}" target = "_blank" class="resourceLabel">{{ resource.label }}</a>
+            <a ng-if="resource.label == 'Statement of Work Library'" ng-href="{{resource.link.url}}" target = "_self" class="resourceLabel">{{ resource.label }}</a>
+          </h5>
+
+
+        </ag-accordion-header>
+        <ag-accordion-body>
+        	<div ng-bind-html="resource.description"></div>
+        </ag-accordion-body>
+      </ag-accordion>
+    </ag-accordion-container>
+  </div>
+</div>

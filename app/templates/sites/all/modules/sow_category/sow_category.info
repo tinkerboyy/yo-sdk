@@ -1,0 +1,9 @@
+name = SOW Category
+description = SOW Category
+core = 7.x
+package = Features
+version = 7.x-5.0
+project = sow_category
+dependencies[] = features
+dependencies[] = taxonomy
+features[features_api][] = api:2

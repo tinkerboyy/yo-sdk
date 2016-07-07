@@ -1,0 +1,22 @@
+<div class="popover">
+  <div class="arrow"></div>
+  <div class="popover-content">
+    <ul class="list-group no-margins">
+      <li class="list-group-item no-outer-borders no-padding">
+        <a bs-popover
+          title="Edit Project"
+          content-template="scripts/features/project-center/projects/my-projects-entry.html"
+          placement="left">Edit Project</a>
+      </li>
+      <li class="list-group-item no-outer-borders no-padding">
+        <a ng-click="projects.save({ id: projectEntity.id, status: 0 })">Remove Project</a>
+      </li>
+      <li class="list-group-item no-outer-borders no-padding">
+        <a ng-click="$hide(); pushPage({
+          templateUrl: 'scripts/features/project-center/projects/add-content-menu.html',
+          scope: $parent
+        })">Add Content</a>
+      </li>
+    </ul>
+  </div>
+</div>

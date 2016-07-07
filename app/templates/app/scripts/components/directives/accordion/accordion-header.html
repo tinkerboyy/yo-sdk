@@ -1,0 +1,22 @@
+<div class="accordion-header">
+  <div class="row">
+    <ng-transclude class="col-xs-10"></ng-transclude>
+    <div class="col-xs-2 text-right" ng-if="!hideBtn">
+      <a ng-if="accordionModel.moreOptions"
+        aria-label="more options"
+        bs-popover
+        container="{{ accordionModel.moreOptions.container }}"
+        template-url="{{ accordionModel.moreOptions.templateUrl }}"
+        placement="{{ accordionModel.moreOptions.placement }}"
+        class="fa-stack options">
+        <i class="fa fa-fw fa-circle-thin fa-stack-1x"></i>
+        <i class="fa fa-fw fa-ellipsis-h fa-stack-1x"></i>
+      </a>
+    	<a aria-label="toggle project collapse" title="{{isActive() ? 'collapse': 'expand'}}"
+          bs-collapse-toggle class="fa-stack accordion-toggle">
+       <i class="fa fa-fw fa-stack-1x"  ng-class="{'fa-compress': isActive() && icon,
+    'fa-plus-circle': !isActive() && !icon,'fa-minus-circle': isActive() && !icon, 'fa-expand': !isActive() && icon}"></i>
+    	</a>
+    </div>
+  </div>
+</div>

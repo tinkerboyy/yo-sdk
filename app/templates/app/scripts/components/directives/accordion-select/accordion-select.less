@@ -1,0 +1,71 @@
+div.accordion-select {
+  border-bottom: 1px dotted #CCC;
+  overflow: hidden;
+  padding: 10px 0;
+  /*height: 50px;*/
+}
+
+div.accordion-select a {
+  color: #555;
+  width: 100%;
+}
+
+div.accordion-select-title {
+  font-weight: bold;
+  font-size: 1.1em;
+  position: relative;
+}
+
+div.accordion-select-title.has-selected-items a {
+  color: #02146F;
+}
+
+div.accordion-select div.accordion-select-title a {
+  display: inline;
+}
+
+div.accordion-select .disabled {
+  color: #999;
+}
+ul.accordion-select-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+ul.accordion-select-options li {
+  display: block;
+  margin: 5px 10px 5px 2px;
+  font-size: .9em;
+  cursor: pointer;
+}
+
+ul.accordion-select-options li:first-child {
+  margin-top: 0;
+}
+
+ul.accordion-select-options li.has-parent {
+  padding-left: 10px;
+}
+
+ul.accordion-select-options li.selected a,
+ul.accordion-select-options li.selected .fa {
+  color: #02146F;
+}
+
+span.selected-indicator {
+  margin-left: -18px;
+  color: #02146F;
+}
+
+.accordion-select .resize-container {
+  padding: 0;
+  margin: 5px 0 0;
+}
+
+.accordion-select .resize-container .ui-resizable-se {
+    right: -3px;
+    bottom: -11px;
+}

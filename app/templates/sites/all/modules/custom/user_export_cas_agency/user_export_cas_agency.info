@@ -1,0 +1,7 @@
+name = User Export CAS Agency
+description = A module to add a users CAS agecny to the user export report
+package = Acquisition Gateway
+core = 7.x
+
+dependencies[] = users_export
+dependencies[] = cas_agency_field_for_user_entity

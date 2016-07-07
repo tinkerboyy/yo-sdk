@@ -1,0 +1,20 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.rgba-primary-0 { color: rgba(150,137,122,1) }	/* Main Primary color */
+.rgba-primary-1 { color: rgba( 92, 92, 92,1) }
+.rgba-primary-2 { color: rgba(255,181, 95,1) }
+.rgba-primary-3 { color: rgba( 55, 29,  0,1) }
+.rgba-primary-4 { color: rgba(255,181, 95,1) }
+
+.rgba-secondary-1-0 { color: rgba( 87, 88,103,1) }	/* Main Secondary color (1) */
+.rgba-secondary-1-1 { color: rgba( 63, 63, 63,1) }
+.rgba-secondary-1-2 { color: rgba( 90,103,197,1) }
+.rgba-secondary-1-3 { color: rgba(  4,  8, 38,1) }
+.rgba-secondary-1-4 { color: rgba( 90,103,197,1) }
+
+.rgba-secondary-2-0 { color: rgba( 87,107, 96,1) }	/* Main Secondary color (2) */
+.rgba-secondary-2-1 { color: rgba( 66, 66, 66,1) }
+.rgba-secondary-2-2 { color: rgba( 75,202,130,1) }
+.rgba-secondary-2-3 { color: rgba(  0, 39, 17,1) }
+.rgba-secondary-2-4 { color: rgba( 75,202,130,1) }

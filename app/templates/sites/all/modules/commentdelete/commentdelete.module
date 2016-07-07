@@ -1,0 +1,99 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function commentdelete_menu() {
+  $items = array();
+  $items['comment/%comment/delete-own'] = array(
+    'title' => 'Delete',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('commentdelete_confirm_delete', 1),
+    'access callback' => 'commentdelete_delete_comment_access',
+    'access arguments' => array(1),
+    'type' => MENU_CALLBACK,
+    'weight' => 2,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function commentdelete_permission() {
+  return array(
+    'delete own comments' => array(
+      'title' => t('Delete own comments'),
+      'description' => t('Allows a user to delete own comments that have no replies (e.g. all if in flat mode).'),
+    ),
+  );
+}
+
+/**
+ * Access callback for deleting own comment.
+ */
+function commentdelete_delete_comment_access($comment) {
+  global $user;
+
+  $access = ($user->uid && $user->uid == $comment->uid && $comment->status == COMMENT_PUBLISHED && (user_access('delete own comments') || user_access('administer comments')));
+  // Deletion is not allowed if any comment has this comment as a parent.
+  return $access && (0 == db_query("SELECT COUNT(cid) FROM {comment} WHERE pid = :cid", array(':cid' => $comment->cid))->fetchField());
+}
+
+/**
+ * Implements hook_comment_view().
+ */
+function commentdelete_comment_view($comment, $view_mode, $langcode) {
+  // We only need to add the delete link if it's not there.
+  if (!isset($comment->content['links']['comment']['#links']['comment-delete']) && commentdelete_delete_comment_access($comment)) {
+    $comment->content['links']['comment']['#links']['comment-delete'] = array(
+      'title' => t('delete'),
+      'href' => "comment/$comment->cid/delete-own",
+      'html' => TRUE,
+    );
+  }
+}
+
+/**
+ * Confirm form for deleting own comment.
+ *
+ * We can't use the core comment_confirm_delete() because it talks about
+ * deleting replies, and also mollom hooks into that form which is not
+ * appropriate for end-users.
+ */
+function commentdelete_confirm_delete($form, &$form_state, $comment) {
+  $form['#comment'] = $comment;
+  // Always provide entity id in the same form key as in the entity edit form.
+  $form['cid'] = array(
+    '#type' => 'value',
+    '#value' => $comment->cid,
+  );
+  return confirm_form(
+    $form,
+    t('Are you sure you want to delete the comment %title?', array('%title' => $comment->subject)),
+    'node/' . $comment->nid,
+    t('This action cannot be undone.'),
+    t('Delete'),
+    t('Cancel'),
+    'commentdelete_confirm_delete');
+}
+
+/**
+ * Form submit function copied from comment_confirm_delete_submit().
+ *
+ * The user-visible and watchdog messages are different from core.
+ */
+function commentdelete_confirm_delete_submit($form, &$form_state) {
+  global $user;
+
+  $comment = $form['#comment'];
+  // Delete the comment and its replies.
+  comment_delete($comment->cid);
+  drupal_set_message(t('The comment has been deleted.'));
+  watchdog('content', 'User %name (@uid) deleted own comment @cid.', array('%name' => $user->name, '@uid' => $user->uid, '@cid' => $comment->cid));
+  // Clear the cache so an anonymous user sees that his comment was deleted.
+  cache_clear_all();
+
+  $form_state['redirect'] = "node/$comment->nid";
+}
+

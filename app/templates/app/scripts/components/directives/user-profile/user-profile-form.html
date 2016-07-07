@@ -1,0 +1,110 @@
+<div class="modal user-profile-form">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="arrow"><i class="fa fa-caret-left fa-2x"></i></div>
+      <h2>My Info</h2>
+      <form class="form"  name="UserProfileForm" ng-submit="submitProfile($hide)" novalidate>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-8">
+              <div class="form-group">
+                <label for="FullName">Full Name<ag-help ng-if="help.length > 0" data-item="'full-name'" data-collection="help" class="input-group-btn"></ag-help></label>
+                <input id="FullName" class="form-control" type="text" ng-model="profile.name" required>
+                <span class="help-block">First and Last Name e.g. John Smith)</span>
+              </div>
+
+              <div class="form-group">
+                <label for="JobTitle">Job Title<ag-help ng-if="help.length > 0" data-item="'job-title'" data-collection="help" class="input-group-btn"></ag-help></label>
+                <input id="JobTitle" class="form-control" type="text" ng-model="profile.jobTitle">
+              </div>
+
+              <div class="form-group">
+                <label for="OrgName">Organization Name<ag-help ng-if="help.length > 0" collection="help" item="'organization-name'"></ag-help></label>
+                <input id="OrgName" class="form-control" type="text" ng-model="profile.agency" disabled="disabled" readonly>
+              </div>
+
+              <div class="form-group">
+                <div class="">
+                  <label for="email-address">Email Address<ag-help ng-if="help.length > 0" data-item="'email-address'" data-collection="help" class="input-group-btn"></ag-help></label>
+                  <input id="email-address" class="form-control" type="text" ng-model="profile.email" disabled="disabled" readonly>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <center ag-loader data-requests="imageLoader.requests" data-target-type="widget" data-text="uploading image...">
+                  <div class="img-circle">
+                    <img class="profile-picture" ng-src="{{profile.imageUrl || '/app/assets/images/default-user-image.jpg'}}" alt="{{user.name}}"/>
+                  </div>
+                </center>
+              </div>
+
+              <div class="form-group">
+                <label for="ProfileImage">Profile Image</label>
+                <ag-file-upload
+                  data-input-id="ProfileImage"
+                  data-input-name="profileImage"
+                  data-max-file-size="1024000"
+                  data-allowed-file-extensions="jpg,jpeg,gif,png"
+                  data-target="profile.image"
+                  data-change-callback="uploadPic"
+                  data-file="file"
+                  type="image"
+                  data-image-url="profile.imageUrl"
+                  data-file-select="file"
+                  data-profile-info="profile"
+                  data-show-validation-messages="false"></ag-file-upload>
+                <small ng-class="{ 'text-danger': picError }">Allowed file types are .jpg, .png and .gif images. Image files should not exceed 1MB</small>
+              </div>
+              <div class="form-group">
+                <div class="alert alert-danger" ng-if="profileError">
+                  <strong>Error!</strong> There was an error updating your profile
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-8">
+              <div class="form-group user-profile-certifications-block">
+                <label for="certifications" class="">Certifications<ag-help ng-if="help.length > 0" data-item="'certifications'" data-collection="help" class="input-group-btn"></ag-help></label>
+                <div class="user-profile-certifications col-md-11">
+                  <input id="certifications" class="form-control" type="text" ng-model="certification.name" bs-options="certificate as certificate.name for certificate in certifications" placeholder="Enter Certification" bs-typeahead>
+                </div>
+                <div class="col-md-1">
+                  <button type="button" class="btn btn-default btn-certification" ng-click="addCertifications()" ng-disabled="!certification.name || certification.name.length === 0">
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="user-profile-certifications-list-block">
+              <ul class="user-profile-certifications-list">
+                <li class="user-profile-certifications-list-item"
+                    ng-repeat="profileCertificate in profile.certifications track by $index"
+                    ng-click="deleteCertification($index)">
+                  <span class="">{{ profileCertificate.name }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group text-right">
+            <div class="col-md-12">
+              <ag-loader class="pull-left" data-target-type="item" data-requests="profileLoader.requests" data-text="processing ... please wait"></ag-loader>
+              <button id="cancel-user-profile-form" class="btn btn-link" type="button" ng-click="closeProfile($hide)">Cancel</button>
+              <button id="submit-user-profile-form" class="btn btn-link" type="submit" ng-disabled="UserProfileForm.$invalid">Update Info</button>
+           </div>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+</div>

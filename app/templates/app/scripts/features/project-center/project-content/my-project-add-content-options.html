@@ -1,0 +1,37 @@
+<div class="popover">
+  <div class="arrow"></div>
+  <div class="popover-content">
+    <ul class="list-group no-margins">
+      <li ng-if="!publicUser" class="list-group-item no-outer-borders no-padding" >
+        <a ng-click="$hide(); openFileUploadModal(project)">
+          <i class="fa fa-fw fa-upload"></i>
+          <span>File Upload</span>
+        </a>
+      </li>
+      <li class="list-group-item no-outer-borders no-padding">
+        <a href="/app/#/solutionsfinder">
+          <i class="fa fa-fw fa-th-large"></i>
+          <span>Solutions Finder</span>
+        </a>
+      </li>
+      <li class="list-group-item no-outer-borders no-padding">
+        <a href="/app/#/sowl">
+          <i class="fa fa-fw fa-bank"></i>
+          <span>SOW Library</span>
+        </a>
+      </li>
+      <li class="list-group-item no-outer-borders no-padding">
+        <a href="/app/#/communities">
+          <i class="fa fa-fw fa-comment-o"></i>
+          <span>Community Discussion</span>
+        </a>
+      </li>
+      <li class="list-group-item no-outer-borders no-padding">
+        <a class="text-muted" style="color: #DDD">
+          <i class="fa fa-fw fa-asterisk"></i>
+          <span>Hallways</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

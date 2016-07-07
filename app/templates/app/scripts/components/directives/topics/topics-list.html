@@ -1,0 +1,102 @@
+<div class="col-md-12">
+  <div class="col-md-12" id="communities-tabs" ng-if="!singleTopic">
+    <div id="topics-top-pagination">
+      <ag-pagination
+        data-items="topics"
+        data-callback="setTopics"
+        data-page-size="pageSize.value"
+        data-current-page="currentPageNumber.value"
+        ng-if="topicsLoader.requests.length === 0"
+        ></ag-pagination>
+    </div>
+    <div>&nbsp;</div>
+
+  </div>
+  <div class="col-md-12" ag-loader data-target-type="widget" data-text="loading topics... please wait" data-requests="topicsLoader.requests">
+    <div class="alert alert-info no-topics" ng-if="!pageTopics.length && !singleTopic">
+      <h3>Not seeing any posts?</h3>
+      <p class="message-display">This user currently has no posts.</p>
+      <button ng-if="entityType != 'user'" class="btn btn-default btn-lg" ng-click="createNewTopic()">
+        <i class="fa fa-plus-circle"></i> New Group Topic
+      </button>
+    </div>
+    <div class="alert alert-info no-topics" ng-if="!pageTopics.length && singleTopic">
+      <h3>Could not find topic</h3>
+      <p class="message-display">Could not find the topic you requested</p>
+      <button class="btn btn-default btn-lg" ng-click="viewAllTopics()">
+        View All Topics
+      </button>
+    </div>
+    <ul ng-init="prepFeed();" class="list-group" ng-if="topicsLoader.requests.length === 0">
+      <li class="list-group-item no-outer-borders" ng-class="topic.type" ng-repeat="topic in pageTopics | orderBy: '-created'">
+        <div class="row">
+          <div class="col-md-3 col-lg-2 col-height">
+            <center>
+              <div>
+                <img class="img-circle picture" ng-src="{{topic.author.picture.url || '/app/assets/images/default-user-image.jpg'}}" alt="{{topic.author.name}}"/>
+              </div>
+              <div class="topic-author-name">
+                <a ng-href="/app/#/communities/user/{{ topic.author.uid }}"><strong title="{{ topic.author.name }}">{{ topic.author.name }}</strong></a>
+              </div>
+              <div class="topic-author-agency" ng-class="topic.author.agency ? '' : 'topics-list-item-user-agency'">{{ ::topic.author.agency }}</div>
+              <ag-follow
+                class="btn btn-follow-style follow-user"
+                data-type="user" data-item="topic.author"
+                data-no-icon="true"
+                data-id-field="uid"
+                data-notify="toastyNotify">
+              </ag-follow>
+            </center>
+          </div>
+          <div class="col-md-9 col-lg-10 topics-box">
+            <div class="topic-callout-arrow"><i class="fa fa-caret-left"></i></div>
+            <div class="col-md-10 col-lg-11">
+              <small class="feed-item-type"><i class="fa fa-comment-o"></i> {{ map[topic.type] }}</small>
+              <div class="topic-community-name">
+                  <span class="pull-right text-right communities-reply-block" ng-if="topic.type === 'topic'">
+                    <a class="communities-reply-link" ng-click="addReply(topic);">Reply</a>
+                    <br>
+                    <small>{{topic.comment_count}} replies</small>
+                  </span>
+                <a ng-if="topic.type === 'topic'" ng-click="changeGroup(topic.group)" class="topic-group-link">
+                  <i class="fa" ng-class="communitiesMap[topic.community_category_id].icon || 'fa-compass' " ></i>
+                  &nbsp;{{ ::topic.community_cagetory_name }}
+                </a>
+                <span class="feed-item-parent-type" ng-if="topic.type != 'topic'"><i class="fa" ng-class="typeMap[topic.parentType].icon"></i>{{ typeMap[topic.parentType].label }}</span>
+              </div>
+              <h4 class="topic-title">
+                <span class="label label-success new-topic" ng-if="topic.is_new">New</span>
+                <a ng-click="toggleExpand(topic, true);"><span ng-if="topic.type === 'reply'">RE: </span>{{ topic.label }}</a>
+              </h4>
+              <div class="communities-topic-date">
+                <small>{{ ::topic.created | agDateFormat : 'long' }}</small>
+              </div>
+
+              <div ng-bind-html="topic.body" class="body-text"></div>
+
+              <div class="communities-expander">
+                <a ng-click="toggleExpand(topic);">{{ topic.expanded ? 'Less' : 'More' }} <i class="fa" ng-class="{ 'fa-caret-down': !topic.expanded, 'fa-caret-up': topic.expanded }"></i></a>
+              </div>
+            </div>
+            <div class="col-md-2 col-lg-1 text-right">
+              <ag-vote-up-down class="pull-right" data-text="Found this helpful" data-type="communitytopics" data-item="topic" data-collection="votes" data-highest-vote="highestVote" ng-if="topic.type === 'topic'"></ag-vote-up-down>
+            </div>
+
+            <div class="comments col-md-12" ng-if="topic.expanded">
+              <ag-comments data-item="topic" data-name-field="label"></ag-comments>
+            </div>
+          </div>
+        </div>
+        </li>
+      </ul>
+    </div>
+  <div class="col-md-12 text-right bottom-pagination" ng-if="!singleTopic">
+    <ag-pagination
+      data-items="topics"
+      data-callback="setTopics"
+      data-current-page="currentPageNumber.value"
+      data-page-size="pageSize.value"
+      ng-if="topicsLoader.requests.length === 0"
+      ></ag-pagination>
+  </div>
+</div>

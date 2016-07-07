@@ -1,0 +1,12 @@
+<?php
+
+/**
+* Implements hook_enable().
+*/
+function solutions_matrix_enable() {
+  $admin_role = user_role_load_by_name('Site Manager');
+  // Additional permissions.
+  user_role_grant_permissions($admin_role->rid, array(
+    'administer solution finder' => TRUE,
+  ));
+}

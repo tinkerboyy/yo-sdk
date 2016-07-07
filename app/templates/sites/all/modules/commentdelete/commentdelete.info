@@ -1,0 +1,9 @@
+; Comment Goodness can be found at: https://www.drupal.org/project/comment_goodness
+name = Comment delete
+description = Allow users to delete their own comments (based on Comment Goodness 7.x-1.4)
+package = Other
+core = 7.x
+dependencies[] = comment
+files[] = commentdelete.module
+version = "7.x-1.0"
+core = "7.x"

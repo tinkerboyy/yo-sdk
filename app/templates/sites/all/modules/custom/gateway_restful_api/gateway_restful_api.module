@@ -1,0 +1,434 @@
+<?php
+
+/**
+ * @file
+ * Example module for the RESTful module.
+ */
+
+function gateway_restful_api_menu() {
+	$items = [];
+	// Add administration page.
+	$items['admin/config/services/gateway_restful_api'] = array(
+		'title' => 'Gateway RESTful API',
+		'description' => 'Administer the Gateway RESTful API.',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('gateway_restful_api_admin_settings'),
+		'access arguments' => array('administer restful'),
+		// 'file' => 'gateway',
+	);
+
+	return $items;
+}
+
+function gateway_restful_api_admin_settings($form_state) {
+  $form = array();
+
+  $form['gateway_restful_api_render_cache_enable'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Enable Render Cache'),
+    '#description' => t('Check this to enable the render cache for API.'),
+    '#default_value' => variable_get('gateway_restful_api_render_cache_enable', 1),
+  );
+
+	$form['gateway_restful_api_render_cache_backend'] = array(
+    '#type' => 'select',
+    '#title' => t('Render Cache Backend'),
+    '#description' => t('Set which cache backend to use for render cache.'),
+    '#options' => array(
+			'AGDatabaseCache' => 'Database',
+			'MemCacheDrupal' => 'Memcache'
+		),
+    '#default_value' => variable_get('gateway_restful_api_render_cache_backend', 'AGDatabaseCache'),
+    '#required' => TRUE,
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Implements hook_ctools_plugin_directory().
+ *
+ * Global definitions for API documentation go here
+ *
+ * @SWG\Swagger(
+ *   basePath="/api/v1.0",
+ *   @SWG\Info(
+ *     title="Acquisition Gateway API",
+ *     version="1.0.0"
+ *   ),
+ *   tags={
+ *     @SWG\Tag(
+ *   	  name="Communities",
+ *   	  description="Communities Groups and Topics"
+ *     ),
+ *     @SWG\Tag(
+ *   	  name="SOWL",
+ *   	  description="Statement of Work Library Search"
+ *     ),
+ *     @SWG\Tag(
+ *   	  name="Users",
+ *   	  description="User functions"
+ *     ),
+ *   }
+ * )
+ *
+ * @SWG\Definition(
+ * 	 definition="DrupalFile",
+ * 	 @SWG\Property(
+ * 	   property="url",
+ * 	   type="string",
+ * 	   description="URL to use to view/download the file"
+ * 	 ),
+ * 	 @SWG\Property(
+ * 	   property="filename",
+ * 	   type="string",
+ * 	   description="Filename"
+ * 	 ),
+ * 	 @SWG\Property(
+ * 	   property="filemime",
+ * 	   type="string",
+ * 	   description="File MIME Type"
+ * 	 ),
+ * 	 @SWG\Property(
+ * 	   property="filesize",
+ * 	   type="integer",
+ * 	   description="File size in bytes"
+ * 	 ),
+ * 	 @SWG\Property(
+ * 	   property="type",
+ * 	   type="string",
+ * 	   enum={"image", "default"},
+ * 	   description="Type of file (i.e. image, default, etc)"
+ * 	 )
+ * )
+ *
+ * @SWG\Definition(
+ *   definition="DrupalUser",
+ *   @SWG\Property(
+ *     property="uid",
+ *     type="integer",
+ *     description="User ID"
+ *   ),
+ *   @SWG\Property(
+ *     property="name",
+ *     type="string",
+ *     description="User's name"
+ *   ),
+ *   @SWG\Property(
+ *     property="mail",
+ *     type="string",
+ *     description="User's email address"
+ *   ),
+ *   @SWG\Property(
+ *     property="created",
+ *     type="integer",
+ *     description="Timestamp for when user account was created"
+ *   ),
+ *   @SWG\Property(
+ *     property="access",
+ *     type="integer",
+ *     description="Timestamp for when user account last logged in"
+ *   ),
+ *   @SWG\Property(
+ *     property="login",
+ *     type="integer",
+ *     description="Timestamp for when user account last logged in"
+ *   ),
+ *   @SWG\Property(
+ *     property="online",
+ *     type="boolean",
+ *     description="Whether or not the user is currently online"
+ *   ),
+ *   @SWG\Property(
+ *     property="picture",
+ *     type="object",
+ *     description="User's profile picture",
+ *     ref="#/definitions/DrupalFile"
+ *   )
+ * )
+ *
+ * @SWG\Definition(
+ *   definition="DrupalRevision",
+ *   @SWG\Property(
+ *     property="timestamp",
+ *     type="integer"
+ *   ),
+ *   @SWG\Property(
+ *     property="author",
+ *     type="object",
+ *     ref="#/definitions/DrupalUser"
+ *   )
+ * )
+ * @SWG\Definition(
+ *    definition="portfoliohallway",
+ *    @SWG\Property(
+ *      property="id",
+ *      type="string",
+ *      description="portfoliohallway id"
+ *    ) 
+ *  )
+ *     @SWG\Definition(
+ *        definition="interaction",
+   *         @SWG\Property(
+   *          property="tid",
+   *          type="string",
+   *          description="tid",
+   *        ), 
+   *       @SWG\Property(
+   *          property="vid",
+   *          type="string",
+   *          description="vid",
+   *        ), 
+   *       @SWG\Property(
+   *          property="name",
+   *          type="string",
+   *          description="name",
+   *        ),
+   *       @SWG\Property(
+   *          property="description",
+   *          type="string",
+   *          description="description",
+   *        ),
+   *      @SWG\Property(
+   *          property="format",
+   *          type="string",
+   *          description="format",
+   *        ),
+   *      @SWG\Property(
+   *          property="weight",
+   *          type="string",
+   *          description="weight",
+   *        ),
+   *      @SWG\Property(
+   *          property="uuid",
+   *          type="string",
+   *          description="uuid",
+   *        ),
+   *      @SWG\Property(
+   *          property="vocabulary_machine_name",
+   *          type="string",
+   *          description="vocabulary machine name"
+   *        )
+   *     )
+   *     @SWG\Definition(
+   *        definition="author",
+   *         @SWG\Property(
+   *             property="uid",
+   *             type="integer",
+   *             description="Auther's UID",
+   *         ),
+   *    @SWG\Property(
+   *             property="name",
+   *             type="string",
+   *             description="Authur's name",
+   *         ),
+   *    @SWG\Property(
+   *             property="mail",
+   *             type="string",
+   *             description="Author's mail",
+   *         ),
+   *    @SWG\Property(
+   *             property="created",
+   *             type="integer",
+   *             description="Timestamp of created hallway",
+   *         ),
+   *    @SWG\Property(
+   *             property="access",
+   *             type="integer",
+   *             description="Timestamp of access",
+   *         ),
+   *    @SWG\Property(
+   *             property="login",
+   *             type="integer",
+   *             description="Timestamp of author's login",
+   *         ),
+   *    @SWG\Property(
+   *             property="online",
+   *             type="boolean",
+   *             description="online status",
+   *         ),
+   *    @SWG\Property(
+   *             property="picture",
+   *             type="object",
+   *             ref="#/definitions/picture"
+   *         )
+   *      )
+   *
+   *    @SWG\Definition(
+   *        definition="portfolioclassification",
+   *         @SWG\Property(
+   *          property="tid",
+   *          type="string",
+   *          description="tid",
+   *        ), 
+   *    @SWG\Property(
+   *          property="vid",
+   *          type="string",
+   *          description="vid",
+   *        ), 
+   *    @SWG\Property(
+   *          property="name",
+   *          type="string",
+   *          description="portfolioclassification name",
+   *        ), 
+   *    @SWG\Property(
+   *          property="description",
+   *          type="string",
+   *          description="portfolioclassification description",
+   *        ),
+   *    @SWG\Property(
+   *          property="format",
+   *          type="string",
+   *          description="Output format",
+   *        ),  
+   *     @SWG\Property(
+   *             property="weight",
+   *             type="string",
+   *             description="node weight"
+   *      ),
+   *     @SWG\Property(
+   *             property="uuid",
+   *             type="string",
+   *             description="Users UID"
+   *      ),
+   *     @SWG\Property(
+   *             property="vocabulary_machine_name",
+   *             type="string",
+   *             description="Vocabulary machine name"
+   *      ),
+   *     @SWG\Property(
+   *             property="rdf_mapping",
+   *             type="object",
+   *             description="Vocabulary machine name"
+   *      )
+   *    )
+   *
+   *    @SWG\Definition(
+   *        definition="portfoliocategory",
+   *         @SWG\Property(
+   *          property="tid",
+   *          type="string",
+   *          description="tid",
+   *        ), 
+   *    @SWG\Property(
+   *          property="vid",
+   *          type="string",
+   *          description="vid",
+   *        ), 
+   *    @SWG\Property(
+   *          property="name",
+   *          type="string",
+   *          description="portfoliocategory name",
+   *        ), 
+   *    @SWG\Property(
+   *          property="description",
+   *          type="string",
+   *          description="portfoliocategory description",
+   *        ),
+   *    @SWG\Property(
+   *          property="format",
+   *          type="string",
+   *          description="Output format",
+   *        ),  
+   *     @SWG\Property(
+   *             property="weight",
+   *             type="string",
+   *             description="node weight"
+   *      ),
+   *     @SWG\Property(
+   *             property="uuid",
+   *             type="string",
+   *             description="Users UID"
+   *      ),
+   *     @SWG\Property(
+   *             property="vocabulary_machine_name",
+   *             type="string",
+   *             description="Vocabulary machine name"
+   *      ),
+   *     @SWG\Property(
+   *             property="rdf_mapping",
+   *             type="object",
+   *             description="Vocabulary machine name"
+   *      )
+   *    )
+   *     @SWG\Definition(
+   *      definition="picture",
+   *         @SWG\Property(
+   *             property="Url",
+   *             type="string",
+   *             description="picture url"
+   *         ),
+   *         @SWG\Property(
+   *             property="filename",
+   *             type="string",
+   *             description="Img filename"
+   *         ),
+   *       @SWG\Property(
+   *             property="filemime",
+   *             type="string",
+   *             description="Img mime type"
+   *         )
+   *     )
+ */
+function gateway_restful_api_ctools_plugin_directory($module, $plugin) {
+	variable_set('restful_enable_discovery_resource', FALSE);
+	if ($module == 'restful') {
+	    return 'plugins/' . $plugin;
+	  }
+}
+
+/**
+ * Implements hook_cron()
+ *
+ * Clears the gateway restful API render cache of expired entries when the cron is run
+ */
+function gateway_restful_api_cron() {
+  // Deletes all expired cache entries from render cache
+  $now = time();
+  db_delete('cache_gateway_restful_api_render')
+		->condition('expire', CACHE_PERMANENT, '<>')
+    ->condition('expire', $now, '<=')
+    ->execute();
+}
+
+/**
+ * Implements hook_flush_caches()
+ *
+ * Adds teh cache_gateway_restful_api_render table to cache tables to be cleared
+ * by Drupal cache clear functionality
+ *
+ * @return array Array of strings with table names
+ */
+function gateway_restful_api_flush_caches() {
+  return array('cache_gateway_restful_api_render');
+}
+
+/**
+ * Process callback, Get Drupal full url file path.
+ *
+ * @param int $nid
+ *   The node id.
+ *
+ * @param string $file
+ *   The file name.
+ *
+ * @return string
+ *   A cleaned file tracking path.
+ */
+function fileProcess($nid, $file) {
+  $file_url = $domain . '/system/tdf/' . $file . '?file=1&type=node&id=' . $nid;
+  return $file_url;
+}
+/**
+ * Process callback, Get Drupal term name by tid.
+ *
+ * @param int $tid
+ *   The term id.
+ *
+ * @return string
+ *   The term name.
+ */
+function termProcess($tid) {
+  $term_object = taxonomy_term_load($tid);
+  return $term_object->name;
+}

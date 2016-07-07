@@ -1,0 +1,104 @@
+<div ag-collection="[ { resourceName: 'Projects' }, { resourceName: 'ProjectEntities' } ]" class="my-projects">
+  <div class="row">
+    <div class="col-xs-12">
+      <button bs-popover
+        title="Add Project"
+        container="body"
+        content-template="scripts/features/project-center/projects/my-projects-entry.html"
+        placement="right"
+        class="pull-left btn-new-entity btn btn-link no-padding">
+        <i class="fa fa-plus-circle"></i>
+        New Project
+      </button>
+      <div ng-if="(projects.data.collection| filter: { status: '1' }).length === 0"
+           class="pcWelcome  well"
+           ng-class="publicUser ? 'publicWelcome' : 'nonpublicWelcome'">
+          <p ng-bind-html="welcome.body | trust" class="small"></p>
+          <button  bs-popover
+            title="Add Project"
+            container="body"
+            content-template="scripts/features/project-center/projects/my-projects-entry.html"
+            placement="right"
+            class="btn btn-primary btn-new-entity">
+            Create your first project!
+          </button>
+      </div>
+    </div>
+  </div>
+  <div class="row scrollable" id="scrollcontainer" ng-if="(projects.data.collection| filter: { status: '1' }).length != 0">
+    <ag-accordion-container class="col-xs-12" active-accordion="activeAccordion">
+      <ag-accordion ng-repeat="projectEntity in projects.data.collection | filter: { status: '1' } | orderBy: '-created'"
+        more-options="{ templateUrl: 'scripts/features/project-center/projects/my-projects-options.html', container: 'body', placement: 'left' }">
+        <ag-accordion-header>
+          <i class="fa fa-fw fa-folder"></i>
+          <h5 id="Project{{ projectEntity.id }}" index="{{ $index }}">
+            <a ng-href="#/project-center/projects?activeEntities={{projectEntity.id}}">{{ projectEntity.name }}</a>
+          </h5>
+        </ag-accordion-header>
+        <ag-accordion-body>
+          <div class="row">
+            <div class="col-lg-9 col-md-8 my-project-body">
+              <div ng-if="projectEntity.description">
+                <strong>Description:</strong>
+                <span class="small">
+                  {{ projectEntity.description }}
+                </span>
+              </div>
+              <div ng-if="projectEntity.notes">
+                  <strong>Notes:</strong>
+                  <span class="small">
+                    {{ projectEntity.notes }}
+                  </span>
+              </div>
+            </div>
+            <center ng-if="projectEntity.due" class="col-lg-3 col-md-4">
+              <div class="pull-right entity-due-md">
+                <div>
+                  <span>{{ projectEntity.due | agDateFormat: 'mediumDate' }}</span>
+                  <small class="text-muted" style="display:block">Due Date</small>
+                </div>
+                <div ng-switch="(projectEntity.due | agDaysCount: 'now' : projectEntity.due) >= 0">
+                  <span ng-switch-when="true">
+                    <span>{{ (projectEntity.due | agDaysCount: 'now' : projectEntity.due) + 1 }}</span>
+                    <small class="text-muted" style="display:block">Days Left</small>
+                  </span>
+                  <span ng-switch-when="false">Expired</span>
+                </div>
+              </div>
+            </center>
+          </div>
+          <div ng-if="(projectEntities.data.collection | myProjectContentFilter: { status: '1', pid: projectEntity.id }).length > 0">
+            <strong class="project-label">Content:</strong>
+            <ul class="list-group">
+              <li ng-repeat="projectContent in projectEntities.data.collection | myProjectContentFilter: { status: '1', pid: projectEntity.id } | orderBy: '-created'" class="list-group-item no-outer-borders" style="padding: 5px 5px;">
+                <i class="fa fa-fw vertical-middle medium-icon heavy-mute" ng-class="{
+                    'fa-th-large': projectContent.type === 'solution' || projectContent.type === 'Solutions Finder Search',
+                    'fa-bank': projectContent.type === 'SOW Document' || projectContent.type === 'SOWL Search',
+                    'fa-file': projectContent.type === 'Uploaded Document'
+                  }">
+                </i>
+                <div class="vertical-middle">
+                  <a ng-click="openProjectEntity(projectContent)">
+                    {{ projectContent.name }}
+                  </a>
+                  <div class="text-capitalize">
+                    Type: {{projectContent.type}}
+                  </div>
+                </div>
+                 <a bs-popover
+                  container="body"
+                  template-url="scripts/features/project-center/project-content/my-project-content-options.html"
+                  placement="left"
+                  class="fa-stack pull-right project-content-options">
+                  <i class="fa fa-fw fa-circle-thin fa-stack-1x medium-icon"></i>
+                  <i class="fa fa-fw fa-ellipsis-h fa-stack-1x medium-icon"></i>
+                  <a class="pull-right" ng-click="projectEntities.save({ id: projectContent.id, status: 0 })">
+                  </a>
+              </li>
+            </ul>
+          </div>
+        </ag-accordion-body>
+      </ag-accordion>
+    </ag-accordion-container>
+  </div>
+</div>

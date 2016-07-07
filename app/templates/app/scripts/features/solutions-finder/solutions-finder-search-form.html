@@ -1,0 +1,169 @@
+<h1 class="DINCondensedBold ag-app-header">SOLUTIONS FINDER</h1>
+<div class="ag-left-menu-content" ag-as-scrollable>
+  <div>
+    <form class="form form-horizontal solutions-finder-filter-form" ng-if="categories.length > 0 && allSubcategories.length > 0 && contractTypes.length > 0 && programTypes.length > 0 && availableTo.length > 0 && allSolutions.length > 0" ng-init="changeFilter()">
+    <div class="" ng-if="suggestions.length > 0">
+      <div class="col-md-12">
+        <label class="sr-only" for="search-offerings">Keyword Search</label>
+        <div class="keyword-search-dotted">
+        <input
+        id="search-offerings"
+        ng-model="moreSearch.search"
+        ng-model-options="{ debounce: 500 }"
+        class="form-control"
+        placeholder="Keyword Search"
+        ng-blur="submitSearchTerm()"
+        ng-change="changeFilter()"
+        bs-options="suggestion.query as suggestion.query for suggestion in suggestions"
+        bs-typeahead>
+      </div>
+      <div class="">
+        <div class="col-md-12">
+          <ag-applied-filters data-applied-filters="moreSearch" data-remove-filter-callback="changeFilter">
+        </div>
+      </div>
+
+      <div class="">
+      <div class="col-md-12">
+        <label for="purchasingOrganization" class="sr-only">My Agency</label>
+        <button
+          data-placement="bottom"
+          data-animation="am-flip-x"
+          id="purchasingOrganization"
+          ng-if="categories.length > 0 && allSubcategories.length > 0 && contractTypes.length > 0 && programTypes.length > 0 && availableTo.length > 0 && allSolutions.length > 0"
+          model="accordianSelects.agency"
+          data-collection="availableTo"
+          display-text-field="name"
+          value-field=""
+          data-target="moreSearch"
+          data-target-field="availableTo"
+          data-change="changeFilter"
+          placeholder="My Agency"
+          is-parent-on-empty="fkOptionParentId"
+          help="agency"
+          help-data="help"
+          data-filter-counts="filterCountUpdater.filterCounts.availableTo"
+          ag-accordion-select
+          data-tooltip-field = "longName"
+        ></button>
+        </div>
+
+      </div>
+      <div class="">
+        <div class="col-md-12">
+          <label for="ProgramTypes" class="sr-only">Program Type</label>
+          <button
+           data-animation="am-flip-x"
+           data-placement="bottom"
+           data-multiple="true"
+           id="ProgramTypes"
+           data-collection="programTypes"
+           display-text-field="shortName"
+           value-field="name"
+           placeholder="Program Type"
+           data-target="moreSearch"
+           data-target-field="programTypes"
+           data-change="changeFilter"
+           data-expanded="true"
+           help="program-types"
+           help-data="help"
+           order-by="shortName"
+           data-filter-counts="filterCountUpdater.filterCounts.type"
+           data-filter-count-key="name"
+           ag-accordion-select
+          ></button>
+        </div>
+      </div>
+      <div class="">
+      <div class="col-md-12">
+        <label for="ContractTypes" class="sr-only">Solution Type</label>
+        <button
+         data-animation="am-flip-x"
+         data-placement="bottom"
+         data-multiple="true"
+         id="ContractTypes"
+         data-collection="contractTypes"
+         display-text-field="shortName"
+         value-field="name"
+         placeholder="Solution Type"
+         data-target="moreSearch"
+         data-target-field="contractTypes"
+         data-change="changeFilter"
+         data-expanded="false"
+         help="solution-types"
+         help-data="help"
+         order-by="shortName"
+         data-filter-counts="filterCountUpdater.filterCounts.type"
+         data-filter-count-key="name"
+         ag-accordion-select
+        ></button>
+      </div>
+    </div>
+      <div class="">
+        <div class="col-md-12">
+          <label for="ProductCategories" class="sr-only">Category</label>
+          <button
+           ng-init="setSubcategories()"
+           data-animation="am-flip-x"
+           data-placement="bottom"
+           data-multiple="true"
+           id="ProductCategories"
+           data-collection="categories"
+           display-text-field="name"
+           value-field="id"
+           placeholder="Category"
+           data-target="moreSearch"
+           data-target-field="categories"
+           data-change="setSubcategories"
+           help="category"
+           help-data="help"
+           order-by="name"
+           data-filter-counts="filterCountUpdater.filterCounts.categories"
+           ag-accordion-select
+          ></button>
+        </div>
+      </div>
+      <div class="">
+        <div class="col-md-12">
+          <label for="ProductSubCategories" class="sr-only">Subcategory</label>
+          <button
+            data-animation="am-flip-x"
+            id="ProductSubCategories"
+            placeholder="Subcategory"
+            data-multiple="true"
+            data-collection="subCategories"
+            display-text-field="name"
+            value-field=""
+            data-target="moreSearch"
+            data-target-field="subcategories"
+            data-change="changeFilter"
+            is-parent-on-empty="categoryId"
+            help="subcategory"
+            help-data="help"
+            data-filter-counts="filterCountUpdater.filterCounts.subcategories"
+            ag-accordion-select
+          ></button>
+        </div>
+      </div>
+      <div class="clearfix">&nbsp;</div>
+      <div class="col-md-12" ng-if="viewStatus && (solutions.length + (allSolutions | filter: { pinned: 'true' }).length) > 0 && !publicUser" >
+      <div class="col-md-12">
+        <button type="button"
+          id="export-search-results"
+          class="btn btn-success btn-xs"
+          ng-click="exportSolutions()">
+          <i class="fa fa-download"></i>&nbsp;<span class="csv-results"> Results to CSV</span>
+        </button>
+        <ag-help data-item = "'export-results-csv'" data-collection = "help"></ag-help>
+      </div>
+      <div class="clearfix">&nbsp;</div>
+      <div class="col-md-12" ng-if="!publicUser">
+        <a href="https://p3.cap.gsa.gov/" id="prices-paid-portal" class="btn btn-success btn-xs" target="_blank">
+          <i class="fa fa-bar-chart"></i>&nbsp;<span>Prices Paid Portal</span>
+        </a>
+        <ag-help data-item = "'prices-paid-portal-0'" data-collection = "help"></ag-help>
+       </div>
+      </div>
+    </form>
+  </div>
+</div>

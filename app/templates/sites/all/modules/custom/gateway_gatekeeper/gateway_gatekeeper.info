@@ -1,0 +1,8 @@
+name = Acquisition Gateway gatekeeper 
+description = Provides gatekeeper Access control settings. 
+core = 7.x	
+package = Acquisition Gateway
+
+;Dependencies
+dependencies[] = field_permissions
+

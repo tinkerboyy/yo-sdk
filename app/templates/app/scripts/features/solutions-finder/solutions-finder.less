@@ -1,0 +1,337 @@
+#solutions-finder-app {
+  height: 100%;
+  display: table;
+}
+
+#solutions-finder-app .row {
+  display: table-row;
+}
+
+
+div.solution-row {
+  margin-top: 20px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  border-bottom: 1px solid #CCC;
+}
+
+div.solution-row:first-child {
+  margin-top: 0;
+}
+
+div.solution-row > div.row {
+  display: table-row;
+}
+
+div.solution-row .lead {
+  margin-bottom: 10px;
+}
+
+.solution-name {
+  font-size:1.2em;
+  font-weight: bold;
+}
+
+.solution-column > div, .solution-column > div.vertical-align > div, div.solution-details > div {
+  margin-bottom: 10px;
+}
+
+div.solution-details {
+  clear: both;
+}
+
+.solution-action {
+  margin-top: 5px;
+}
+
+.solution-category-list > li {
+  margin-bottom: 10px;
+}
+
+.solution-row {
+  position: relative;
+}
+
+.solution-row .ul-child li {
+  padding-left: 10px;
+}
+
+div.vertical-align {
+  vertical-align: middle;
+}
+
+div.vertical-align div {
+  margin-bottom: 0;
+}
+
+.solution-finder-button-box-contents .btn {
+  margin-bottom: 10px;
+}
+
+.solution-finder-button-box-contents .btn:last-child {
+  margin-bottom: 0;
+}
+
+.solution-buttons div.solution-actions {
+  margin-bottom: 5px;
+  margin-top: -3px;
+}
+
+.solution-managed-by {
+  margin-right: 30px;
+}
+
+#solutions-finder-app h1.affix,
+#solutions-finder-app .result-count-pagination.affix {
+  position: fixed;
+  top: 40px !important;
+  padding-top: 10px;
+  background-color: white;
+  z-index: 999;
+}
+
+#solutions-finder-app h1.affix {
+  margin-top: 0px;
+  min-height: 53px;
+  line-height: 53px;
+  margin-left: -20px;
+  padding-left: 20px;
+}
+
+@media (min-width: 768px) {
+	#solutions-finder-app .result-count-pagination.affix {
+		width: 75% !important;
+	}
+	#solutions-finder-app h1.affix {
+		width: 25% !important;
+	}
+}
+
+@media (min-width: 992px) {
+	#solutions-finder-app .result-count-pagination.affix {
+		width: 83.3333% !important;
+	}
+	#solutions-finder-app h1.affix {
+		width: 16.6667% !important;
+	}
+}
+
+@media (min-width: 1200px) {
+	#solutions-finder-app .result-count-pagination.affix {
+		width: 83.3333% !important;
+	}
+	#solutions-finder-app h1.affix {
+		width: 16.6667% !important;
+	}
+}
+
+.solutions-finder-filter-form.affix {
+  position: fixed;
+  top: 51px !important;
+}
+
+.solutions-finder-filter-form.affix-bottom {
+  position: absolute !important;
+  top: auto !important;
+  bottom: 10px !important;
+}
+
+//Directive CSS
+.solutions-finder {
+  .widget-header { margin-bottom: 26px; }
+  .form-group {
+    margin-bottom: 26px;
+
+    .control-label { text-align: left; }
+
+    .input-group-bordered {
+      table-layout: fixed;
+      width: calc(~"100% - 16px");
+
+      .form-control { border-radius: 8px !important; }
+    }
+
+    .counter {
+      display: block;
+      margin-top: 5px;
+    }
+  }
+}
+
+.height-short .solutions-finder {
+  .widget-header, .form-group { margin-bottom: 15px; }
+}
+
+.results-header{
+    font-size:20px;
+    color: #000;
+    font-family: "sans-serif";
+}
+
+.keyword-search-dotted{
+  border-bottom-style: dotted;
+  border-bottom-width: 0.75px;
+  padding-bottom: 13px;
+  border-bottom-color: rgb(204, 204, 204);
+}
+
+.solution-type{
+  margin-right: 10px;
+}
+
+.solution-subcategory{
+  font-size: 12px;
+}
+
+.result-count-pagination.affix {
+  position: fixed;
+  top: 41px !important;
+  padding-top: 10px;
+  background-color: white;
+  z-index: 998;
+}
+
+.solutions-finder-filter-form.affix {
+  position: fixed;
+  top: 51px !important;
+}
+
+.solutions-finder-filter-form.affix-bottom {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 10px !important;
+}
+
+#solutions-finder-app  .solutions-results {
+  min-height: 800px;
+}
+
+.two-columns {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+
+ul.two-columns {
+  list-style-type: disc !important;
+}
+
+.solution-row .catBut.program-type {
+  background-color: #A0A0A0;
+  color: white;
+}
+
+.solution-row.pinned-solution {
+  background-color: #FFFBCC;
+  border-radius: 10px;
+  -moz-box-shadow: inset 0 0 8px #000000;
+  -webkit-box-shadow: inset 0 0 8px #000000;
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.37);
+}
+
+.solution-row .contract-type {
+    background-color: #dadad2;
+    border: 1px solid #bcbcbc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-bottom: 3px;
+    padding: 4px 8px;
+}
+.solution-row .program-type {
+    background-color: #A0A0A0 !important;
+    border: 1px solid #bcbcbc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    margin-bottom: 3px;
+    padding: 4px 8px;
+    color: white;
+}
+
+.show-results {
+  font-size: 1.1em;
+}
+
+
+.csv-results{
+  margin-right: 7px;
+  margin-left: 6px;
+}
+
+
+.solutionlogo {
+  margin: 0 auto 15px;
+  max-height: 65px;
+}
+.body-text, .no-topics p {
+  line-height: 150%;
+  margin-bottom: 10px;
+}
+#solutions-fnder-app .row {
+  display: table;
+}
+#solutions-fnder-app .result-count-pagination.affix {
+  padding-right: 15px;
+}
+.solution-finder-button-box-contents {
+  display:table-cell;
+  vertical-align:middle;
+  margin-bottom:10px;
+}
+.solution-finder-button-box, .solution-actions-box {
+  display: table;
+  height: 125px;
+  width:100%;
+}
+.solution-fnder-button-box-contents {
+  display: table-cell;
+  vertical-align: middle;
+}
+.solution-fnder-button-box-contents > div {
+  margin: 0 0 10px;
+  min-width:120px;
+  width: 100%;
+}
+.solution-fnder-button-box-contents div:last-of-type {
+  margin: 0 0 0px;
+  min-width:120px;
+  width: 100%;
+}
+.solution-fnder-button-box-contents a {
+  min-width:120px;
+  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  .solution-fnder-button-box {
+    display: block;
+    height: auto;
+  }
+  .solution-fnder-button-box-contents {
+    display: block;
+  }
+  .solution-fnder-button-box-contents a {
+    margin:5px auto;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 1057px) {
+  #solutions-finder-app .solutions-results {
+    top: 55px;
+  }
+}
+@media screen and (max-width: 750px) {
+  #solutions-finder-app .solutions-results {
+    top: 80px;
+  }
+}
+@media screen and (max-width: 650px) {
+  #solutions-finder-app .solutions-results {
+    top: 95px;
+  }
+}
+@media screen and (max-width: 600px) {
+  #solutions-finder-app .solutions-results {
+    top: 120px;
+  }
+}

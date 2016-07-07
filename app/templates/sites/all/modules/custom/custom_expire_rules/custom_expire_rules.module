@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * Implements hook_cron().
+ */
+function custom_expire_rules_cron() {
+  $nodeTypes = array('article', 'hallways_document', 'video_article', 'news_item');
+
+  $query = db_select('node', 'n');
+  $query->addTag('node_access');
+  $query->leftjoin('field_data_field_expiration_date', 'b', 'n.nid = b.entity_id');
+
+  $query
+    ->fields('n', array('nid', 'title'))
+    ->condition('n.type',$nodeTypes,'IN')
+    ->condition('n.status', '1')
+    ->condition('b.field_expiration_date_value', date("Y-m-d H:i:s"), '<=');
+
+  $query->distinct();
+  $query->range(0, 50);
+
+  $result= $query->execute()->fetchAllAssoc('nid');
+
+  if(!empty($result)) {
+     $expired_nids = array_keys($result);
+     // Load all nodes in one go for better performance.
+     $expired_items = node_load_multiple($expired_nids);
+     foreach ($expired_items as $node) {
+       // set status property to 0 (unpublished)
+         $node->status = 0;
+       // re-save the node
+         node_save($node);
+     }
+     $nodeLinks = implode(', ', $expired_nids);
+     watchdog('custom_expire_rules', count($expired_items) . " expired Nodes were unpulished. Updated Node ID's: " . $nodeLinks);
+  }
+}

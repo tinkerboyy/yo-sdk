@@ -1,0 +1,12 @@
+name = Auto Join Acquisition Gateway Group Rule
+description = Auto Join Acquisition Gateway Group Rule
+core = 7.x
+package = Organic Groups Feature
+version = 7.x-1.1
+project = auto_join_acquisition_gateway_group_rule
+dependencies[] = entity
+dependencies[] = og
+dependencies[] = rules
+features[features_api][] = api:2
+features[rules_config][] = rules_auto_join_acquisition_gateway_group
+project path = sites/all

@@ -1,0 +1,41 @@
+<div class="accordion-select">
+  <div class="accordion-select-title" ng-class="{'has-selected-items' : selectedItems.length > 0}">
+    <a ng-if="collection.length && collection.length > 0" ng-click="toggle()">
+      <i class="fa" ng-class="{ 'fa-minus-circle': model.expanded, 'fa-plus-circle': !model.expanded }"></i>
+      {{ placeholder }}
+    </a>
+    <span class="disabled" ng-if="!collection.length || collection.length === 0">&nbsp;&nbsp;&nbsp;{{placeholder}}</span>
+    <ag-help class="accordion-select-help" ng-if="helpData.length > 0" data-item="help" data-collection="helpData"></ag-help>
+  </div>
+  <div class="resize-container"
+    ng-show="model.expanded && collection.length > 0"
+    ag-accordion-select-resizable
+    data-target="{{id}}"
+    on-resize="resize($evt, $ui)">
+    <ul class="accordion-select-options"
+        ag-accordion-select-scroll-to-selected>
+      <li data-item-id="{{item.id}}"
+          ng-repeat="item in collection"
+          ng-class="{ 'has-parent': isParentOnEmpty && item[isParentOnEmpty], 'selected': selectedItems.indexOf(item) >= 0 && (!isParentOnEmpty  || (isParentOnEmpty && item[isParentOnEmpty])) }"
+          ng-init="checkSelected(item, valueField, true)"
+          ng-click="doSelect(item, valueField)">
+
+        <a ng-if="!isParentOnEmpty  || (isParentOnEmpty && item[isParentOnEmpty])"
+           ng-class="{ 'text-primary': hover }"
+           ng-mouseenter="hover = true"
+           title="{{ tooltipField ? item[tooltipField] : item.name }}"
+           ng-mouseleave="hover = false">
+           <i class="fa selected-indicator text-success"
+              ng-class="selectedItems.indexOf(item) >= 0 && (!isParentOnEmpty  || (isParentOnEmpty && item[isParentOnEmpty])) ? 'fa-check-square-o' : 'fa-square-o'">
+           </i>
+           {{ item[displayTextField] }}
+          <span class="filter-count"
+            ng-show="filterCounts[item[filterCountKey]] !== undefined && selectedItems.indexOf(item) === -1"> ({{filterCounts[item[filterCountKey]]}})
+          </span>
+        </a>
+        </span>
+        <strong ng-if="isParentOnEmpty && !item[isParentOnEmpty]">{{ item[displayTextField] }}</strong>
+      </li>
+    </ul>
+  </div>
+</div>

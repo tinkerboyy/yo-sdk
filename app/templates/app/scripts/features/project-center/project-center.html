@@ -1,0 +1,20 @@
+<div class="widget project-center">
+  <div class="content">
+    <a href="#/project-center/projects" class="pull-right heavy-mute" title="expand"><i class="fa fa-expand"></i></a>
+    <header class="widget-header text-center">
+      <h4 class="title-banner">Project Center</h4>
+      <p><small>Build Your Acquisition</small></p>
+    </header>
+    <bs-tabs ng-model="tabs.active">
+      <bs-pane data-name="My Projects" data-title="My Projects">
+        <ag-my-projects></ag-my-projects>
+      </bs-pane>
+      <bs-pane data-name="My Tasks" data-title="My Tasks">
+        <ag-my-tasks></ag-my-tasks>
+      </bs-pane>
+       <bs-pane data-name="My Events" data-title="My Events">
+        <ag-my-events></ag-my-events>
+      </bs-pane>
+    </bs-tabs>
+  </div>
+</div>

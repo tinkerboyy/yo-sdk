@@ -1,0 +1,4 @@
+name = SOW Predictive Search
+description = 'This module adds predictive text functionality to the SOW Library search field.'
+core = 7.x
+package = SOW

@@ -1,0 +1,655 @@
+/*
+ * HTML5 Boilerplate
+ *
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+
+body {
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+/*
+ * Remove text-shadow in selection highlight: h5bp.com/i
+ * These selection rule sets have to be separate.
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between images and the bottom of their containers: h5bp.com/i/440
+ */
+
+img {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+    resize: vertical;
+}
+
+/* ==========================================================================
+   Chrome Frame prompt
+   ========================================================================== */
+
+.chromeframe {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+a, span{
+	 -webkit-transition: all 0.3s ease-out 0s;
+        -moz-transition: all 0.3s ease-out 0s;
+        -ms-transition: all 0.3s ease-out 0s;
+        -o-transition: all 0.3s ease-out 0s;
+        transition: all 0.3s ease-out 0s;
+		
+}
+
+a,a:hover, a:active, a:focus {
+  outline: 0;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+   
+/* --- FONTS --- */
+
+@font-face {
+    font-family: 'LibreBaskervilleItalic';
+    src: url('../fonts/LibreBaskerville-Italic-webfont.eot');
+    src: url('../fonts/LibreBaskerville-Italic-webfont-.eot#iefix') format('embedded-opentype'),
+url('../fonts/LibreBaskerville-Italic-webfont.woff') format('woff'),
+url('../fonts/LibreBaskerville-Italic-webfont.ttf') format('truetype'),
+url('../fonts/LibreBaskerville-Italic-webfont.svg#LibreBaskervilleItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'proxima_nova_rgbold';
+    src: url('../fonts/proximanova-bold-webfont.eot');
+    src: url('../fonts/proximanova-bold-webfont-.eot#iefix') format('embedded-opentype'),
+url('../fonts/proximanova-bold-webfont.woff') format('woff'),
+url('../fonts/proximanova-bold-webfont.ttf') format('truetype'),
+url('../fonts/proximanova-bold-webfont.svg#proxima_novasemibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'proxima_novalight';
+    src: url('../fonts/proximanova-light-webfont.eot');
+    src: url('../fonts/proximanova-light-webfont-.eot#iefix') format('embedded-opentype'),
+url('../fonts/proximanova-light-webfont.woff') format('woff'),
+url('../fonts/proximanova-light-webfont.ttf') format('truetype'),
+url('../fonts/proximanova-light-webfont.svg#proxima_novalight') format('svg');
+    font-weight:normal;
+    font-style: normal;
+
+}
+.proximaBold{font-family: 'proxima_nova_rgbold','Times New Roman',Arial, Helvetica, sans-serif;}
+.proximaLite{font-family: 'proxima_novalight',Arial, Helvetica, sans-serif;}
+.baskervilleItalic{font-family: 'LibreBaskervilleItalic', Serif;}
+letterSpacing120{letter-spacing:0.120em;}
+.alpha0{opacity:0;}
+.loader{ position:fixed; height:60px; width:60px; margin-top:-30px; margin-left:-30px; top:50%; left:50%; background:url("../img/loader.gif") center no-repeat; background-size:40px;}
+/* --- ! --- */
+
+
+/* --- GLOBAL --- */
+body{font-family: 'LibreBaskervilleItalic', Serif; font-size:14px; letter-spacing:0.12em; text-align:center; -webkit-font-smoothing: antialiased;}
+#main{min-width:1005px; background:url("../img/bg-redline.png") repeat-y center; background-size:1px;}
+#main>header>.logo{height:104px; width:303px; background:url("../img/logo-ogilvyone.png") no-repeat; background-size:303px; margin:30px auto 30px auto;}
+#main>.scroll1{ width:194px; height:90px; margin:15px auto 15px auto; padding:30px auto 30px auto; background:#FFF;}
+#main>.scroll1>.next>a{ display:block; height:30px; width:30px;  background:url("../img/down@2x.png") center bottom no-repeat; background-size:30px; margin:auto; border:solid 1px #fbabaa;}
+#main>.scroll1>.next>a:hover{background:url("../img/down@2x.png") center top no-repeat; background-size:30px; border:solid 1px #f7505a;}
+#main>.scroll{ width:194px; height:60px; margin:0px auto 20px auto; color:#f7505a; font-size:12px; background:#FFF;}
+#main>.scroll>.next>a{ display:block; height:30px; width:30px;  background:url("../img/down@2x.png") center bottom no-repeat; background-size:30px; margin:auto; border:solid 1px #fbabaa;}
+#main>.scroll>.next>a:hover{background:url("../img/down@2x.png") center top no-repeat; background-size:30px; border:solid 1px #f7505a;}
+#main>.number>div{ margin:250px auto 0px auto; width:42px; height:41px; background:url("../img/bg-numbers.png") no-repeat; font-size:12px; line-height:41px; overflow:hidden; padding-left:1px; text-align:center; color:#f7505a; }
+#main>section strong{ color:#f7505a; font-family: 'proxima_nova_rgbold','Times New Roman',Arial, Helvetica, sans-serif;}
+#main>section>h1{font-size:60px; line-height:60px; margin:0px auto 0px auto; text-transform:uppercase;}
+.mainWidth{ width:1005px;}
+.scrollText{color:#f7505a; font-size:12px; margin:12px 0px 12px 0px; line-height:15px;  text-transform:uppercase;}
+.sectionPadding{padding-top:80px; padding-bottom:30px;}
+
+/* --- ! --- */
+
+/* --- NAV --- */
+#main>.pagination{ position:fixed; right:6px; top:50%; margin-top:-116px; z-index:1;}
+#main>.pagination>ul>li>a{display:block; height:10px; width:10px; padding:12px 12px 12px 12px;}
+#main>.pagination>ul>li>a>span{ display:block; height:8px; width:8px; background-color:#f7505a; opacity:0.3; transform:rotate(45deg); -ms-transform:rotate(45deg); -webkit-transform:rotate(45deg); -moz-transform:rotate(45deg); }
+#main>.pagination>ul>li>a:hover>span{opacity:1;}
+#main>.pagination>ul>li>a>.navSelect{opacity:1;}
+/* --- ! --- */
+
+/* --- VIDEO --- */
+#main>header>.video>#youtube{opacity:0; background:rgba(0, 0, 0, 0.6);}
+#main>header>.video>#youtube>.close{width:40px; height:40px; top:40px; right:0px;}
+#main>header>.video>#youtube>.close>a{display:block; opacity:1; width:40px; height:40px; background:url("../img/close@2x.png") no-repeat center; background-color:#f7505a; background-size:40px;}
+#main>header>.video{width:100%; height:500px; background:url("../img/bg-video.jpg") no-repeat center top; background-size:cover; color:#FFF; }
+#main>header>.video>.description{width:700px; margin-top:-185px; margin-left:-350px; text-align:center;}
+#main>header>.video>.description>h1{font-size:118px; line-height:118px; margin:0px 0px 0px 0px; letter-spacing:0.12em;}
+#main>header>.video>.description>h2{font-size:36px;line-height:35px;  margin:15px 0px 0px 0px; letter-spacing:0.12em; -webkit-font-smoothing: antialiased;}
+#main>header>.video>.description>.play{text-decoration:none; color:#FFF; display:block; height:70px; width:650px; margin:40px auto 40px auto; background:#f7505a;}
+#main>header>.video>.description>.play>.playIco{ display:block; width:70px; height:70px; background:url("../img/play-ico.png") center no-repeat; border-left:solid 1px #fc7980;}
+#main>header>.video>.description>.play>.cta{ width:578px; font-size:16px; text-transform:uppercase; line-height:72px; letter-spacing:0.25em;-webkit-font-smoothing: antialiased;}
+#main>header>.video>.description>.share{ width:140px; margin:auto;}
+#main>header>.video>.description>.share>h3{width:136px; font-size:12px; line-height:16px; margin:auto; text-align:center; letter-spacing:0.3em;}
+#main>header>.video>.description>.share>h3>.title{ margin:auto 18px auto 18px;}
+#main>header>.video>.description>.share>h3>.line{ display:block; width:20px; height:1px; margin-top:5%; border-top:solid 1px #FFF;}
+#main>header>.video>.description>.share>ul{ margin-left:-8px; margin-bottom:0px;}
+#main>header>.video>.description>.share>ul>li{width:25%;}
+#main>header>.video>.description>.share>ul>li>a{ display:block; width:30px; height:30px; border-radius:15px;}
+#main>header>.video>.description>.share>ul>li>a:hover{ background-color:rgba(255,255,255,0.3);}
+#main>header>.video>.description>.share>ul>li>a>img{ margin-top:6px; text-align:center;}
+/* --- ! --- */
+
+
+/* --- 01 WHAT IS BIGDATA --- */
+#main>#whatisbigdata{margin:auto; background:#FFF;}
+#main>#whatisbigdata>figure{ margin-top:40px; width:100%; height:178px; background:url("../img/tetris.gif") no-repeat bottom; background-size:965px;}
+#main>#whatisbigdata>p{ font-size:23px; margin:40px auto 0px auto;}
+/* --- ! --- */
+
+/* --- 02 WHY NOW --- */
+#main>#whynow{margin:auto; background:#FFF;}
+#main>#whynow>.clearfix>.cul{ width:33%; margin-top:60px;}
+#main>#whynow>.clearfix>.cul>figure{ width:230px; height:230px; margin:auto; border-radius:50%; }
+#main>#whynow>.clearfix>.cul>.img01{ background: url("../img/s02-cul01-smartphoneswithgps.png") center no-repeat, url("../img/bg-red-noise.png");}
+#main>#whynow>.clearfix>.cul>.img02{ background: url("../img/s02-cul02-aerialsensors.png") center no-repeat, url("../img/bg-red-noise.png");}
+#main>#whynow>.clearfix>.cul>.img03{ background: url("../img/s02-cul03-socialnetwork.png") center no-repeat, url("../img/bg-red-noise.png");}
+#main>#whynow>.clearfix>.cul>h2{ font-size:16px; text-transform:uppercase; color:#f7505a; letter-spacing:0.2em; margin-top:40px;}
+#main>#whynow>.clearfix>.cul>.line{ margin:20px auto 20px auto; width:50px; height:1px; background:#f7505a url("../img/bg-redline.png");}
+#main>#whynow>.clearfix>.cul>p{ font-size:14px; line-height:22px; width:80%; margin:auto;}
+/* --- ! --- */
+
+/* --- 03 HOW BIG IS BIGDATA --- */
+#main>#howbig{margin:auto; background:#FFF;}
+#main>#howbig>.clearfix>.cul{ width:25%; margin-top:60px;}
+#main>#howbig>.clearfix>.cul .img01{ background:url("../img/sprite-infographics01@2x.png") left 0px no-repeat;  background-size:250px; height:200px;}
+#main>#howbig>.clearfix>.cul .img02{ background:url("../img/sprite-infographics01@2x.png") left -250px no-repeat;  background-size:250px; height:200px;}
+#main>#howbig>.clearfix>.cul .img03{ background:url("../img/sprite-infographics01@2x.png") left -500px no-repeat;  background-size:250px; height:200px;}
+#main>#howbig>.clearfix>.cul .img04{ background:url("../img/sprite-infographics01@2x.png") left -1750px no-repeat;  background-size:250px; height:200px;}
+#main>#howbig>.clearfix>.cul>figure{ width:200px; margin:auto;}
+#main>#howbig>.clearfix>.cul>p{ font-size:14px; line-height:22px; width:80%; margin:20px auto 0px auto;}
+/* --- ! --- */
+
+/* --- 04 HOW PEOPLE IS USING BIGDATA --- */
+#main>#howpeople{margin:auto; background:#FFF;}
+#main>#howpeople>.clearfix>.cul{ width:25%; margin-top:60px;}
+#main>#howpeople>.clearfix>.cul .img01{ background:url("../img/sprite-infographics01@2x.png") left -750px no-repeat;  background-size:250px; height:200px;}
+#main>#howpeople>.clearfix>.cul .img02{ background:url("../img/sprite-infographics01@2x.png") left -1000px no-repeat;  background-size:250px; height:200px;}
+#main>#howpeople>.clearfix>.cul .img03{ background:url("../img/sprite-infographics01@2x.png") left -1250px no-repeat;  background-size:250px; height:200px;}
+#main>#howpeople>.clearfix>.cul .img04{ background:url("../img/sprite-infographics01@2x.png") left -1470px no-repeat;  background-size:250px; height:200px;}
+#main>#howpeople>.clearfix>.cul>h2{ font-size:16px; text-transform:uppercase; color:#f7505a; letter-spacing:0.2em; margin-top:0px;}
+#main>#howpeople>.clearfix>.cul>.line{ margin:20px auto 20px auto; width:50px; height:1px; background:#f7505a url("../img/bg-redline.png");}
+#main>#howpeople>.clearfix>.cul>figure{ width:200px; margin:auto;}
+#main>#howpeople>.clearfix>.cul>p{ font-size:14px; line-height:22px; width:80%; margin:20px auto 0px auto;}
+/* --- ! --- */
+
+/* --- 05 OUR AMBITION --- */
+#main>#ourambition{margin:auto; padding-top:80px; padding-bottom:80px; background:#FFF;}
+#main>#ourambition>h1{ line-height:70px;}
+#main>#ourambition>.clearfix>.cul{ width:33%;}
+#main>#ourambition>.clearfix>.cul>.verticalLine{background:url("../img/bg-redline.png") repeat-y center; background-size:1px; height:100px;}
+#main>#ourambition>.clearfix>.center>.verticalLine{height:250px; margin-top:100px;}
+#main>#ourambition .diamond{ background:#FFF; overflow:hidden; height:200px; width:200px; transform:rotate(45deg); -ms-transform:rotate(45deg); -webkit-transform:rotate(45deg); -moz-transform:rotate(45deg); margin:auto;}
+#main>#ourambition .diamond>img{transform:rotate(-45deg); -ms-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); -moz-transform:rotate(-45deg); margin-top:-78%; margin-left:-78%; width:160%; height:160%;}
+#main>#ourambition>.clearfix>.cul>.space{ height:20px;}
+#main>#ourambition>.clearfix>.cul>h2{ font-size:16px; text-transform:uppercase; color:#f7505a; letter-spacing:0.2em; margin-top:60px;}
+#main>#ourambition>.clearfix>.cul>.line{ margin:20px auto 20px auto; width:50px; height:1px; background:#f7505a url("../img/bg-redline.png");}
+#main>#ourambition>.clearfix>.cul>p{ font-size:14px; line-height:22px; width:80%; margin:20px auto 0px auto;}
+/* --- ! --- */
+
+footer { margin:-635px auto 0px auto; height:400px; padding-top:204px; padding-left:45%;}
+footer>.cont{ position:absolute; width:600px; margin:auto; margin-left:100px; margin-top:-50px; height:500px; z-index:50;}
+footer>.cont>.line{ height:1px; width:120px; margin:50px auto 50px auto; background:#FFF; opacity:0.5;}
+footer>.trinagle {height:800px; width:800px; background:url("../img/bg-red-noise.png"); transform:rotate(45deg); -ms-transform:rotate(45deg); -webkit-transform:rotate(45deg); -moz-transform:rotate(45deg);}
+footer>.cont>p{ color:#FFF; font-size:25px;}
+footer>.cont>p>a{ color:#FFF; text-decoration:none; font-size:38px;}
+footer>.cont>.social{width:271px; margin:auto;}
+footer>.cont>.social>.fb{ overflow:hidden; width:84px; padding-right:20px;}
+footer>.cont>.social>.tw{ overflow:hidden; width:87px;  padding-right:20px;}
+footer>.cont>.social>.g{ overflow:hidden; width:60px;}
+.bigTwitter{ height:43px; width:63px; background:url("../img/big-tw@2x.png") no-repeat center; background-size:63px; margin:auto;}
+iframe{ overflow:hidden;}
+
+#debug{position:fixed; bottom: 0px;  width:100%; background-color:#333333; color:#FFFFFF; font-size:0.750em; opacity:0.5; z-index:200; text-align:center; font-family:Arial, Helvetica, sans-serif;}
+#debug p{margin: 10px 10px 10px 10px;}
+
+
+/* --- Awwwards Ribbons --- */
+#awwwards {position:absolute; top:25px; z-index:9999;}
+#awwwards.left {left:0;}
+#awwwards.right {right:0;}
+#awwwards a {display:block;width:70px;height:105px;text-indent:-8000px;background-repeat:no-repeat;background-position: 0 0;overflow:hidden;}
+#awwwards.left.black a {background-image:url('../ribbons/awwwards_sotd_black_left.png');}
+#awwwards.right.black a {background-image:url('../ribbons/awwwards_sotd_black_right.png');}
+#awwwards.left.white a {background-image:url('../ribbons/awwwards_sotd_white_left.png');}
+#awwwards.right.white a {background-image:url('../ribbons/awwwards_sotd_white_right.png');}
+#awwwards.left.green a {background-image:url('../ribbons/awwwards_sotd_green_left.png');}
+#awwwards.right.green a {background-image:url('../ribbons/awwwards_sotd_green_right.png');}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+   
+
+/*
+ * Image replacement
+ */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    /* IE 6/7 fallback */
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+/*
+ * Hide from both screenreaders and browsers: h5bp.com/u
+ */
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+/*
+ * Hide only visually, but have it available for screenreaders: h5bp.com/v
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element to be focusable
+ * when navigated to via the keyboard: h5bp.com/p
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+/*
+ * Hide visually and from screenreaders, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/*
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+
+.clearfix {
+    *zoom: 1;
+}
+
+.ul-nostyle{ padding:0px 0px 0px 0px; list-style:none;}
+.maxWidth { width:100%;}
+.maxHeight { height:100%; margin:0 auto;}
+.floatL{ float:left; }
+.floatR{ float:right; }
+.relative{ position:relative;}
+.fixed{ position:fixed;}
+.absolute{position:absolute;}
+.centerAbsolute{position:absolute; top:50%; left:50%;}
+.collapsfix{overflow:hidden;}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+    
+   
+@media only screen and (max-width : 1024px)  {
+	
+	#main>header>.logo{height:78px; width:227px; background:url("../img/logo-ogilvyone@2x.png") no-repeat; background-size:contain; margin:10px auto 10px auto;}
+	#main{min-width:100%;}
+	.mainWidth{width:90%;}
+}
+
+@media only screen and (max-width : 970px)  {
+	#awwwards {display: none;}
+	#main>section>h1{font-size:45px; line-height:45px; margin:0px auto 0px auto; text-transform:uppercase;}
+	
+	main>header>.video>.description{width:520px; margin-top:-150px; margin-left:-260px; text-align:center;}
+	#main>header>.video>.description>h1{font-size:90px; line-height:90px; margin:0px 0px 0px 0px; letter-spacing:0.12em;}
+	#main>header>.video>.description>h2{font-size:29px;line-height:29px;  margin:0px 0px 0px 0px; letter-spacing:0.08em}
+	#main>header>.video>.description>.play{text-decoration:none; color:#FFF; display:block; height:70px; width:480px; margin:20px auto 20px auto;}
+	#main>header>.video>.description>.play>.playIco{ display:block; width:70px; height:70px; background:url("../img/play-ico.png") center no-repeat;}
+	#main>header>.video>.description>.play>.cta{ width:408px; font-size:12px;}
+	
+	
+	#main>#whynow>.clearfix>.cul{ width:33%; margin-top:60px;}
+	#main>#whynow>.clearfix>.cul>figure{ width:180px; height:180px; margin:auto; border-radius:50%; }
+	#main>#howbig>.clearfix>.cul{ width:50%; margin-top:50px; height:300px;}
+	#main>#howpeople>.clearfix>.cul{ width:50%; margin-top:50px; height:370px;}
+	#main>#ourambition>.clearfix>.cul{ width:33%;}
+	#main>#ourambition>h1{font-size:35px; line-height:38px;}
+	
+	footer { margin:0px auto 0px auto; padding-top:50px; height:300px; padding-left:0px; background:url("../img/bg-red-noise.png");}
+	footer>.cont{width:100%; margin:auto; height:auto; margin-left:0px; margin-top:0px;}
+	footer>.cont>.line, .br1{display:none;}
+	footer>.trinagle {display:none;}
+	footer>.cont>p{ color:#FFF; font-size:25px;}
+	footer>.cont>p>a{ color:#FFF; text-decoration:none; font-size:45px;}
+	footer>.cont>.social{width:271px; margin:auto;}
+	footer>.cont>.social>.fb{ overflow:hidden; width:84px; padding-right:20px;}
+	footer>.cont>.social>.tw{ overflow:hidden; width:87px;  padding-right:20px;}
+	footer>.cont>.social>.g{ overflow:hidden; width:60px;}
+	
+	.sectionPadding{padding-top:40px; padding-bottom:30px;}
+	#main>#ourambition{padding-top:40px;}
+	
+	#main>#ourambition>.clearfix>.cul{ width:50%;}
+	#main>#ourambition>.clearfix>.center{ height:484px;}
+	#main>#ourambition>.clearfix>.cul .verticalLine{ visibility:hidden; display:none;}
+	#main>#ourambition .diamond{background:#FFF; overflow:hidden; height:150px; width:150px; transform:rotate(45deg); -ms-transform:rotate(45deg); -webkit-transform:rotate(45deg); -moz-transform:rotate(45deg); margin:60px auto 0px auto;}
+	#main>#ourambition .diamond>img{transform:rotate(-45deg); -ms-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); -moz-transform:rotate(-45deg); margin-top:-78%; margin-left:-78%; width:160%; height:160%;}
+	#main>#ourambition>.clearfix>.cul>.space{ height:20px;}
+	#main>#ourambition>.clearfix>.cul>h2{ font-size:16px; text-transform:uppercase; color:#f7505a; letter-spacing:0.2em; margin-top:60px;}
+	#main>#ourambition>.clearfix>.cul>.line{ margin:20px auto 20px auto; width:50px; height:1px; background:#f7505a url("../img/bg-redline.png");}
+	#main>#ourambition>.clearfix>.cul>p{ font-size:14px; line-height:22px; width:235px; margin:20px auto 0px auto;}
+}
+
+@media only screen and (max-height : 750px)  {
+	#main>header>.logo{height:78px; width:227px; background:url("../img/logo-ogilvyone@2x.png") no-repeat; background-size:contain; margin:15px auto 15px auto;}
+	#main>header>.video>.description{width:520px; margin-top:-150px; margin-left:-260px; text-align:center;}
+	#main>header>.video>.description>h1{font-size:90px; line-height:90px; margin:0px 0px 0px 0px; letter-spacing:0.12em;}
+	#main>header>.video>.description>h2{font-size:29px;line-height:29px;  margin:0px 0px 0px 0px; letter-spacing:0.08em}
+	#main>header>.video>.description>.play{text-decoration:none; color:#FFF; display:block; height:70px; width:480px; margin:20px auto 20px auto;}
+	#main>header>.video>.description>.play>.playIco{ display:block; width:70px; height:70px; background:url("../img/play-ico.png") center no-repeat; border-right:solid 1px #f86c6f;}
+	#main>header>.video>.description>.play>.cta{ width:408px; font-size:12px;}
+
+		
+}
+
+
+
+@media only screen and (max-width : 650px)  {
+	
+
+/* --- GLOBAL --- */
+.mainWidth{ width:80%;}
+#main>header>.logo{height:52px; width:151px; background:url("../img/logo-ogilvyone@2x.png") no-repeat; background-size:contain; margin:18px auto 18px auto;}
+/* --- ! --- */	
+#main>.number>div{ margin:250px auto 0px auto; width:42px; height:41px; background:url("../img/bg-numbers.png") no-repeat; font-size:12px; line-height:41px; overflow:hidden; padding-left:1px; text-align:center; color:#f7505a; }
+#main>section strong{ color:#f7505a; font-family: 'proxima_nova_rgbold','Times New Roman',Arial, Helvetica, sans-serif;}
+#main>section>h1{font-size:30px; line-height:30px; margin:0px auto 10px auto; text-transform:uppercase;}
+#main>.scroll1{ width:194px; height:90px; margin:8px auto 8px auto; padding:30px auto 30px auto; background:#FFF;}
+
+
+/* --- VIDEO --- */
+#main>header>.video{width:100%; height:280px;}
+#main>header>.video>.description{width:300px; height:230px; margin-top:-115px; margin-left:-150px; text-align:center;}
+#main>header>.video>.description>h1{font-size:50px; line-height:50px;}
+#main>header>.video>.description>h2{font-size:16px;line-height:16px; margin:8px 0px 0px 0px; font-family: 'proxima_nova_rgbold','Times New Roman',Arial, Helvetica, sans-serif;}
+#main>header>.video>.description>h3{ margin:0px 0px 0px 0px; overflow:hidden; height:20px;}
+#main>header>.video>.description>.play{ width:70px; margin:20px auto 0px auto; border-radius:70px;}
+#main>header>.video>.description>.play>.playIco{ display:block; width:69x; height:70px; border-radius:70px; background:url("../img/play-ico.png") center no-repeat; border:solid 0px;}
+#main>header>.video>.description>.play>.cta{ visibility:hidden; display:none;}
+#main>header>.video>.description>.share{ width:275px; position:absolute; bottom:0px; left:15px;}
+#main>header>.video>.description>.share>h3{ display:block; width:100px;  margin:auto; float:left; border-left:solid 1px #FFF;}
+#main>header>.video>.description>.share>h3>.title{font-size:12px; letter-spacing:0.4em; font-family: 'proxima_nova_rgbold','Times New Roman',Arial, Helvetica, sans-serif; text-transform:uppercase;}
+#main>header>.video>.description>.share>h3>.line{visibility:hidden;}
+#main>header>.video>.description>.share>ul{ width:180px; float:left; margin-top:0px; border-left:solid 1px #FFF; border-right:solid 1px #FFF;}
+#main>header>.video>.description>.share>ul>li{width:24%;}
+#main>header>.video>.description>.share>ul>li>a{margin:auto;}
+/* --- ! --- */
+
+
+
+/* --- 01 WHAT IS BIGDATA --- */
+#main>#whatisbigdata{ width:90%; margin:auto; padding-top:30px; padding-bottom:15px; background:#FFF;}
+#main>#whatisbigdata>p{ font-size:18px; margin:20px auto 0px auto;}
+#main>#whatisbigdata br{display:none;}
+/* --- ! --- */
+
+
+/* --- 02 WHY NOW --- */
+#main>#whynow{margin:auto; padding-top:30px; padding-bottom:30px; background:#FFF;}
+#main>#whynow br{display:none;}
+#main>#whynow>.clearfix>.cul{ width:100%; margin-top:20px;}
+#main>#whynow>.clearfix>.cul>figure{ width:230px; height:230px; margin:auto; border-radius:50%; }
+#main>#whynow>.clearfix>.cul>h2{ font-size:14px; text-transform:uppercase; color:#f7505a; letter-spacing:0.2em; margin-top:20px;}
+#main>#whynow>.clearfix>.cul>.line{ margin:20px auto 20px auto; width:50px; height:1px; background:#f7505a url("../img/bg-redline.png");}
+#main>#whynow>.clearfix>.cul>p{ font-size:14px; line-height:22px; width:80%; margin:auto;}
+/* --- ! --- */
+
+
+/* --- 03 HOW BIG IS BIGDATA --- */
+#main>#howbig{margin:auto; padding-top:30px; padding-bottom:30px; background:#FFF;}
+#main>#howbig>.clearfix>.cul{ width:100%; margin-top:30px; height:auto;}
+#main>#howbig>.clearfix>.cul>p{ font-size:14px; line-height:22px; width:80%; margin:20px auto 0px auto;}
+/* --- ! --- */
+
+/* --- 04 HOW PEOPLE IS USING BIGDATA --- */
+#main>#howpeople{margin:auto; padding-top:30px; padding-bottom:30px; background:#FFF;}
+#main>#howpeople>.clearfix>.cul{ width:100%; margin-top:0px; height:auto;}
+#main>#howpeople>.clearfix>.cul>h2{ font-size:16px; text-transform:uppercase; color:#f7505a; letter-spacing:0.2em; margin-top:0px;}
+#main>#howpeople>.clearfix>.cul>.line{ margin:20px auto 20px auto; width:50px; height:1px; background:#f7505a url("../img/bg-redline.png");}
+#main>#howpeople>.clearfix>.cul>p{ font-size:14px; line-height:22px; width:80%; margin:20px auto 0px auto;}
+/* --- ! --- */
+
+
+/* --- 05 OUR AMBITION --- */
+#main>#ourambition{margin:auto; padding-top:30px; padding-bottom:0px; background:#FFF;}
+#main>#ourambition>h1{ font-size:20px; line-height:26px; margin-bottom:60px;}
+#main>#ourambition br{display:none;}
+#main>#ourambition>.clearfix>.cul{ width:100%; height:auto;}
+#main>#ourambition>.clearfix>.cul>.verticalLine{display:none; visibility:hidden;}
+#main>#ourambition>.clearfix>.center>.verticalLine{display:none; visibility:hidden;}
+#main>#ourambition>.clearfix>.center{ height:auto;}
+#main>#ourambition .diamond>img{transform:rotate(-45deg); -ms-transform:rotate(-45deg); -webkit-transform:rotate(-45deg); -moz-transform:rotate(-45deg); margin-top:-78%; margin-left:-78%;}
+#main>#ourambition>.clearfix>.cul>.space{ height:0px;}
+#main>#ourambition>.clearfix>.cul>h2{ font-size:16px; text-transform:uppercase; color:#f7505a; letter-spacing:0.2em; margin-top:60px;}
+#main>#ourambition>.clearfix>.cul>.line{ margin:20px auto 20px auto; width:50px; height:1px; background:#f7505a url("../img/bg-redline.png");}
+#main>#ourambition>.clearfix>.cul>p{ font-size:14px; line-height:22px; width:80%; margin:20px auto 60px auto;}
+#main>#ourambition .diamond{ margin:0px auto 0px auto;}
+/* --- ! --- */
+
+footer>.cont>p{ width:85%; margin-left:auto; margin-right:auto;}
+
+}
+
+@media only screen and (max-width : 500px)  {
+	
+	.pagination{ visibility:hidden; display:none;}
+	footer>.cont>p>a{ color:#FFF; text-decoration:none; font-size:36px;}
+}
+
+@media print,
+       (-o-min-device-pixel-ratio: 5/4),
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 120dpi) {
+    /* Style adjustments for high resolution devices */
+#main>.number>div{background:url("../img/bg-numbers@2x.png") no-repeat right; width:42px; background-size:42px;}
+#main>#whynow>.clearfix>.cul>.img01{ background: url("../img/s02-cul01-smartphoneswithgps@2x.png") center no-repeat, url("../img/bg-red-noise.png"); background-size:contain;}
+#main>#whynow>.clearfix>.cul>.img02{ background: url("../img/s02-cul02-aerialsensors@2x.png") center no-repeat, url("../img/bg-red-noise.png"); background-size:contain;}
+#main>#whynow>.clearfix>.cul>.img03{ background: url("../img/s02-cul03-socialnetwork@2x.png") center no-repeat, url("../img/bg-red-noise.png"); background-size:contain;}
+
+#awwwards a {-moz-background-size: 70px 105px;-ie-background-size:70px 105px;-o-background-size:70px 105px;-webkit-background-size:70px 105px;background-size:70px 105px;}
+#awwwards.left.black a {background-image:url('../ribbons/awwwards_sotd_black_left2x.png');}
+#awwwards.right.black a {background-image:url('../ribbons/awwwards_sotd_black_right2x.png');}
+#awwwards.left.white a {background-image:url('../ribbons/awwwards_sotd_white_left2x.png');}
+#awwwards.right.white a {background-image:url('../ribbons/awwwards_sotd_white_right2x.png');}
+#awwwards.left.green a {background-image:url('../ribbons/awwwards_sotd_green_left2x.png');}
+#awwwards.right.green a {background-image:url('../ribbons/awwwards_sotd_green_right2x.png');}
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid required HTTP connection: h5bp.com/r
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster: h5bp.com/s */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links for images, or javascript/internal links
+     */
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group; /* h5bp.com/t */
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}

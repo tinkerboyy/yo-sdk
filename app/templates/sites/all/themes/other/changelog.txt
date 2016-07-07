@@ -1,0 +1,29 @@
+1.0.5 (05/14/14)
+  *Updated Drupal core in full install.
+  *Now calling jQuery from theme file rather than Google CDN to fix issue related to PHP 5.3 and JS aggregation.
+	*Fixed issue with AJAX theme setting.
+
+1.0.4 (03/28/14)
+  *Changed output of portfolio slideshow in node--portfolio.tpl.php.
+  *Fixed several responsive bugs related to portfolio/blog hover overlay.
+  *Minor CSS tweaks.
+
+1.0.3 (02/27/14)
+  *Minor tweaks to Portfolio node template file.
+  *Fixed issue with third level navigation.
+  *Implemented custom node pagination function.
+  *Added AJAX content window theme setting.
+
+1.0.2 (1/30/14)
+  *Added target="_blank" to Portfolio Website HTML tag. 
+  *Fixed some issues with hook_form functions in template.php.
+  *Style improvements to add/edit comment page.
+  *Improvements to taxonomy pages.
+  *Fixed responsive issue with portfolio/article node templates. 
+
+1.0.1 (1/15/14)
+  *Added missing viewport meta tag.
+  *Updated Drupal Core in full install.
+
+1.0 (12/26/13)
+  *Initial release.

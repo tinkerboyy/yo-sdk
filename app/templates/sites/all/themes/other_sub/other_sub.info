@@ -1,0 +1,24 @@
+name = Other sub
+description = A sub-theme of Other. 
+core = 7.x
+engine = phptemplate
+
+base theme = other
+
+; Call style sheets.
+stylesheets[all][] = css/custom.css
+
+; Define theme regions.
+
+regions[site_nav] = Site Navigation
+regions[before_content] = Before Content
+regions[content] = Content
+regions[sidebar_primary] = Sidebar Primary
+regions[sidebar_secondary] = Sidebar Secondary
+
+; Define theme setting defaults.
+
+settings[ajax_loader] = 1
+settings[meta_date] = 1
+settings[meta_title] = 1
+settings[meta_tags] = 1

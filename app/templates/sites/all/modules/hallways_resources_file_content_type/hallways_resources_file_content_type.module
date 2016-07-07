@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Hallways Resources file Content Type feature.
+ */
+
+include_once 'hallways_resources_file_content_type.features.inc';

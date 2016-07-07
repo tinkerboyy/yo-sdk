@@ -1,0 +1,91 @@
+.ag-app-with-sidebar {
+  h1.ag-app-header {
+    margin-top: 20px;
+    text-transform: uppercase;
+  }
+
+  .ag-menu-first-child {
+    height: 100%;
+  }
+
+  .ag-left-menu,
+  .ag-right-menu,
+  .ag-scrollable-main-content {
+    top: 45px;
+    position: fixed;
+    height: calc(~"100% - 45px");
+  }
+
+  .ag-left-menu,
+  .ag-right-menu {
+    width: 235px;
+    padding-left: 10px;
+  }
+
+  .ag-left-menu {
+    border-right: 1px solid #DDD;
+  }
+
+  .ag-right-menu {
+    border-left: 1px solid #DDD;
+    right: 0;
+  }
+
+  .ag-left-menu .ag-left-menu-content,
+  .ag-right-menu .ag-right-menu-content,
+  .ag-scrollable-main-content > div {
+    height: calc(~"100% - 67px");
+  }
+
+  .ag-left-menu .ag-left-menu-content .asScrollable-content,
+  .ag-right-menu .ag-right-menu-content .asScrollable-content,
+  .ag-scrollable-main-content .asScrollable-content {
+    padding-bottom: 100px;
+  }
+
+  .ag-left-menu .ag-left-menu-content .asScrollable-content .scroll-content-container,
+  .ag-right-menu .ag-right-menu-content .asScrollable-content .scroll-content-container,
+  .ag-scrollable-main-content .asScrollable-content .scroll-content-container {
+    padding-right: 15px;
+  }
+
+  .ag-scrollable-main-content {
+    margin-left: 245px;
+  }
+
+  .ag-main-content {
+    margin-left: 245px;
+    padding-right: 10px;
+  }
+
+  .ag-main-content.has-results {
+    padding-top: 55px;
+  }
+
+  .ag-main-content-pagination {
+    position: fixed;
+    top: 45px;
+    padding-top: 10px;
+    z-index: 999;
+    background: white;
+    width: calc(~"100% - 265px");
+    padding-right: 10px;
+
+    .view-controls-list {
+      padding: 0 !important;
+    }
+  }
+}
+
+.ag-app-with-sidebar.has-right-sidebar .ag-main-content {
+  margin-right: 245px;
+}
+.ag-app-with-sidebar.has-right-sidebar .ag-scrollable-main-content {
+  margin-right: 235px;
+
+  > div {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 10px;
+  }
+}

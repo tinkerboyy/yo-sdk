@@ -1,0 +1,11 @@
+<?php
+
+  /*
+  |--------------------------------------------------------------------------
+  | Empty File: gateway_user_preferences.module
+  |--------------------------------------------------------------------------
+  |
+  | This file is required by Drupal. The module was created to automatically
+  | add the user_preferences table to the Drupal database.
+  |
+  */

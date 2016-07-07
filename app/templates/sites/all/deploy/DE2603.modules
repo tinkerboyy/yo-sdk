@@ -1,0 +1,11 @@
+; Environment
+environment = local
+
+; Enable modules list
+[enable]
+modules[] = article_expiration_notifications
+modules[] = ultimate_cron
+modules[] = cron_job
+
+
+[disable]

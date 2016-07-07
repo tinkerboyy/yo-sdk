@@ -1,0 +1,11 @@
+name = Hallways Header Boxes
+description = Hallways Header Boxes
+core = 7.x
+package = Features
+version = 7.x-1.13
+project = homepage_gateways_views_and_nodequeues
+dependencies[] = boxes
+dependencies[] = ctools
+features[box][] = homepage_lca_content
+features[box][] = user_hero_content
+features[features_api][] = api:2

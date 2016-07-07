@@ -1,0 +1,12 @@
+<?php
+/**
+ * @file
+ * hallways_article_sorting_views.features.inc
+ */
+
+/**
+ * Implements hook_views_api().
+ */
+function hallways_article_sorting_views_views_api($module = NULL, $api = NULL) {
+  return array("api" => "3.0");
+}

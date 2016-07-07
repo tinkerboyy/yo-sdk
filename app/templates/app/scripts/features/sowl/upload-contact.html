@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="sow-tutorial-panel">
+        <div class="panel panel-default" ng-class="{'sow-contrib-padding-left': $parent.sowl.currentPage == 'landing'}">
+            <div class="panel-body">
+                <h3 class="DINCondensedBold">Want to understand how the SOW Library works and what you will find here?</h3>
+
+                <p>Click below for an overview.</p>
+                <a class="btn btn-warning sow-contrib-button" ng-class="{'col-lg-12': $parent.sowl.currentPage != 'landing'}" href="/app/#/tutorials/sowl" target="_blank">Take me to the tutorial</a>
+
+            </div>
+        </div>
+  </div>
+  <div class="sow-submit-panel" ng-if="!publicUser">
+        <div class="panel panel-default" ng-class="{'sow-contrib-padding-left': $parent.sowl.currentPage == 'landing'}">
+            <div class="panel-body">
+                <h3 class="DINCondensedBold">Have a Statement of Work that you would like to add to the archive and share?</h3>
+
+                <p>Click below to upload your SOW.</p>
+                <a class="btn btn-warning sow-contrib-button" ng-class="{'col-lg-12': $parent.sowl.currentPage != 'landing'}" data-toggle="modal" ng-click="uploadSow();">Submit your SOWs here</a>
+
+            </div>
+        </div>
+  </div>
+  <div class="sow-contact-panel">
+        <div class="panel panel-default" ng-class="{'sow-contrib-padding-right': $parent.sowl.currentPage == 'landing'}">
+            <div class="panel-body">
+                <h3 class="DINCondensedBold">Have some ideas for improvements?</h3>
+
+                <p>Click below to send us an email letting us know what you think or ways we can improve.</p>
+
+                <a class="btn btn-warning sow-contrib-button" ng-class="{'col-lg-12': $parent.sowl.currentPage != 'landing'}" href="mailto:hallways_librarian@gsa.gov">Contact Us</a>
+
+           </div>
+        </div>
+     </div>
+  </div>

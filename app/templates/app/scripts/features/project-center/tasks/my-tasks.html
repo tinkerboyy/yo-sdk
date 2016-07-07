@@ -1,0 +1,59 @@
+<div ag-collection="[ { resourceName: 'Tasks' } ]" class="my-tasks" ng-class="{'fullView' : fullView }">
+  <h1 ng-if="fullView" class="no-margins heavy-mute">
+    <i class="fa fa-th-list"></i> My Tasks
+  </h1>
+  <div class="row">
+    <div class="col-xs-12">
+      <button bs-popover container="body"
+        title="New Task"
+        content-template="scripts/features/project-center/tasks/my-tasks-entry.html"
+        placement="{{ fullView ? 'auto' : 'right' }}"
+        class="btn btn-new-entity-primary add-task pull-left btn-link no-padding">
+        <i class="fa fa-plus-circle"></i>
+        New Task
+      </button>
+    </div>
+  </div>
+  <div class="row scrollable">
+    <ul class="list-group">
+      <li ng-repeat="entity in tasks.data.collection | filter: filter | orderBy: 'due'" class="list-group-item no-outer-borders" style="padding: 5px">
+        <a ng-click="tasks.save({ id: entity.id, completed: (entity.completed === '0' ? 1 : 0) })">
+          <i class="fa fa-fw  act-color medium-icon" ng-class="{ 'fa-check-circle-o': entity.completed === '1', 'fa-circle-o': entity.completed === '0' }"></i>
+        </a>
+        <div class="task vertical-middle">
+          <div class="task-name">{{entity.name}}</div>
+          <div class="small task-due">Due: {{entity.due | agDateFormat: 'MM/dd/yyyy'}}</div>
+          <div class="text-muted small" ng-if="!project && entity.projectStatus === '1'">
+            Project:
+            <a ng-if="!fullView" project-link="{{!fullView ? entity.projectId : null }}">{{entity.projectName}}</a>
+            <a ng-if="fullView" ng-href="#/project-center/projects?activeEntities={{entity.projectId}}">{{entity.projectName}}</a>
+          </div>
+        </div>
+        <span ng-if="fullView">
+          <a bs-popover
+            title="Edit Project"
+            content-template="scripts/features/project-center/tasks/my-tasks-entry.html"
+            container='body'
+            placement="left"
+            class="btn btn-link heavy-mute no-padding edit-task">
+            <i class="fa fa-fw fa-pencil"></i>
+          </a>
+          <a ng-click="tasks.save({id: entity.id, status: 0}, $hide)"
+            class="btn btn-link heavy-mute no-padding delete-task">
+            <i class="fa fa-fw fa-trash-o"></i>
+          </a>
+        </span>
+
+        <a bs-popover
+          ng-if="!fullView"
+          container="body"
+          template-url="scripts/features/project-center/tasks/my-tasks-options.html"
+          placement="left"
+          class="fa-stack my-task-options">
+          <i class="fa fa-fw fa-circle-thin fa-stack-1x medium-icon"></i>
+          <i class="fa fa-fw fa-ellipsis-h fa-stack-1x medium-icon"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

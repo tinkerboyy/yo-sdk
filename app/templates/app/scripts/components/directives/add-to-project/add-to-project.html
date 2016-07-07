@@ -1,0 +1,30 @@
+<div class="modal-content add-to-project">
+  <div ag-loader data-requests="addLoader.requests" data-target-type="page" data-text="Adding solution to project...">
+    <div ng-if="!success && !error">
+      <div class="modal-header">
+        <h3 class="modal-title">Add this {{ type }} to a Project</h3>
+        <div class="item-to-add">
+          <strong ng-if="itemName" ng-click="itemName = ''">{{itemName}}</strong>
+          <label for="project-item-name" ng-if="!itemName">Provide a name for this item</label>
+          <input class="form-control" ng-if="!itemName" ng-model="item.name" placeholder="Create name" id="project-item-name" ng-blur="itemName = item.name">
+        </div>
+      </div>
+      <div class="modal-body">
+        <p class="add-info">Select a project to add this item to</p>
+        <ag-project-list data-target-item="data.project" data-projects="projects"></ag-project-list>
+      </div>
+      <div class="modal-footer">
+        <div class="col-md-6">
+          <div class="my-projects">
+            <div class="popover-container"></div>
+            <ag-create-project class="pull-left" data-callback="addProject"></ag-create-project>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <button id="add-to-project-cancel" type="button" class="btn btn-link" ng-click="doHide()">Cancel</button>
+          <button id="add-to-project-submit" type="button" class="btn btn-link" ng-click="addToProject();" ng-disabled="!data.project || (!item.name && !itemName)">Add to Project</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<section id="news" class="widget feeds-widget" ng-class="{'publicStyles': publicUser}">
+  <div class="widget-header row">
+    <h5 class="feed-title-banner title-banner col-xs-8">NEWS</h5>
+  </div>
+  <p ng-if="nodes === null"><strong>Info! </strong>Sorry, there are currently no news items</p>
+  <ul class="list-group" ng-if="nodes">
+     <li class="list-group-item no-outer-borders" ng-repeat="node in nodeArray | orderBy: '-created' track by $index">
+        <div class="row">
+          <div class="col-xs-12">
+            <h4 class="node-title"><a ng-href="{{node | nodeURLFilter:hallways}}">{{node.label}}</a> </h4>
+            <p  id="nodeDesc" ng-show="node.shortdescription">
+              <span ng-bind-html="node.shortdescription | trust " class="feed-body"></span>
+            </p>
+          </div>
+        </div>
+    </li>
+  </ul>
+</section>

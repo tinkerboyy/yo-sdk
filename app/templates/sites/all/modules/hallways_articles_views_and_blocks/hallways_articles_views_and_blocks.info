@@ -1,0 +1,13 @@
+name = Article Views Block for Administrative Support, IT Hardware and IT Software
+core = 7.x
+package = Features
+version = 7.x-1.5
+project = hallways_articles_views_and_blocks
+dependencies[] = ctools
+dependencies[] = fe_block
+dependencies[] = views
+dependencies[] = views_bootstrap
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = adminsupportblogblock_articles
+features[views_view][] = ithardware_and_itsoftware_blogblock_articles

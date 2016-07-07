@@ -1,0 +1,10 @@
+name = solution_matrix_settings
+core = 7.x
+package = Solution Matrix
+version = 7.x-1.1
+project = solution_matrix_settings
+features[ctools][] = services:services:3
+features[features_api][] = api:2
+features[services_endpoint][] = solution_matrix
+features_exclude[dependencies][ctools] = ctools
+features_exclude[dependencies][services] = services

@@ -1,0 +1,24 @@
+<div class="modal session-expiring" id="session-expiring" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <center>
+        <div>
+          <div class="expired-icon">
+            <i class="fa fa-3x fa-exclamation-triangle"></i>
+          </div>
+        </div>
+        <div class="warning-text">
+          <div>Your Acquisition Gateway session has expired.</div>
+        </div>
+        <div class="warning-description">
+          <div>You are now signed out of the Gateway.</div>
+        </div>
+        <div class="warning-buttons">
+          <span class="warning-button">
+            <a class="btn btn-lg" ng-click="$hide();redirectToUrl();">Sign in again</a>
+          </span>
+        </div>
+      </center>
+    </div>
+  </div>
+</div>

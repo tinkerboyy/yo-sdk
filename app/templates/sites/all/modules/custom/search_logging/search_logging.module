@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * Implements hook_form_alter().
+ */
+function search_logging_form_alter(&$form, &$form_state, $form_id) {
+  // check form id
+  if ($form_id == 'views_exposed_form') {
+    // add a custom validate function so we can grab
+    // the search query and number of results
+    $form['#validate'][] = 'search_logging_validate';
+
+    // add a custom submit function to save data into
+    // the datbase table
+    $form['#submit'][] = 'search_logging_submit';
+  }
+}
+
+/**
+ * Implements custom form validation function search_logging_validate()
+ */
+function search_logging_validate($form, &$form_state) {
+  // load global user variable
+  // we will use this to get the logged in users uid
+  global $user;
+
+  // lets check to make sure the search query is not empty
+  // before saving the data
+  if (!empty($form_state['input']['search_api_views_fulltext'])) {
+    // create central static variable to pass data to the submit function
+    $search_logging_data = &drupal_static(__FUNCTION__);
+
+    // get the number of results returned by the search
+    $total_results_count = drupal_static('search_logging_views_post_execute');
+
+    // get the search query and save it
+    $search_query = $form_state['input']['search_api_views_fulltext'];
+
+    // get the uid of user making the search
+    $uid = $user->uid;
+
+    // create an array to pass over to our submit function
+    $search_logging_data = array(
+      'search_query'          => $search_query,
+      'total_results_count'   => $total_results_count,
+      'uid'                   => $uid,
+      );
+  }
+}
+
+/**
+ * Implements custom form submit function search_logging_submit()
+ */
+function search_logging_submit($form, &$form_state) {
+  // get data
+  $search_logging_data = drupal_static('search_logging_validate');
+
+  // check to make sure that total_results_count has been set
+  if (!is_null($search_logging_data['total_results_count'])) {
+    // save data into table
+    db_insert('search_logging')
+      ->fields(array(
+        'uid'                   => $search_logging_data['uid'],
+        'search_query'          => $search_logging_data['search_query'],
+        'search_results_count'  => $search_logging_data['total_results_count'],
+        'created'               => REQUEST_TIME,
+      ))
+      ->execute();
+  }
+}
+
+/**
+ * Implements hook_views_post_execute().
+ */
+function search_logging_views_post_execute(&$view) {
+  // make sure sow_search view exists
+  if ($view->name == 'sow_search') {
+    // create central static variable storage to get the
+    // the number of results returned by the search
+    $total = &drupal_static(__FUNCTION__);
+
+    // record total results
+    $total = $view->total_rows;
+  }
+}

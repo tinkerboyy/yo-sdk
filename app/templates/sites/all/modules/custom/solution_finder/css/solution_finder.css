@@ -1,0 +1,7 @@
+/*Custom css rule to align select option and label.*/
+#matrix .form-type-select{width: 100%;}
+button#ProductCategories{overflow:hidden;}
+button#productSubcategory{overflow:hidden;}
+strong.solutions-counter {background-color: #666;padding:4px;border-radius:4px;color:#fff;}
+.counter{position:relative;top:8px;left: 37px;}
+div[ng-cloak]{display:none}

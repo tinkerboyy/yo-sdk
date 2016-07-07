@@ -1,0 +1,109 @@
+<?php
+
+/**
+ * @file
+ * Statistics Counter
+ */
+
+/**
+ * Implements hook_cron().
+ */
+function statistics_counter_cron() {
+  // Get timestamps.
+  $statistics_timestamp = variable_get('statistics_day_timestamp', '');
+
+  if (empty($statistics_timestamp)) {
+    return;
+  }
+
+  // Get date.
+  $week  = date('W') | 0;
+  $month = date('n') | 0;
+  $year  = date('Y') | 0;
+
+  $statistics_week  = date('W', $statistics_timestamp) | 0;
+  $statistics_month = date('n', $statistics_timestamp) | 0;
+  $statistics_year  = date('Y', $statistics_timestamp) | 0;
+
+  $fields = array();
+
+  if ($week != $statistics_week || $year != $statistics_year) {
+    // Reset week counts.
+    $fields['weekcount'] = 0;
+  }
+
+  if ($month != $statistics_month || $year != $statistics_year) {
+    // Reset month counts.
+    $fields['monthcount'] = 0;
+  }
+
+  if ($year != $statistics_year) {
+    // Reset year counts.
+    $fields['yearcount'] = 0;
+  }
+
+  if (!empty($fields)) {
+    // Reset year counts.
+    db_update('node_counter')
+      ->fields($fields)
+      ->execute();
+  }
+}
+
+/**
+ * Implements hook_exit().
+ */
+function statistics_counter_exit($destination = NULL) {
+  // Support statistics filter.
+  if (module_exists('statistics_filter') && statistics_filter_do_filter()) {
+    return;
+  }
+
+  if (variable_get('statistics_count_content_views', 0)) {
+    // We are counting content views.
+    if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
+      // A node has been viewed, so update the node's counters.
+      db_merge('node_counter')
+        ->key(array('nid' => arg(1)))
+        ->fields(array(
+          'weekcount' => 1,
+          'monthcount' => 1,
+          'yearcount' => 1,
+        ))
+        ->expression('weekcount', 'weekcount + 1')
+        ->expression('monthcount', 'monthcount + 1')
+        ->expression('yearcount', 'yearcount + 1')
+        ->execute();
+    }
+  }
+}
+
+/**
+ * Implements hook_module_implements_alter().
+ */
+function statistics_counter_module_implements_alter(&$implementations, $hook) {
+  $module_name = 'statistics_counter';
+
+  switch ($hook) {
+    case 'cron':
+    case 'exit':
+      if (isset($implementations[$module_name])) {
+        unset($implementations[$module_name]);
+        $implementations[$module_name] = $hook;
+      }
+
+      break;
+  }
+}
+
+/**
+ * Implements hook_views_api().
+ *
+ * This one is used as the base to reduce errors when updating.
+ */
+function statistics_counter_views_api() {
+  return array(
+    'api'  => '3',
+    'path' => drupal_get_path('module', 'statistics_counter') . '/views',
+  );
+}

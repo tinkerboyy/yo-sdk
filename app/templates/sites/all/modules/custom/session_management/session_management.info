@@ -1,0 +1,6 @@
+name = Session Management
+description = Manages user inactivity and session timeouts
+core = 7.x
+version = 1.0
+package = Acquisition Gateway
+

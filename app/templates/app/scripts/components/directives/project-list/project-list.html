@@ -1,0 +1,13 @@
+<div class="ag-project-list">
+  <div class="no-projects" ng-if="projects.length <= 0">
+    There are no available projects. Please create a project to begin.
+  </div>
+  <ul class="list list-unstyled" ng-if="projects.length > 0">
+    <li ng-repeat="project in projects | filter: { status: '1' }">
+      <a ng-click="selectProject(project)">
+        <i class="fa" ng-class="{ 'text-success fa-check-square-o': project === targetItem, 'text-muted fa-square-o': project !== targetItem }"></i>
+        {{ project.name }}
+      </a>
+    </li>
+  </ul>
+</div>

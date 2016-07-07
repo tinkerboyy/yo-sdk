@@ -1,0 +1,6 @@
+name = Solution Matrix Resources Module
+description = A resources module to expose solution matrix data via an API call.
+package = Services - resources
+core = 7.x
+dependencies[] = services
+dependencies[] = rest_server

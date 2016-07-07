@@ -1,0 +1,16 @@
+name = OG Views Feature
+description = OG Views Features
+core = 7.x
+package = Organic Groups Features
+version = 7.x-1.0
+project = og_views_feature
+dependencies[] = eva
+dependencies[] = og_extras
+dependencies[] = views
+dependencies[] = views_content
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features_exclude[dependencies][ctools] = ctools
+features_exclude[dependencies][og] = og
+features_exclude[dependencies][og_ui] = og_ui
+project path = sites/all

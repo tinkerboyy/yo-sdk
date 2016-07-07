@@ -1,0 +1,4 @@
+name = Article Expiration Notifications
+description = Cron job rule notifications for expiring content
+package = Acquisition Gateway
+core = 7.x

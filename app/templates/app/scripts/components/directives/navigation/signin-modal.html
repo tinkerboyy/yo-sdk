@@ -1,0 +1,23 @@
+<div class="modal signin" id="session-expiring" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <center>
+        <div>
+          <div class="sign-in-icon">
+            <i class="fa fa-3x fa-sign-in text-success"></i>
+          </div>
+          <div>&nbsp;</div>
+        </div>
+        <div class="warning-text">
+          <div class="modal-text">If you are a Federal Employee, would you like to sign in for full access to the Acquisition Gateway?</div>
+        </div>
+        <div>&nbsp;</div>
+        <div class="sign-in-text signin-actions">
+         <button type="button" class="btn btn-black btn-lg signme" ng-click="login()">Yes, sign me in</button>
+         <button type="button" class="btn btn-black btn-lg guest" ng-click="closeModal($hide)">Continue as guest</button>
+        </div>
+        <div>&nbsp;</div>
+      </center>
+    </div>
+  </div>
+</div>

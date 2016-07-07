@@ -1,0 +1,37 @@
+/*.page-home form#search-block-form {
+    margin: 0px;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 25px;
+}
+
+.not-front form#search-block-form {
+	width: 324px;
+	float: right;
+	margin: -50px 20px;
+}
+
+.col-sm-12 .nav-tabs li.active{
+    display: none;
+}
+
+.col-sm-9 .nav-tabs li.active{
+    display: none;
+}
+
+body.not-logged-in .navbar {
+    display: none;
+}
+body.node-type-portfolio .page-header{
+display: none;
+visibility: hidden;
+}
+#comments{
+margin-bottom: 20px;
+}
+*/
+/* This will fix the Navbar links */
+.navbar-header,ul.menu.nav.navbar-nav {position:relative;z-index:9999;}
+#masquerade-block-1 .container-inline{
+display: none;
+}

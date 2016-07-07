@@ -1,0 +1,136 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function sow_user_submit_block_info() {
+  $blocks['sow'] = array(
+    'info'      => t('Submit a SOW Block'),
+    'cache'     => DRUPAL_CACHE_PER_ROLE,
+    'status'    => 1,
+  );
+  return $blocks;
+}
+
+/**
+* Implements hook_permission().
+*/
+function sow_user_submit_permission() {
+  return array(
+    'sow_submit' => array(
+      'title' => t('Sow Submit'),
+      'description' => t('Sow submit permissions')
+    ),
+  );
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function sow_user_submit_block_view($delta = '') {
+  $type = 'sow';
+  if (node_access('create', $type)) {
+    // Get user variable
+    global $user;
+
+    // Set block variable
+    $block = array();
+
+    module_load_include('inc', 'node', 'node.pages');
+
+    $node = (object) array(
+      'uid'       => $user->uid,
+      'name'      => (isset($user->name) ? $user->name : ''),
+      'type'      => $type,
+      'language'  => LANGUAGE_NONE
+      );
+
+    $node->delta = $delta;
+
+    $form = drupal_get_form($type . '_node_form', $node);
+    $form = drupal_render($form);
+
+    $block['content'] = array(
+      '#markup'     => $form
+      );
+
+    return $block;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function sow_user_submit_form_alter(&$form, &$form_state = array(), $form_id) {
+  if(!path_is_admin(current_path())) {
+      if ($form_id == 'sow_node_form') {
+        // manually load node.pages
+        form_load_include($form_state, 'inc', 'node', 'node.pages');
+        $form = _form_settings($form, $form_state, $form_id);
+      }
+  } else {
+    if ($form_id == 'sow_node_form') {
+      $form['#attached']['js'] = array(
+        drupal_get_path('module', 'sow_user_submit') . '/checkbox_pathauto.js',
+      );
+    }
+  }
+}
+
+/**
+ * Submit function for hook_node_validate().
+ */
+function sow_user_submit_node_validate($node, $form) {
+  // $node->path['pathauto'] = 1;
+
+}
+
+function _form_settings($form, $form_state, $form_id = null) {
+  // the line below is required so we don't break admin content add and edit
+  if(current_path() == 'system/ajax' && $form_id == 'sow_node_form') {
+    return $form;
+    exit();
+  }
+
+  if (in_array('field_upload', arg()) === TRUE && $form_id == 'sow_node_form') {
+    return $form;
+    exit();
+  }
+
+
+  if(in_array(array('add', 'edit', 'ajax', 'field_upload'), arg()) === FALSE) {
+    // Hide unnecessary fields
+    $form['author']['#access'] = FALSE;
+    $form['options']['#access'] = FALSE;
+
+    $form['revision_information']['#access'] = FALSE;
+    $form['additional_settings']['#access'] = FALSE;
+    $form['field_description']['#access'] = FALSE;
+    $form['field_sow_category2']['#access'] = FALSE;
+    $form['field_sow_keywords']['#access'] = FALSE;
+    $form['options']['status']['#default_value'] = 0;
+
+    $form['actions']['submit']['#ajax'] = array(
+      'wrapper' => 'sow-node-form',
+      'callback' => 'node_add_callback',
+      'method' => 'replace',
+      'effect' => 'fade'
+    );
+
+    return $form;
+  }
+
+}
+
+function node_add_callback($form, $form_state) {
+  // if no errors are returned
+  if (!form_get_errors()) {
+    $commands[] = ajax_command_replace('#block-sow-user-submit-sow', theme('status_messages'));
+
+    // return html
+    return array('#type' => 'ajax', '#commands' => $commands);
+  } else {
+    // we must return the form so that hook_form_alter is not ignored.
+    return $form;
+  }
+}

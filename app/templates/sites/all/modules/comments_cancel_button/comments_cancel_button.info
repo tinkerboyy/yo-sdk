@@ -1,0 +1,5 @@
+; $Id$
+name = "Comments Cancel Button"
+description = "Comments Cancel Button"
+core = 7.x
+package = Other

@@ -1,0 +1,1 @@
+/* configuration for setting up modules */

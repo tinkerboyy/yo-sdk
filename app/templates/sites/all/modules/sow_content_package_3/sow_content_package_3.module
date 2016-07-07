@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the SOW Content Package 3 feature.
+ */
+
+include_once 'sow_content_package_3.features.inc';

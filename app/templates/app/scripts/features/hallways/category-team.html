@@ -1,0 +1,36 @@
+<div id="category-team" class="hallway-solution-finder" >
+    <div class="widget solutions-finder text-center">
+       <div class="widget-header text-center">
+          <h5 class="title-banner">MEET THE CATEGORY TEAM</h5>
+       </div>
+       <div class="panel-body article-tile col-xs-12">
+         <center>
+           <div class="col-xs-12" ng-class="!categoryTeam.isSame ? 'col-lg-6': 'col-lg-12'" ng-if="categoryTeam.publisher">
+              <center class="category-team-user">
+                <div class="img-circle small-picture">
+                  <img ng-src="{{ categoryTeam.publisher.picture.url || '/app/assets/images/default-user-image.jpg'}}" alt="{{ ::categoryTeam.publisher.name }}"/>
+                 </div>
+                 <div>
+                    <div  title="{{ ::categoryTeam.publisher.name }}" class="name">{{ ::categoryTeam.publisher.name }}</div>
+                 </div>
+                  <ag-follow class="btn btn-follow-style follow-user" ng-if="!publicUser" class="" data-type="user" data-item="categoryTeam.publisher" data-id-field="uid"></ag-follow>
+              </center>
+           </div>
+           <div class="col-xs-12" ng-class="categoryTeam.publisher ? 'col-lg-6': 'col-lg-12'" ng-if="categoryTeam.moderator && !categoryTeam.isSame">
+              <center class="category-team-user">
+                <div class="img-circle small-picture">
+                  <img ng-src="{{categoryTeam.moderator.picture.url || '/app/assets/images/default-user-image.jpg'}}" alt="{{ ::category.moderator.name }}"/>
+                </div>
+                 <div>
+                     <div title="{{ ::categoryTeam.moderator.name }}" class="name">{{ ::categoryTeam.moderator.name }}</div>
+                 </div>
+                 <ag-follow ng-if="!publicUser" class="btn btn-follow-style follow-user" data-type="user" data-item="categoryTeam.moderator" data-id-field="uid"></ag-follow>
+              </center>
+           </div>
+         <center>
+       </div>
+       <div class="category-team-welcome">
+          {{ ::hallway.categoryTeamWelcome }}
+       </div>
+    </div>
+</div>

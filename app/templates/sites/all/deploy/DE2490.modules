@@ -1,0 +1,8 @@
+; Environment
+environment = local
+
+; Enable modules list
+[enable]
+modules[] = sow_category_view
+
+[disable]

@@ -1,0 +1,156 @@
+
+/* ============================ SEARCH BAR FILTER DROPDOWN =============================== */
+#filterBox {
+	width: 100%;
+}
+#filterBox > .input-group .form-type-textfield {
+	margin-bottom:0;
+}
+
+#filterBox > input, #filterBox > .input-group .form-type-textfield input {
+	opacity: 0.7;
+	height: 60px;
+	font-size: 18px;
+}
+
+#filterBox > .input-group .input-group-btn .btn {
+	/*background-color:#94A537;*/
+	background-color:rgba(0,0,0,0.81);
+	color: #fff;
+	height: 60px;
+	font-weight: 600;
+	padding-left: 20px;
+	padding-right: 20px;
+	line-height: 3;
+}
+
+#filterBox > .input-group .input-group-btn .btn:hover, #filterBox > .input-group-btn a.btn-filter.btn.dropdown-toggle.collapsed:hover {
+	/*background-color: rgba(205,230,156,0.70);*/
+		  background-color: rgba(180, 180, 180, 0.5);
+
+	color: #000;
+}
+
+#filterBox > .input-group .input-group-btn a.btn-filter.btn.dropdown-toggle {
+	/*background-color:#94A537;*/
+	/*background-color: rgba(205,230,156,0.80);*/
+		  background-color: rgba(180, 180, 180, 0.5);
+
+	color: #000;
+	line-height: 3;
+	height: 70px;
+	margin-bottom: -10px;
+	border-bottom-style: none;
+	width: 150px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	transition: ease-in-out;
+}
+
+#filterBox > .input-group .input-group-btn a.btn-filter.btn.dropdown-toggle.collapsed {
+	/*background-color:#94A537;*/
+	background-color: rgba(0,0,0,0.81);
+	color: #fff;
+	height: 60px;
+	margin-bottom: 0px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 0px;
+	transition: ease-in-out;
+	border-bottom: 1px solid #fff;
+}
+// div.#filterBox > .input-group div.input-group-btn > ul.dropdown-menu > li > div.container {
+// padding-left:0px;
+// padding-right:0px;
+//}
+
+.filterMenu {
+	width: 100%;
+	display: block;
+	/*background-color: rgba(205,230,156,0.80);*/
+		  background-color: rgba(180, 180, 180, 0.5);
+
+	margin-top: 10px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.filterMenu * div.row {
+	margin-left: 0px;
+}
+
+/*.filterMenu>.container,
+.filterMenu>.container>.col-xs-4,
+.filterMenu>.container>.col-sm-4,
+.filterMenu>.container>.col-md-4,
+.filterMenu>.container>.col-lg-4 { padding:5px; margin-right:-30px;}	*/
+
+#filterBox * .dropdown-menu {
+	/**/
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background-clip: padding-box;
+	background-color: #fff;
+	border-bottom-color: rgba(0, 0, 0, 0.15);
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-image-outset: 0 0 0 0;
+	border-image-repeat: stretch stretch;
+	border-image-slice: 100% 100% 100% 100%;
+	border-image-source: none;
+	border-image-width: 1 1 1 1;
+	border-left-color-ltr-source: physical;
+	border-left-color-rtl-source: physical;
+	border-left-color-value: rgba(0, 0, 0, 0.15);
+	border-left-style-ltr-source: physical;
+	border-left-style-rtl-source: physical;
+	border-left-style-value: solid;
+	border-left-width-ltr-source: physical;
+	border-left-width-rtl-source: physical;
+	border-left-width-value: 1px;
+	border-right-color-ltr-source: physical;
+	border-right-color-rtl-source: physical;
+	border-right-color-value: rgba(0, 0, 0, 0.15);
+	border-right-style-ltr-source: physical;
+	border-right-style-rtl-source: physical;
+	border-right-style-value: solid;
+	border-right-width-ltr-source: physical;
+	border-right-width-rtl-source: physical;
+	border-right-width-value: 1px;
+	border-top-color: rgba(0, 0, 0, 0.15);
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	border-top-style: solid;
+	border-top-width: 1px;
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+	float: left;
+	font-size: 14px;
+	text-align: left;
+	left: 0;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	margin-bottom: 0;
+	margin-left: 0;
+	margin-right: 0;
+	margin-top: 0px;
+	min-width: 340px;
+	padding-bottom: 5px;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 5px;
+	position: absolute;
+	top: 100%;
+	z-index: 1000;
+}
+
+.indent {
+	margin-left: 20px;
+	display: inline-block;
+}

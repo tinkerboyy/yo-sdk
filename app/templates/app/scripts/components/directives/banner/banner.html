@@ -1,0 +1,30 @@
+<div ng-class="banner.klass" class="ag-banner">
+  <div ng-if="!banner.hide && (banner.title || banner.subtitle)" class="homepage-headBox-box" ng-style="{ 'padding-bottom': (banner.env.length > 0 ? '20px' : 0) }">
+    <div class="container">
+      <h1 class="DINCondensedBold">{{ banner.title }}</h1>
+      <p ng-if="banner.subtitle" ng-bind-html="banner.subtitle">{{banner.subtitle}}</p>
+    </div>
+		<div class="container"><ag-search data-action="search.action" data-search="search.search" data-filters="search.filters" data-suggestions="search.suggestions" data-selected-filters="search.selectedFilters" ng-if="search.show"></ag-search></div>
+  </div>
+  <div class="container-fluid" id="lca-block" ng-class="{'lca-fixed': banner.lcaFixed}" style="display: block;">
+    <div class="lca-bar">
+      <div class="lca-color-bar">
+        <div ng-class="getClass(banner.env.length)" ng-if="banner.env.indexOf('learn') >= 0">
+          <div class="progress">
+            <div class="progress-bar progress-bar-primary" style="width: 100%"> </div>
+          </div>
+        </div>
+        <div ng-class="getClass(banner.env.length)" ng-if="banner.env.indexOf('connect') >= 0">
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" style="width: 100%"> </div>
+          </div>
+        </div>
+        <div ng-class="getClass(banner.env.length)" ng-if="banner.env.indexOf('act') >= 0">
+          <div class="progress">
+            <div class="progress-bar progress-bar-success" style="width: 100%"> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

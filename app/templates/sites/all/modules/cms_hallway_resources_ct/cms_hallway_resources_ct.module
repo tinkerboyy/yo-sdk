@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the cms_hallway_resources_ct feature.
+ */
+
+include_once 'cms_hallway_resources_ct.features.inc';

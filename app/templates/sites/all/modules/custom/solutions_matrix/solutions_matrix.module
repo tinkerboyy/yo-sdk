@@ -1,0 +1,824 @@
+<?php
+
+function connectDb() {
+  global $databases;
+  $settings = $databases['solution_matrix']['default'];
+
+  $servername = $settings['host'];
+  $username = $settings['username'];
+  $password = $settings['password'];
+
+  // Create connection
+  $db = new mysqli($servername, $username, $password);
+
+  // Check connection
+  if ($db->connect_error) {
+      die("connectDbion failed: " . $db->connect_error);
+  }
+
+  return $db;
+}
+
+function fetchAllData($result) {
+  if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+      // foreach ($row as $value) {
+        $results[] = $row;
+      // }
+    }
+  }
+
+  return $results;
+}
+
+/**
+  * Prepare options array for dropdown selects
+  * @param $rows {array} data rows to process
+  * @param $value {string} property to use as the element key and as the value to submit
+  * @param $label {string} property to use as the element value and as the display of the option element
+  * @return $out {array} options array used to build the form select dropdown
+  */
+function prepOptions($rows, $value, $label) {
+  $out = array();
+  foreach($rows as $row) {
+    $out[$row[$value]] = $row[$label];
+  }
+
+  return $out;
+}
+
+function keyOptions($rows, $value, $label) {
+  $out = array();
+  foreach($rows as $row) {
+    $out[$row[$label]] = $row[$value];
+  }
+
+  return $out;
+}
+
+//Create database connection
+function connect() {
+  $db = connectDb();
+
+  //switch to the Solutions Matrix Database
+  $db->query('USE dbSolutionMatrix');
+  return $db;
+}
+
+function solutions_matrix_menu() {
+  $items = array();
+
+  //Route for listing view
+  $items['admin/solutions-matrix'] = array(
+    'title' => 'Manage Solutions Matrix',
+    'description' => 'Manage Solutions Matrix',
+    'page callback' => 'solutions_matrix_page',
+    'access callback' => 'user_is_logged_in',
+    'access arguments' => array('administer solution finder'),
+  );
+
+  //Route for editing an existing solution
+  $items['admin/solutions-matrix/solution/%'] = array(
+    'load parameter' => array(3),
+    'title' => 'Edit  Solution',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('solutions_matrix_form', 3),
+    'description' => 'Add / Edit the details of a specific solution',
+    'access callback' => 'manage_solutions_is_authorized',
+  );
+
+  //Route for creating a new solution
+  $items['admin/solutions-matrix/add-solution'] = array(
+    'title' => 'Create New  Solution',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('solutions_matrix_form'),
+    'description' => 'Create a new Solution',
+    'access callback' => 'manage_solutionsmanager_is_authorized',
+    'access arguments' => array('administer solution finder '),
+  );
+
+  //Route for viewing data issues
+  $items['admin/solutions-matrix/data-issues'] = array(
+    'title' => 'Data Issues',
+    'page callback' => 'data_issues_page',
+    'description' => 'Add / Edit the details of a specific solution',
+    'access callback' => 'manage_solutions_is_authorized',
+    'access arguments' => array('administer solution finder'),
+  );
+  //Route for deleting solutions
+  $items['admin/solutions-matrix/delete-solution/%'] = array(
+    //'load parameter' => array(3),
+    'page callback' => 'delete_solution',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(3),
+    'access callback' => 'manage_solutions_is_authorized',
+    'access arguments' => array(TRUE),
+  );
+
+  //Route for resolving data issues
+  $items['admin/solutions-matrix/resolve-data-issue/%'] = array(
+    'page callback' => 'resolve_data_issue',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(3),
+    'access callback' => 'manage_solutions_is_authorized',
+    'access arguments' => array(TRUE),
+  );
+
+  //Route for bulk importing solutions
+  $items['admin/solutions-matrix/bulk-import'] = array(
+    'title' => 'Bulk Import Solutions',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('solutions_matrix_bulk_import_form'),
+    'description' => 'Bulk import solutions from CSV file',
+    'access callback' => 'manage_solutions_is_authorized',
+    'access arguments' => array('administer solution finder'),
+  );
+
+  //Route for publishing solutions
+  $items['admin/solutions-matrix/publish-solution/%'] = array(
+    //'load parameter' => array(3),
+    'page callback' => 'publish_solution',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(3),
+    'access callback' => 'manage_solutions_is_authorized',
+    'access arguments' => array(TRUE),
+  );
+
+  //Route for unpublishing solutions
+  $items['admin/solutions-matrix/unpublish-solution/%'] = array(
+    //'load parameter' => array(3),
+    'page callback' => 'unpublish_solution',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(3),
+    'access callback' => 'manage_solutions_is_authorized',
+    'access arguments' => array(TRUE),
+  );
+
+
+  return $items;
+}
+
+function manage_solutions_is_authorized($createMode = FALSE) {
+  global $user;
+
+  //Define roles that have write access to this tool
+  $roles = array('administrator', 'Site Manager', 'Solutions Finder Admin', 'Solution Manager');
+
+  return count(array_intersect($roles, $user->roles)) > 0;
+}
+function manage_solutionsmanager_is_authorized($createMode = FALSE) {
+  global $user;
+
+  //Define roles that have write access to this tool
+  $roles = array('administrator', 'Site Manager', 'Solutions Finder Admin', 'Solution Manager');
+
+  //Check if the user is an administrator or Site Manager
+  return count(array_intersect($roles, $user->roles)) > 0;
+}
+function solutions_matrix_permission() {
+  return array(
+    'administer solution finder' => array(
+      'title' => t('Administer Solution Finder Data'),
+      'description' => t('Perform administration tasks for solution finder.'),
+    ),
+  );
+}
+
+function solutions_matrix_help($path, $arg) {
+  switch($path) {
+    //Help info for the Solution Matrix module
+    case 'admin/help#solutions_matrix':
+      return '<p>' . t('Provides tools for managing Solutions Matrices') . '</p>';
+      break;
+  }
+}
+
+function solutions_matrix_bulk_import_form($form, &$form_state) {
+  //Setup Contract Solution form
+  $form['file'] = array(
+    '#type' => 'file',
+    '#title' => 'CSV File'
+  );
+
+  $form['submit_button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit')
+  );
+
+  return $form;
+};
+
+//Generate query to insert into join table
+function getJoinQuery($data, $id) {
+  $sql = "INSERT INTO {$data['field']}";
+  $sql .= '(' . join(', ', $data['fields']) . ')';
+  $values = array();
+  if (is_array($data["data"])) {
+    foreach($data["data"] as $value) {
+      $value = trim($value);
+      if(!array_key_exists($value, $data['lookup'])) continue;
+      $values[] = "($id, {$data['lookup'][$value]})";
+    }
+  }
+  else {
+    $values[] = "($id, {$data['data']})";
+  }
+
+  if (count($values) > 0) {
+    $sql .= " VALUES" . join(', ', $values);
+    return $sql;
+  }
+  else {
+    return false;
+  }
+}
+
+function solutions_matrix_bulk_import_form_submit($form, &$form_state) {
+  $db = connect();
+
+  //Retrievve Organizations and IDs for the Agency dropdown
+  $agencies = keyOptions(fetchAllData($db->query('SELECT pkOrganizationId, name from tbOrganizations ORDER BY name')), 'pkOrganizationId', 'name');
+
+  //Retrieve Solution Types
+  $solutionTypes = keyOptions(fetchAllData($db->query('SELECT pkSolutionTypeId, name from tbSolutionTypes ORDER BY name')), 'pkSolutionTypeId', 'name');
+
+  //Retrieve Contract Types
+  $contractTypes = keyOptions(fetchAllData($db->query('SELECT pkContractTypeId, name from tbContractTypes ORDER BY name')), 'pkContractTypeId', 'name');
+
+  //Retrieve Available To Options
+  $availableToOptions = keyOptions(fetchAllData($db->query('SELECT pkOptionId, longName from tbAvailableToOptions ORDER BY pkOptionId')), 'pkOptionId', 'longName');
+
+  //Retrieve Categories
+  $categories = keyOptions(fetchAllData($db->query('SELECT * FROM tbProductCategories')), 'pkProductCategoryId', 'name');
+  $form_state['redirect'] = false;
+  if($_FILES) {
+    $handle = fopen($_FILES['files']['tmp_name']['file'], 'r');
+
+    while($data = fgetcsv($handle)) {
+      $rows[] = $data;
+    }
+
+    fclose($handle);
+
+    $baseFields = $rows[0];
+
+    //Define fields to exlude that arent in contract solutions table
+    $exclude = array('categories', 'availableTo', 'type');
+
+    array_shift($rows);
+
+
+    //Create each insert row
+    foreach($rows as $rowKey=>$row) {
+      $fields = $baseFields;
+      $queryFields = array();
+      $sql = '';
+      //Initialize values array
+      $values = array();
+      $joins = array();
+      foreach($row as $key=>$value) {
+
+        //Handle join columns properly (categories, subcategories, etc)
+        //Solutions Types
+        if ($fields[$key] === "type") {
+          $joins[] = array(
+            "field" => "tbContractSolutionToSolutionType",
+            "fields"=> array("fkContractSolutionId", "fkSolutionTypeId"),
+            "data" => explode(',', $value),
+            "lookup" => $solutionTypes
+          );
+        }
+
+        //Managing Organization
+        if ($fields[$key] === "managingAgency") {
+          $fields[$key] = "fkManagingOrganizationId";
+          $value = $agencies[$value];
+        }
+
+        //Categories and Subcategories
+        if ($fields[$key] === "categories") {
+          $joins[] = array(
+            "field" => "tbContractSolutionToProductCategory",
+            "fields"=> array("fkContractSolutionId", "fkProductCategoryId"),
+            "data" => explode(',', $value),
+            "lookup" => $categories
+          );
+        }
+
+        //AvailableTo
+        if ($fields[$key] === "availableTo") {
+          $fields[$key] = "availableToId";
+          $value = $availableToOptions[$value];
+        }
+
+        //Create insert query
+
+
+        if(in_array($fields[$key], $exclude)) continue;
+        $values[] = is_numeric($value) ? $value : "'{$db->real_escape_string($value)}'";
+      }
+      //Create field names
+      foreach($fields as $field) {
+        if (in_array($field, $exclude)) continue;
+        $queryFields[] = $field;
+      };
+
+      $sql = 'INSERT INTO tbContractSolutions (';
+      $sql .= join(', ', $queryFields);
+      $sql .= ") VALUES\n\r ";
+
+      $sql .= '(' . join(', ', $values) . ')';
+      $sql .= ";";
+
+      $db->query($sql) or die('The CSV file you provided is not valid. There was an error on row ' . ($rowKey + 2) . '. Please confirm no duplicate values are being submitted and all columns are valid and correct');;
+      $id = $db->insert_id;
+      foreach($joins as $join) {
+        $joinQuery = getJoinQuery($join, $id);
+        if ($joinQuery) $db->query($joinQuery) or die($db->error);
+      }
+    }
+  }
+
+  drupal_set_message(count($rows) . ' Solutions imported successfully');
+  drupal_goto('/admin/solutions-matrix');
+}
+
+function solutions_matrix_form($form, &$form_state, $solutionId=NULL) {
+  $db = connect();
+  global $user;
+
+  //Initialize data array to hold contents in edit mode
+  $data = array();
+
+  $form = array();
+
+  //If Solution ID is provided in URL fetch Solution, get the solution for prepopulating the form
+  if($solutionId) {
+    $query = "SELECT
+                cs.pkContractSolutionId AS id,
+                cs.fkManagingOrganizationId,
+                o.shortName AS managingAgencyShortName,
+                cs.fkFundingOrganizationId,
+                cs.name,
+                GROUP_CONCAT(DISTINCT cspc.fkProductCategoryId) AS categories,
+                GROUP_CONCAT(DISTINCT st.pkSolutionTypeId) AS solutionTypes,
+                cs.shortName,
+                cs.expiration,
+                cs.expirationNote,
+                cs.description,
+                cs.feeInfo,
+                cs.availableToId,
+                cs.termsAndConditions,
+                cs.uncontrolledProductList,
+                cs.servicesProvided,
+                cs.onlineOrderingUrl,
+                cs.pocInfo,
+                cs.minOrderQty,
+                cs.contractUrl,
+                cs.pricesPaidUrl,
+                cs.solutionManager,
+                cs.additionalAvailabilityInfo,
+                cs.public,
+                o.name AS managingAgency,
+                a.name AS availableTo
+         FROM tbContractSolutions cs
+         LEFT JOIN tbOrganizations o ON cs.fkManagingOrganizationId = o.pkOrganizationId
+         LEFT JOIN tbAvailableToOptions a ON cs.availableToId = a.pkOptionId
+         LEFT JOIN tbContractSolutionToSolutionType csst ON cs.pkContractSolutionId = csst.fkContractSolutionId
+         LEFT JOIN tbSolutionTypes st ON csst.fkSolutionTypeId = st.pkSolutionTypeId
+         LEFT JOIN tbContractSolutionToProductCategory cspc ON cs.pkContractSolutionId = cspc.fkContractSolutionId
+         LEFT JOIN tbProductCategories pc ON cspc.fkProductCategoryId = pc.pkProductCategoryId
+         WHERE cs.pkContractSolutionId=$solutionId
+         ";
+
+    $data = fetchAllData($db->query($query))[0];
+
+    //Split up concatenated fields into arrays
+    $data['solutionTypes'] = explode(',', $data['solutionTypes']);
+
+    //Split up the categories collection into categories and sub categories based on existence in one of the two arrays
+    $data['categories'] = explode(',', $data['categories']);
+
+    $form['solutionId'] = array(
+      '#type' => 'value',
+      '#value' => $solutionId
+    );
+  }
+
+
+  //Retrievve Organizations and IDs for the Agency dropdown
+  $agencies = prepOptions(fetchAllData($db->query('SELECT pkOrganizationId, name from tbOrganizations ORDER BY name')), 'pkOrganizationId', 'name');
+
+  //Retrieve Solution Types
+  $solutionTypes = prepOptions(fetchAllData($db->query('SELECT pkSolutionTypeId, CONCAT(name,"  (",Type,")") AS name from tbSolutionTypes ORDER BY name')), 'pkSolutionTypeId', 'name');
+
+  //Retrieve Contract Types
+  $contractTypes = prepOptions(fetchAllData($db->query('SELECT pkContractTypeId, name from tbContractTypes ORDER BY name')), 'pkContractTypeId', 'name');
+
+  //Retrieve Available To Options
+  $availableToOptions = prepOptions(fetchAllData($db->query('SELECT pkOptionId, name from tbAvailableToOptions ORDER BY orderBy')), 'pkOptionId', 'name');
+
+  //Retrieve Categories
+  $categories = prepOptions(fetchAllData($db->query('SELECT * FROM tbProductCategories WHERE fkParentProductCategoryId IS NULL ORDER BY name')), 'pkProductCategoryId', 'name');
+
+  //Retrieve Sub Categories
+  $subCategories = prepOptions(fetchAllData($db->query('SELECT * FROM tbProductCategories WHERE fkParentProductCategoryId IS NOT NULL ORDER BY name')), 'pkProductCategoryId', 'name');
+
+  $form['#attached']['css'] = array(
+    drupal_get_path('module', 'solutions_matrix') . '/css/solutions_matrix.css'
+  );
+
+  //Setup Contract Solution form
+  $form['name'] = array(
+    '#type' => 'textfield',
+    '#title' => 'Solution Name',
+    '#default_value' => isset($data['name']) ? $data['name']  : NULL,
+    '#required' => TRUE
+  );
+
+  //Setup public checkboxes for each Solution
+  $form['public'] = array(
+    '#type' => 'checkbox',
+    '#title' => 'Public',
+    '#default_value' => isset($data['public']) ? $data['public'] : NULL
+  );
+
+  //Default this field to Solution Manager email if user is a Solution Manager
+  $solutionManager = array_search('Solution Manager', $user->roles) ? $user->mail : '';
+  $form['solutionManager'] = array(
+    '#type' => 'textarea',
+    '#title' => 'Solution Manager(s) Email (comma separated list)',
+    '#default_value' => isset($data['solutionManager']) ? $data['solutionManager']  : $solutionManager,
+  );
+
+  $form['fkManagingOrganizationId'] = array(
+    '#type' => 'select',
+    '#title' => 'Managing Agency',
+    '#options' => $agencies,
+    '#default_value' => isset($data['fkManagingOrganizationId']) ? $data['fkManagingOrganizationId'] : NULL,
+    '#required' => TRUE
+  );
+
+  $form['categories'] = array(
+    '#type' => 'checkboxes',
+    '#title' => 'Categories',
+    '#options' => $categories,
+    '#default_value' => isset($data['categories']) ? $data['categories'] : NULL,
+    '#required' => TRUE
+  );
+
+  $form['subcategories'] = array(
+    '#type' => 'checkboxes',
+    '#title' => 'Sub Categories',
+    '#options' => $subCategories,
+    '#default_value' => isset($data['categories']) ? $data['categories'] : NULL,
+    '#required' => TRUE
+  );
+
+  $form['description'] = array(
+    '#type' => 'textarea',
+    '#default_value' => isset($data['description']) ? $data['description'] : NULL,
+    '#title' => 'Solution Description',
+  );
+
+  $form['solutionTypes'] = array(
+    '#type' => 'checkboxes',
+    '#title' => 'Contract / Program Types',
+    '#options' => $solutionTypes,
+    '#default_value' => isset($data['solutionTypes']) ? $data['solutionTypes'] : NULL,
+    '#required' => TRUE
+  );
+
+  $form['availableToId'] = array(
+    '#type' => 'select',
+    '#title' => 'Available To',
+    '#required' => TRUE,
+    '#default_value' => isset($data['availableToId']) ? $data['availableToId'] :  NULL,
+    '#options' => $availableToOptions
+  );
+
+  $form['additionalAvailabilityInfo'] = array(
+    '#type' => 'textarea',
+    '#title' => 'Additional Availability Info',
+    '#default_value' => isset($data['additionalAvailabilityInfo']) ? $data['additionalAvailabilityInfo']  : NULL
+  );
+
+  $form['feeInfo'] = array(
+    '#type' => 'textarea',
+    '#title' => 'Fee Info',
+    '#default_value' => isset($data['feeInfo']) ? $data['feeInfo'] : NULL
+  );
+
+  $form['servicesProvided'] = array(
+    '#type' => 'text_format',
+    '#format' => 'list_html',
+    '#required' => TRUE,
+    '#default_value' => isset($data['servicesProvided']) ? $data['servicesProvided'] : NULL,
+    '#title' => 'Services Provided'
+  );
+
+  $form['onlineOrderingUrl'] = array(
+    '#type' => 'textarea',
+    '#default_value' => isset($data['onlineOrderingUrl']) ? $data['onlineOrderingUrl'] : NULL,
+    '#title' => 'Online Ordering URL'
+  );
+
+  $form['termsAndConditions'] = array(
+    '#type' => 'textarea',
+    '#default_value' => isset($data['termsAndConditions']) ? $data['termsAndConditions'] : NULL,
+    '#title' => 'Terms and Conditions URL'
+  );
+
+  $form['expiration'] = array(
+    '#type' => 'textarea',
+    '#required' => TRUE,
+    '#default_value' => isset($data['expiration']) ? $data['expiration'] : NULL,
+    '#title' => 'Expiration Date'
+  );
+
+  $form['pocInfo'] = array(
+    '#type' => 'textarea',
+    '#default_value' => isset($data['pocInfo']) ? $data['pocInfo'] : NULL,
+    '#title' => 'POC Info'
+  );
+
+  $form['minOrderQty'] = array(
+    '#type' => 'textarea',
+    '#default_value' => isset($data['minOrderQty']) ? $data['minOrderQty'] : NULL,
+    '#title' => 'Minimum Order Quantity'
+  );
+
+  $form['contractUrl'] = array(
+    '#type' => 'textarea',
+    '#default_value' => isset($data['contractUrl']) ? $data['contractUrl'] : NULL,
+    '#title' => 'Contracts URL'
+  );
+
+  $form['pricesPaidUrl'] = array(
+    '#type' => 'textarea',
+    '#default_value' => isset($data['pricesPaidUrl']) ? $data['pricesPaidUrl'] : NULL,
+    '#title' => 'Prices Paid URL'
+  );
+
+  $form['submit_button'] = array(
+    '#type' => 'submit',
+    '#value' => t('Submit')
+  );
+
+  return $form;
+}
+
+function multi_column_offerings($key,$value){
+    if(stripos($value, '<ol>')) {
+      $split = explode('<ol>', $value);
+    }
+
+    if(stripos($value, '<ul>')) {
+      $split = explode('<ul>', $value);
+    }
+
+    $replace = array('</ol>', '</ul>', '</li>', "\r\n", "\n", "\r");
+    $text = str_replace($replace, '', $split[0]);
+    $offerings = explode('<li>', str_replace($replace, '', $split[1]));
+
+    foreach($offerings as &$offering) {
+      if (strlen(trim($offering)) === 0) continue;
+      $list[] = trim($offering);
+    }
+    $array_list=array("text"=>$text,"offerings"=>$list);
+
+    return serialize($array_list);
+}
+
+function solutions_matrix_form_submit($form, &$form_state) {
+  $db = connect();
+
+  //Form state attributes to ignore, not submitted data
+  $exclude = array('solutionId', 'submit_button', 'form_build_id', 'form_token', 'form_id', 'op', 'categories', 'subCategories', 'solutionTypes');
+
+  //Create queries for add vs update mode
+  if($form_state['values']['solutionId']) {
+    $solutionId = $form_state['values']['solutionId'];
+    $query = 'UPDATE tbContractSolutions';
+    $changes = array();
+
+    //Dynamically create update array
+    foreach($form_state['values'] as $key=>$value) {
+      if(is_array($value) && $value['format'] == 'list_html') $value = $value['value'];
+      if($key=='servicesProvided') {
+        $encodedValue = $db->real_escape_string(multi_column_offerings($key,$value));
+        $changes[] = "servicesProvidedEncoded='$encodedValue'";
+      }
+      if (in_array($key, $exclude) || is_array($value)) continue;
+      $value = $db->real_escape_string($value);
+      $changes[] = "$key='$value'";
+  }
+
+    //convert update array to SET statement keypairs and complete SQL statement
+    $query .= " SET " . join($changes, ', ');
+    $query .= " WHERE pkContractSolutionId= " . $db->real_escape_string($solutionId);
+
+
+    //Execute SQL statement
+    $result = $db->query($query);
+
+    //Delete existing relationships in join tables to be recreated later, cleanup of old relationships
+    $db->query("DELETE FROM tbContractSolutionToProductCategory WHERE fkContractSolutionId=$solutionId");
+    $db->query("DELETE FROM tbContractSolutionToSolutionType WHERE fkContractSolutionId=$solutionId");
+  }
+  else {
+    //Initialize Create Mode query components
+    $query = 'INSERT INTO tbContractSolutions (';
+    $values = array();
+    $keys = array();
+    $params = array();
+    $x = 0;
+
+    //Dynamically create insert query based on submitted form parameters
+    foreach($form_state['values'] as $key=>$value) {
+      if(is_array($value) && $value['format'] == 'list_html') $value = $value['value'];
+      if (in_array($key, $exclude) || is_array($value) || strlen($value) === 0) continue;
+      $values[] = "'" . $db->real_escape_string($value) . "'";
+      $keys[] = $key;
+      $params[] = '%' . substr($key, 0, 1);
+      $x++;
+    }
+
+    $query .= join($keys, ', ') . ')';
+    $query .= ' VALUES (' . join($values, ', ') . ')';
+
+    //Execute SQL statement
+    $result = $db->query($query);
+
+    //Get last insert id
+    $solutionId = $db->insert_id;
+
+  }
+
+  //Merge Category and sub category arrays since all data is going into one join table by ID
+  $categorySet = $form_state['values']['categories'] + $form_state['values']['subcategories'];
+
+  //Loop through categories Add category relations to join table
+  foreach($categorySet as $category) {
+    if(!$category) continue;
+    $db->query("INSERT INTO tbContractSolutionToProductCategory VALUES('', $solutionId, $category)");
+  }
+
+  //Loop through solution types Add solution type relations to join table
+  foreach($form_state['values']['solutionTypes'] as $type) {
+    if(!$type) continue;
+    $db->query("INSERT INTO tbContractSolutionToSolutionType VALUES('', $solutionId, $type)");
+  }
+
+  global $base_url;
+  $link = $base_url . '/admin/solutions-matrix/solution/' . $solutionId;
+  rules_invoke_component('rules_send_notification_to_solutions_finder_admin', 'text_string');
+
+  $form_state['redirect'] = '/admin/solutions-matrix';
+
+  drupal_set_message(t("The solution '{$form_state['values']['name']}' has been saved successfully"));
+
+}
+
+function solutions_matrix_page() {
+  global $user;
+
+  //Define roles that have write access to this tool
+  $roles = array('administrator', 'Site Manager', 'Solutions Finder Admin', 'Solution Manager', 'GateKeeper');
+
+  //Check if the user is an administrator or Site Manager
+  $allowed = count(array_intersect($roles, $user->roles)) > 0;
+
+  $output = '';
+
+  //Only show create link for authorized users;
+  if($allowed) $output .= '<div style="margin-bottom: 20px; font-weight: bold; font-size: 1em;"><a href="/admin/solutions-matrix/add-solution">Create a new Solution</a> | <a href="/admin/solutions-matrix/bulk-import">Bulk Import</a></div>';
+
+  $output .= solutions_matrix_table();
+  return $output;
+}
+
+function data_issues_page() {
+  global $user;
+
+  //Define roles that have write access to this tool
+  $roles = array('administrator', 'Site Manager', 'Solutions Finder Admin', 'Solution Manager');
+
+  //Check if the user is an administrator or Site Manager
+  $allowed = count(array_intersect($roles, $user->roles)) > 0;
+
+  $output = '';
+
+  $output .= data_issues_table();
+  return $output;
+}
+
+function solutions_matrix_table() {
+  global $user;
+
+  //Define roles that have write access to this tool
+  $roles = array('administrator', 'Site Manager', 'Solutions Finder Admin', 'Solution Manager');
+
+  //Check if the user is an administrator or Site Manager
+  $allowed = count(array_intersect($roles, $user->roles)) > 0;
+
+  $db = connect();
+  $query = 'SELECT cs.pkContractSolutionId as id, cs.name, cs.description, o.name as managingOrganization, cs.published
+            FROM tbContractSolutions cs, tbOrganizations o
+            WHERE cs.fkManagingOrganizationId=o.pkOrganizationId';
+
+  if (in_array('Solution Manager', $user->roles)) {
+    $query .= " AND cs.solutionManager LIKE '%{$user->mail}%'";
+  }
+
+  $rows = fetchAllData($db->query($query));
+
+  //Define Table header
+  $header = array('ID', 'Name', 'Description', 'Managing Agency');
+
+  //Change the name field to a hyperlink and add a delete link to each record
+  if($allowed) {
+    //Add actions column
+    $header[] = 'Actions';
+    foreach($rows as &$row) {
+      $row['name'] = '<a href="/admin/solutions-matrix/solution/' . $row['id'] . '">' . $row['name'] . '</a>';
+      $row[] = $row['published'] ?  '<a href="/admin/solutions-matrix/unpublish-solution/' . $row['id'] . '">Unpublish</a>' : '<a href="/admin/solutions-matrix/publish-solution/' . $row['id'] . '">Publish</a>';
+      $row[] = '<a href="javascript:;" onClick="var cnf=confirm(\'Are you sure you want to delete this solution?\'); if(cnf) window.location=\'/admin/solutions-matrix/delete-solution/' . $row['id'] . '\';">Delete</a>';
+      unset($row['published']);
+    }
+  }
+
+  $output = theme('table', array('header' => $header, 'rows' => $rows));
+
+  return $output;
+
+};
+
+function data_issues_table() {
+  global $user;
+
+  //Define roles that have write access to this tool
+  $roles = array('administrator', 'Site Manager', 'Solutions Finder Admin', 'Solution Manager');
+
+  //Check if the user is an administrator or Site Manager
+  $allowed = count(array_intersect($roles, $user->roles)) > 0;
+
+  $db = connect();
+  $query = 'SELECT di.id, cs.name, di.userEmail, di.comments, di.date, di.resolved  FROM tbDataIssues di LEFT JOIN tbContractSolutions cs ON di.fkSolutionId=cs.pkContractSolutionId ORDER BY di.date DESC';
+
+  $rows = fetchAllData($db->query($query));
+
+  //Define Table header
+  $header = array('ID', 'Solution', 'User Email', 'Details', 'Date', 'Action');
+
+  //Change the name field to a hyperlink and add a delete Vlink to each record
+  foreach($rows as &$row) {
+    $row['date'] = date('d M Y  h:i:s a', strtotime($row['date']));
+    if(!$row['resolved']) {
+      $row[] = '<a href="javascript:;" onClick="var cnf=confirm(\'Are you sure you want to resolve this issue?\'); if(cnf) window.location=\'/admin/solutions-matrix/resolve-data-issue/' . $row['id'] . '\';">Resolve</a>';
+    }
+    else {
+      $row[] = '';
+    }
+    unset($row['resolved']);
+
+  }
+
+
+  $output = theme('table', array('header' => $header, 'rows' => $rows));
+
+  return $output;
+
+};
+
+/**
+  * Deletes the specified solution from the database
+  * @param solutionId Unique identifier of the solution to be deleted
+  */
+function delete_solution($solutionId) {
+  $db = connect();
+  $db->query('DELETE FROM tbContractSolutions WHERE pkContractSolutionId=' . $solutionId);
+  drupal_set_message('The solution was deleted successfully');
+  drupal_goto('/admin/solutions-matrix');
+}
+
+function publish_solution($solutionId) {
+  $db = connect();
+  $db->query('UPDATE tbContractSolutions SET published=1 WHERE pkContractSolutionId=' . $solutionId) or die($db->error);
+  drupal_set_message('The solution was published successfully');
+  drupal_goto('/admin/solutions-matrix');
+}
+
+function unpublish_solution($solutionId) {
+  $db = connect();
+  $db->query('UPDATE tbContractSolutions SET published=0 WHERE pkContractSolutionId=' . $solutionId);
+  drupal_set_message('The solution was unpublished successfully');
+  drupal_goto('/admin/solutions-matrix');
+}
+
+function resolve_data_issue($issueId) {
+  $db = connect();
+  $db->query("UPDATE tbDataIssues SET resolved=1 WHERE id=$issueId");
+  drupal_set_message('The data issue has been resolved');
+  drupal_goto('/admin/solutions-matrix/data-issues');
+}

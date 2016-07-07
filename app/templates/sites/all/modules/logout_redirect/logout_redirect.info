@@ -1,0 +1,10 @@
+name = Logout Redirect for Hallways
+description = Logout Redirect for Hallways
+core = 7.x
+package = Features
+version = 7.x-1.1
+project = logout_redirect
+dependencies[] = entity
+dependencies[] = rules
+features[features_api][] = api:2
+features[rules_config][] = rules_logout

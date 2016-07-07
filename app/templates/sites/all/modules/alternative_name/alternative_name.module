@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Alternative Name feature.
+ */
+
+include_once 'alternative_name.features.inc';

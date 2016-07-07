@@ -1,0 +1,21 @@
+<div id="ag-user-profile">
+  <div class="col-md-12">
+    <center>
+      <div class="img-circle">
+        <img class="profile-picture" ng-src="{{user.picture.url || '/app/assets/images/default-user-image.jpg'}}" alt="{{user.name}}"/>
+      </div>
+      <div id="edit-profile-button" class="text-right">
+        <button type="button" class="edit-profile btn btn-default pull-right" ng-mouseenter="hovered = true" ng-mouseleave="hovered = false" ng-click="editProfile()">
+          <span ng-if="hovered">Edit </span>
+          <i class="fa fa-pencil"></i>
+        </button>
+      </div>
+      <h4 class="user-name">
+        <a id="my-screen-name" href="/app/#/communities/user/{{ user.id }}">{{user.name}}</a>
+      </h4>
+      <div class="job-title">{{ user.jobTitle}}</div>
+      <div class="agency">{{ user.agency}}</div>
+    </center>
+  </div>
+  <div class="clearfix"></div>
+</div>

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Advanced Forum Views Feature feature.
+ */
+
+include_once 'advanced_forum_views_feature.features.inc';

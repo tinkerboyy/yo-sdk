@@ -1,0 +1,47 @@
+node_modules/*
+bower_components/*
+public/*
+app/vendor
+coverage
+deploy
+app/assets/css/main.css
+app/assets/css/vendor.css
+app/assets/css/images
+app/scripts/templates.js
+docs/app
+docs/templates.js
+docs/assets/*
+docs/components/*
+e2e.csv
+
+# temporary files #
+###################
+*.rej
+*.orig
+.*.swp
+*~
+*.bak
+*.cache
+
+# OS generated files #
+######################
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+#To ignore IDE (eclipse / intellij) related files #
+###################################################
+.classpath
+.project
+.settings
+.idea
+.metadata
+*.sublime-workspace
+*.sublime-project
+*.iml
+*.ipr
+*.fuse_hidden*
+jmeter.log

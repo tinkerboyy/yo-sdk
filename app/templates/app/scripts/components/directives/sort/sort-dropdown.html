@@ -1,0 +1,11 @@
+<ul class="dropdown-menu sowl-search-sort-options" aria-labelledby="dropdownMenu1">
+	<li class="dropdown-header">Sort by:</li>
+    <li ng-repeat="sortOption in sortOptions">
+    	<a ng-click="changeSortField(sortOption.field);">
+    		<span class="fa" ng-class="{'fa-check': currentSort.field == sortOption.field, 'fa-fw': currentSort.field != sortOption.field}"></span>
+    		{{::sortOption.label}}
+
+    		<span class="sort-dir-indicator fa" ng-class="{'fa-fw': currentSort.field != sortOption.field, 'fa-arrow-up' : currentSort.field == sortOption.field && !currentSort.reverseOrder, 'fa-arrow-down' : currentSort.field == sortOption.field && currentSort.reverseOrder}">
+    	</a>
+    </li>
+  </ul>

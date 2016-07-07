@@ -1,0 +1,36 @@
+<div class="main-container container" id="newsItem">
+  <header role="banner" id="page-header">
+    <section id="block-boxes-quick-navigation" class="block block-boxes block-boxes-simple contextual-links-region clearfix">
+      <div id="quick-nav-block">
+        <div class="panel-body"> 
+          <a href="javascript:history.back(1)" class="btn btn-default" > <span class="fa fa-arrow-circle-left"></span> Back</a> 
+          <span id="quickNav-btn" class="dropdown" ng-class="{'open' : isOpen}">
+            <button ng-click="isOpen = !isOpen" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"> Categories <span class="caret"></span> </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+              <li ng-repeat="hallwayitem in hallways | orderBy:'label'" role="presentation"><a role="menuitem" ng-href="/app/#/gateway/{{hallwayitem.label | stringReplace : '&' : 'and' | kebabCase}}"> {{hallwayitem.label}}</a>
+              </li>
+            </ul>
+          </span> 
+        </div>
+      </div>
+    </section> <!-- /.block -->
+  </header>
+
+  <div class="row">
+    <section class="col-sm-12">
+      <a id="main-content"></a>
+      <h1 class="page-header">{{news.label}}</h1>
+      <div class="region region-content">
+        
+          <div class="newsDesc">
+            <span class="field-item even" property="content:encoded" ng-bind-html="news.shortdescription | trust"></span>
+          </div>
+     <br/><br/>
+        <div class="newsBody">
+            <span  ng-bind-html="news.body | trust"></span>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>

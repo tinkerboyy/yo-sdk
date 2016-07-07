@@ -1,0 +1,89 @@
+<form class="widget solutions-finder form-horizontal">
+  <div class="widget-header text-center">
+    <h5 class="title-banner">Solutions Finder</h5>
+  </div>
+  <div ng-if="categories.length > 0 && allSubcategories.length > 0 && availableTo.length > 0 && allSolutions.length > 0" ng-init="autoSelect(); changeFilter();" ng-cloak>
+    <div class="form-group">
+      <label for="purchasingOrganization"
+        class="col-xs-12 col-sm-4 control-label text-nowrap">
+        My Agency
+      </label>
+      <div class="col-xs-12 col-sm-8">
+        <div class="input-group input-group-bordered">
+          <ag-smart-select
+            data-title="'Acquiring agency or agency for whom the acquisition is being conducted'"
+            data-id="purchasingOrganization"
+            data-options="availableTo"
+            data-option-flag-key="fkOptionParentId"
+            data-target="moreSearch"
+            data-target-field="availableTo"
+            data-change-callback="changeFilter"
+            data-filter-counts="filterCountUpdater.filterCounts.availableTo"
+            ng-if="categories.length > 0 && allSubcategories.length > 0 && contractTypes.length > 0 && programTypes.length > 0 && availableTo.length > 0 && allSolutions.length > 0"
+          ></ag-smart-select>
+          <ag-help ng-if="help.length > 0" data-item="'my-agency'" data-collection="help" class="input-group-btn"></ag-help>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for=""
+        class="control-label col-xs-12 col-sm-4">
+        Category
+      </label>
+      <div class="col-xs-12 col-sm-8">
+        <div class="input-group input-group-bordered">
+            <ag-smart-select
+              data-id="ProductCategories"
+              data-options="categories"
+              data-option-value-key="id"
+              data-multiple="true"
+              data-target="moreSearch"
+              data-target-field="categories"
+              data-change-callback="setSubcategories"
+              data-filter-counts="filterCountUpdater.filterCounts.categories"
+              ng-if="categories.length > 0 && allSubcategories.length > 0 && contractTypes.length > 0 && programTypes.length > 0 && availableTo.length > 0 && allSolutions.length > 0"
+            ></ag-smart-select>
+            <ag-help ng-if="help.length > 0" data-item="'category'" data-collection="help" class="input-group-btn"></ag-help>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for=""
+        class="control-label col-xs-12 col-sm-4">
+        Subcategory
+      </label>
+      <div class="col-xs-12 col-sm-8">
+        <div class="input-group input-group-bordered">
+          <ag-smart-select
+            ng-disabled="!moreSearch.categories"
+            data-title="'Select a product or service subcategory'"
+            data-id="productSubcategory"
+            data-options="subCategories"
+            data-multiple="true"
+            data-option-flag-key="categoryId"
+            data-target="moreSearch"
+            data-target-field="subcategories"
+            data-change-callback="changeFilter"
+            data-filter-counts="filterCountUpdater.filterCounts.subcategories"
+            ng-if="categories.length > 0 && allSubcategories.length > 0 && contractTypes.length > 0 && programTypes.length > 0 && availableTo.length > 0 && allSolutions.length > 0"
+          ></ag-smart-select>
+          <ag-help ng-if="help.length > 0" data-item="'subcategory'" data-collection="help" class="input-group-btn"></ag-help>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-xs-12 text-right">
+        <input id="sfWidgetSubmitbtn" ng-click="submitQuery({ agency: moreSearch.availableTo.id, category: moreSearch.categories,
+        subcategory: moreSearch.subcategories })"
+          class="btn btn-sm btn-default pull-left"
+          type="submit"
+          value="View"/>
+        <small class="counter">
+          <strong class="solutions-counter">{{ numSolutions }}</strong>
+          <span>Solutions available</span>
+          <button class="btn btn-default btn-xs" ng-click="toggleSearch(true)">Reset</button>
+        </small>
+      </div>
+     </div>
+  </div>
+</form>

@@ -1,0 +1,15 @@
+name = Learn Connect Act Bar for Hallways
+description = Learn Connect Act Bar for Hallways
+core = 7.x
+package = Features
+version = 7.x-1.4
+project = lca_bar
+dependencies[] = boxes
+dependencies[] = ctools
+dependencies[] = fe_block
+features[box][] = lca_bar
+features[box][] = lcabar_hallways
+features[ctools][] = boxes:box:1
+features[fe_block_settings][] = boxes-lca_bar
+features[fe_block_settings][] = boxes-lcabar_hallways
+features[features_api][] = api:2

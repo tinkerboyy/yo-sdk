@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Hallways Article File Upload feature.
+ */
+
+include_once 'hallways_article_file_upload.features.inc';

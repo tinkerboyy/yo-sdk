@@ -1,0 +1,18 @@
+name = Acquisition Gateway Solution Finder Widget.
+description = Provides Acquisition Gateway Solution Finder form block.
+core = 7.x	
+package = Acquisition Gateway
+
+;files (Optional)
+files[] = solution_finder.module
+files[] = ./model/solution_finder_model.inc
+files[] = ./view/solution_finder_from.tpl.php
+files[] = ./inc/solution_finder_block.inc
+
+;stylesheets (Optional)
+stylesheets[all][] = './css/solution_finder.css'
+
+;scripts (Optional)
+scripts[] = '../../../../../ag-app/app/vendor/requirejs/require.js'
+scripts[] = '../../../../../ag-app/app/scripts/main.js'
+scripts[] = './js/bootstrap-angular.js'

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Cron Job feature.
+ */
+
+include_once 'cron_job.features.inc';

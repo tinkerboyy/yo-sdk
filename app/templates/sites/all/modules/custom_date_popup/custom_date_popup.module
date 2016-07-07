@@ -1,0 +1,47 @@
+<?php
+/**
+ * @file
+ * Code for the date expire.
+ */
+
+function custom_date_popup_form_alter(&$form, &$form_state, $form_id){
+
+if($form_id == 'webform_node_form' && arg(1) == '557'){
+unset($form['field_webform_custom_date_expire']);
+//echo '<pre>'; print_r($form); die;
+}
+
+
+
+$value = 'webform';
+//$deflaut_value_date = db_query('SELECT field_webform_custom_date_expire_value FROM {field_data_field_webform_custom_date_expire} WHERE bundle = :type', array(':type' => $value))->fetchField();
+
+$new_value_date = db_query('SELECT field_no_of_days_tag_value FROM {field_data_field_no_of_days_tag} WHERE bundle = :type', array(':type' => $value))->fetchField();
+
+$expire_value_date = db_query('SELECT field_no_of_days_to_expire_date_value FROM {field_data_field_no_of_days_to_expire_date} WHERE bundle = :type', array(':type' => $value))->fetchField();
+
+//if($form_id == 'article_node_form'){
+//$form['field_expiration_date']['und'][0]['#default_value']['value'] = $deflaut_value_date;
+
+
+ if (arg(1) == 'add' && isset($form['field_new_tag_expiration_date_1']['und'])){
+$default_new_days = $form['field_new_tag_expiration_date_1']['und'][0]['#default_value']['value'];
+$date = date_create($default_new_days);
+date_add($date,date_interval_create_from_date_string($new_value_date." days"));
+$new_date = date_format($date,"Y-m-d 00:00:00");
+
+$form['field_new_tag_expiration_date_1']['und'][0]['#default_value']['value'] = $new_date;
+}
+
+ if (arg(1) == 'add' && isset($form['field_expiration_date']['und'])){
+$default_expire_days = $form['field_expiration_date']['und'][0]['#default_value']['value'];
+$expiredate = date_create($default_expire_days);
+date_add($expiredate,date_interval_create_from_date_string($expire_value_date." days"));
+$expire_date = date_format($expiredate,"Y-m-d 00:00:00");
+
+$form['field_expiration_date']['und'][0]['#default_value']['value'] = $expire_date;
+}
+
+}
+
+?>

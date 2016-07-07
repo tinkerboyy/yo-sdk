@@ -1,0 +1,414 @@
+<?php
+
+	/*
+	 * @file
+	 * Gateway Project Center Schema install
+	 */
+
+	/*
+  * Implements hook_install().
+  */
+	 	function gateway_projects_install () {
+	 		//Only install if db tables !exist
+			if(!db_table_exists('gateway_project')) {
+				drupal_install_schema('gateway_project');
+				drupal_set_message(t('Gateway Projects tables installed.'));
+			}
+
+			if(!db_table_exists('gateway_task')){
+				drupal_install_schema('gateway_task');
+				drupal_set_message(t('Gateway Tasks tables installed.'));
+			}
+
+			if(!db_table_exists('gateway_project_entity_reference')){
+				drupal_install_schema('gateway_project_entity_reference');
+				drupal_set_message(t('Gateway Tasks tables installed.'));
+			}
+
+			if(!db_table_exists('gateway_event')){
+				drupal_install_schema('gateway_event');
+				drupal_set_message(t('Gateway Events tables installed.'));
+			}
+		}
+
+	 /*
+	  * Implements hook_uninstall().
+	 */
+
+	function gateway_projects_uninstall () {
+	 		// UnInstall schema
+	 	if(db_table_exists('gateway_project')) {
+			drupal_uninstall_schema('gateway_project');
+			drupal_set_message(t('Gateway Projects tables uninstalled.'));
+		}
+
+		if(db_table_exists('gateway_task')) {
+			drupal_uninstall_schema('gateway_task');
+			drupal_set_message(t('Gateway task tables uninstalled.'));
+		}
+
+		if(db_table_exists('gateway_project_entity_reference')) {
+			drupal_uninstall_schema('gateway_project_entity_reference');
+			drupal_set_message(t('Gateway task tables uninstalled.'));
+		}
+
+		if(db_table_exists('gateway_event')) {
+			drupal_uninstall_schema('gateway_event');
+			drupal_set_message(t('Gateway event tables uninstalled.'));
+		}
+
+	}
+
+	/**
+	 * Remove gateway_tasks table if exists.
+	 * Create new database table {gateway_task}.
+	 * Add new column ('status') to table {gateway_project}.
+	 */
+	function gateway_projects_update_7001() {
+		//Remove gateway_tasks table.
+		if(db_table_exists('gateway_tasks')){
+			db_drop_table('gateway_tasks');
+		}
+		//Add new gateway_task table !exists.
+		if(!db_table_exists('gateway_task')){
+
+		//GATEWAY TASKS SCHEMA DEFINATION
+		$schema['gateway_task'] = getCommonFields();
+		$schema['gateway_task']['fields']['due_date'] = array(
+			'description' => 'The Unix timestamp when the task is due.',
+			'type' => 'int',
+			'not null' => TRUE,
+			'default' => 0
+		 );
+
+		$schema['gateway_task']['fields']['completed'] = array(
+		 	'description' => 'Task completed?',
+			'type' => 'int',
+			'length' => 1,
+			'not null' => TRUE,
+			'default' => 0
+		 );
+			db_create_table('gateway_task', $schema['gateway_task']);
+		}
+
+		if(db_table_exists('gateway_project')) {
+		//Add newcol (status) to the table definition array in mymodule_schema()
+			$spec = array(
+		  	 'description' => 'Project status',
+			    'type' => 'int',
+			    'size' => 'tiny',
+			    'not null' => TRUE,
+			    'default' => 1,
+			);
+
+		  db_add_field( 'gateway_project', 'status', $spec);
+		}
+	}
+
+
+	/**
+	 * Add col entity_id {gateway_project_entity_reference}.
+	 * Create new database table {gateway_project_entity_reference}.
+	 */
+	function gateway_projects_update_7101() {
+
+		$baseTable = getCommonFields();
+	//Add new gateway_project_entity_reference table !exists.
+		if(!db_table_exists('gateway_project_entity_reference')){
+
+		  //Schema for gateway_project_entity_reference table.
+			$schema['gateway_project_entity_reference'] = getCommonFields();
+			$schema['gateway_project_entity_reference']['fields']['pid'] = array(
+				'description' => 'Referenced project id',
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+				'default' => 0
+		 );
+
+			$schema['gateway_project_entity_reference']['fields']['type'] = array(
+				'description' => 'Entity type.',
+				'type' => 'varchar',
+				'length' => 225,
+				'not null' => TRUE,
+				'default' => ''
+			);
+
+			$schema['gateway_project_entity_reference']['foreign keys'] = array(
+				'pid' => array('table' => 'gateway_project','columns' => array('id' => 'id'),
+			));
+
+
+			db_create_table('gateway_project_entity_reference', $schema['gateway_project_entity_reference']);
+		}
+
+		if(db_table_exists('gateway_project_entity_reference')) {
+		//Add newcol (status) to the table definition array in mymodule_schema()
+			$spec = array(
+			  'description' => 'Referenced entity id',
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+				'default' => 0
+			);
+
+		  db_add_field( 'gateway_project_entity_reference', 'entity_id', $spec);
+		}
+
+
+	}
+
+	/**
+	 * Create new database table {gateway_event}.
+	 */
+	function gateway_projects_update_7302() {
+	  //Add new gateway_event table !exists.
+		if(!db_table_exists('gateway_event')){
+			//Schema for gateway_event table.
+			$schema['gateway_event'] = getCommonFields();
+			$schema['gateway_event']['fields']['start_date'] = array(
+				'description' => 'The Unix timestamp when the event starts.',
+				'type' => 'int',
+				'not null' => TRUE,
+				'default' => 0
+			);
+			$schema['gateway_event']['fields']['end_date'] = array(
+	 			'description' => 'The Unix timestamp when the event starts.',
+	 			'type' => 'int',
+	 			'not null' => TRUE,
+	 			'default' => 0
+	 		);
+			$schema['gateway_event']['fields']['location'] = array(
+			  'description' => 'Event location.',
+			  'type' => 'varchar',
+			  'length' => 255,
+			  'not null' => TRUE,
+			  'default' => '',
+		  );
+			$schema['gateway_event']['fields']['description'] = array(
+			  'description' => 'Event description.',
+			  'type' => 'varchar',
+			  'length' => 255,
+			  'not null' => TRUE,
+			  'default' => '',
+		  );
+
+			db_create_table('gateway_event', $schema['gateway_event']);
+		}
+	}
+
+	/**
+	 * Add col entity_id {gateway_project_entity_reference}.
+	 * Create new database table {gateway_project_entity_reference}.
+	 */
+	function gateway_projects_update_7102() {
+		$schema = gateway_projects_schema();
+		foreach($schema as $tableName => $value) {
+			if (db_table_exists($tableName)) {
+				if(db_field_exists($tableName, 'uid') && !db_index_exists($tableName, 'uid')) { 
+		  		db_add_index($tableName, 'uid', array('uid'));
+				}
+				if(db_field_exists($tableName, 'updated') && !db_index_exists($tableName, 'updated')) { 
+		  		db_add_index($tableName, 'updated', array('updated'));
+				}
+			}			
+		}
+	}
+
+	/**
+	 * Add `due` field to projects.
+	 */
+	function gateway_projects_update_7500() {
+		if(db_table_exists('gateway_project')) {
+			if (!db_field_exists('gateway_project', 'due')) {
+				$spec = array(
+					'description' => 'The Unix timestamp when the project is due.',
+					'type' => 'int',
+					'not null' => FALSE,
+					'default' => NULL
+			 	);
+
+			  db_add_field( 'gateway_project', 'due', $spec);
+			}
+		}
+	}
+
+	/**
+	* Implementation of hook_schema().
+	*/
+
+	function gateway_projects_schema() {
+
+		 //Returns common fields.
+		 $baseTable = getCommonFields();
+		 $schema = [];
+		 //Schema for gateway_project table.
+		 $schema['gateway_project'] = getCommonFields();
+		 $schema['gateway_project']['fields']['description'] = array(
+				'description' => 'Project description',
+				'type' => 'varchar',
+				'length' => 225,
+				'not null' => FALSE,
+				'default' => ''
+		 );
+
+		 $schema['gateway_project']['fields']['notes'] = array(
+	 		'type' => 'varchar',
+			'length' => 225,
+			'not null' => FALSE,
+			'default' => ''
+		 );
+
+		 $schema['gateway_project']['fields']['due'] = array(
+			'description' => 'The Unix timestamp when the project is due.',
+			'type' => 'int',
+			'not null' => FALSE,
+			'default' => NULL
+		 );
+
+		//Schema for gateway_task table.
+		$schema['gateway_task'] = getCommonFields();
+		$schema['gateway_task']['fields']['due_date'] = array(
+			'description' => 'The Unix timestamp when the task is due.',
+			'type' => 'int',
+			'not null' => TRUE,
+			'default' => 0
+		 );
+
+		$schema['gateway_task']['fields']['completed'] = array(
+		 	'description' => 'Task completed?',
+			'type' => 'int',
+			'length' => 1,
+			'not null' => TRUE,
+			'default' => 0
+		 );
+
+		//Schema for gateway_project_entity_reference table.
+		$schema['gateway_project_entity_reference'] = getCommonFields();
+
+		$schema['gateway_project_entity_reference']['fields']['pid'] = array(
+			'description' => 'Referenced project id',
+			'type' => 'int',
+			'unsigned' => TRUE,
+			'not null' => TRUE,
+			'default' => 0
+	 );
+
+		$schema['gateway_project_entity_reference']['fields']['entity_id'] = array(
+			'description' => 'Referenced entity id',
+			'type' => 'int',
+			'unsigned' => TRUE,
+			'not null' => TRUE,
+			'default' => NULL
+		);
+
+		$schema['gateway_project_entity_reference']['fields']['type'] = array(
+			'description' => 'Entity type.',
+			'type' => 'varchar',
+			'length' => 225,
+			'not null' => TRUE,
+			'default' => ''
+		);
+
+		$schema['gateway_project_entity_reference']['foreign keys'] = array(
+			'pid' => array('table' => 'gateway_project','columns' => array('id' => 'id'),
+		));
+
+		//Schema for gateway_event table.
+		$schema['gateway_event'] = getCommonFields();
+		$schema['gateway_event']['fields']['start_date'] = array(
+			'description' => 'The Unix timestamp when the event starts.',
+			'type' => 'int',
+			'not null' => TRUE,
+			'default' => 0
+		 );
+		 $schema['gateway_event']['fields']['end_date'] = array(
+ 			'description' => 'The Unix timestamp when the event starts.',
+ 			'type' => 'int',
+ 			'not null' => TRUE,
+ 			'default' => 0
+ 		 );
+		 $schema['gateway_event']['fields']['location'] = array(
+		  'description' => 'Event location.',
+		  'type' => 'varchar',
+		  'length' => 225,
+		  'not null' => TRUE,
+		  'default' => '',
+	   );
+		 $schema['gateway_event']['fields']['description'] = array(
+		  'description' => 'Event description.',
+		  'type' => 'varchar',
+		  'length' => 225,
+		  'not null' => TRUE,
+		  'default' => '',
+	   );
+
+		return $schema;
+	}
+
+
+	//@Returns common fields for our custom schema defination.
+	//Any shared fileds must be passed in this fields array.
+	function getCommonFields (){
+			$commonFields = array (
+				'fields' => array(
+					'id' => array(
+						'description' => 'The primary id for project entity reference table.',
+						'type' => 'serial',
+						'unsigned' => TRUE,
+						'not null' => TRUE
+					),
+
+					'uid' => array(
+						'description' => 'The user id this task belongs to.',
+						'type' => 'int',
+						'unsigned' => TRUE,
+						'not null' => TRUE,
+						'default' => 0
+					),
+
+					'name' => array(
+							'description' => 'Project names.',
+							'type' => 'varchar',
+							'length' => 225,
+							'not null' => TRUE,
+							'default' => ''
+					),
+
+					'status' => array(
+					    'description' => 'Task status',
+					    'type' => 'int',
+					    'size' => 'tiny',
+					    'not null' => TRUE,
+					    'default' => 1,
+		  			),
+					'created' => array(
+			        'description' => 'The Unix timestamp when the node was created.',
+			        'type' => 'int',
+			        'not null' => TRUE,
+			        'default' => 0,
+		      		),
+
+					'updated' => array(
+			        'description' => 'The Unix timestamp when the node was most recently saved.',
+			        'type' => 'int',
+			        'not null' => TRUE,
+			        'default' => 0,
+		      	),
+					),
+
+					'unique keys' => array(
+			      'id' => array('id')
+			    ),
+					
+					'primary key' => array('id'),
+
+					'indexes' => array(
+						'uid' => array('uid'),
+						'updated' => array('updated')
+					),
+			);
+
+		return $commonFields;
+
+	}

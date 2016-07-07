@@ -1,0 +1,121 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+
+function sow_content_type_type_fields_form_alter(&$form, &$form_state, $form_id){
+
+	//Display #RFP when we select USEDINRFP using checkbox
+
+	if($form_id=="sow_node_form"){
+		$form['field__opm_category_and_sub_cate']['und']['#title'] = FALSE;
+		$form['field_sub_category']['und']['#title'] = FALSE;
+		$form['field_related_solutions']['und']['#multiple'] = TRUE;
+		$form['field_rfp_number']['#states'] = array(
+	      'visible' => array(
+	        '#edit-field-document-type-und' => array('value' => 'USEDINRFP'),
+	      ),
+	  );
+
+		if(isset($form['nid']['#value'])) {
+			$form['field__opm_category_and_sub_cate']['und']['#title'] = FALSE;
+			$form['field_sub_category']['und']['#title'] = FALSE;
+			$form['field_related_solutions']['und']['#multiple'] = TRUE;
+
+			 //Load existing related solution data to node edit forms of SOW nodes
+			 $result = db_query('select field_related_solutions_value from field_data_field_related_solutions where entity_id = :nid', array( ':nid' => $form['nid']['#value']));
+			 $default_solutions = array();
+			 while ($row = $result->fetchAssoc()) {
+				 $default_solutions[] = $row['field_related_solutions_value'];
+			 }
+			 $form['field_related_solutions']['und']['#default_value'] = $default_solutions;
+
+			//  $result = db_query('select field__opm_category_and_sub_cate_value from field_data_field__opm_category_and_sub_cate where entity_id = :nid', array( ':nid' => $form['nid']['#value']));
+			//  $default_category = array();
+			//  while ($row = $result->fetchAssoc()) {
+			// 	 $default_category[] = $row['field__opm_category_and_sub_cate_value'];
+			//  }
+			//  $form['field__opm_category_and_sub_cate']['und']['#default_value'] = $default_category;
+			 //
+			//  $result = db_query('select field_sub_category_value from field_data_field_sub_category where entity_id = :nid', array( ':nid' => $form['nid']['#value']));
+			//  $default_sub_category = array();
+			//  while ($row = $result->fetchAssoc()) {
+			// 	 $default_sub_category[] = $row['field_sub_category_value'];
+			//  }
+			//  $form['field_sub_category']['und']['#default_value'] = $default_sub_category;
+		 }
+
+		// set database to solution matrix
+	  db_set_active('solution_matrix');
+
+		// declare sql statement for solutions
+	  $sql = "SELECT cs.pkContractSolutionId AS id,
+									 cs.name AS solutionName
+						FROM tbContractSolutions cs
+            WHERE cs.name IS NOT NULL AND cs.name <> ''
+						ORDER BY cs.name";
+
+	  // run query
+	  $result = db_query($sql);
+
+	  // fetch all results
+	  $results = $result->fetchAll();
+
+		$solutions = array();
+
+		foreach ($results as $row) {
+		  	$solutions[$row->id] = $row->solutionName;
+		}
+
+		 $form['field_related_solutions']['und']['#options'] = $form['field_related_solutions']['und']['#options'] + $solutions;
+
+	//Commenting/hiding Categories and Sub-Categories temporarily part of sprint 35
+		//Query for Categories
+	/*	$sql = "SELECT pc.pkProductCategoryId AS id,
+									 pc.name AS categoryName,
+									 pc.fkParentProductCategoryId
+						FROM tbProductCategories pc
+						WHERE pc.fkParentProductCategoryId IS NULL
+						ORDER BY pc.name";
+
+		// run query
+		$result = db_query($sql);
+
+		// fetch all results
+		$results = $result->fetchAll();
+
+		$categories = array();
+
+		foreach ($results as $row) {
+				$categories[$row->id] = $row->categoryName;
+		}
+
+		 $form['field__opm_category_and_sub_cate']['und']['#options'] = $form['field__opm_category_and_sub_cate']['und']['#options'] + $categories;
+
+		 //Query for Sub-Categories
+ 		$sql = "SELECT pc.pkProductCategoryId AS id,
+ 									 pc.name AS subCategoryName,
+ 									 pc.fkParentProductCategoryId
+ 						FROM tbProductCategories pc
+ 						WHERE pc.fkParentProductCategoryId IS NOT NULL
+ 						ORDER BY pc.name";
+
+ 		// run query
+ 		$result = db_query($sql);
+
+ 		// fetch all results
+ 		$results = $result->fetchAll();
+
+ 		$subcategories = array();
+
+ 		foreach ($results as $row) {
+ 				$subcategories[$row->id] = $row->subCategoryName;
+ 		}
+
+ 		 $form['field_sub_category']['und']['#options'] = $form['field_sub_category']['und']['#options'] + $subcategories;
+*/
+		// set database back to drupal default
+	  db_set_active();
+	}
+}

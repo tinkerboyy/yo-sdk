@@ -1,0 +1,100 @@
+<div class="col-md-12">
+  <div id="communities-header-row">
+    <h2 class="community-heading" ng-if="!community">
+      <i class="fa fa-2x" ng-class="community.icon || 'fa-compass' "></i>
+      Community Activity
+    </h2>
+  </div>
+</div>
+
+<div id="community-group-header" class="col-md-12">
+  <h2 class="community-heading" ng-if="community">
+    <i class="fa fa-2x" ng-class="community.icon || 'fa-compass' "></i>
+    {{ community.label }}
+  </h2>
+  <h3 ng-if="!community">Have something to share?</h3>
+
+  <div ng-if="!community" class="col-md-8 unpadded">Post a question or discussion topic in one of the community groups!</div>
+
+  <div ng-if="community" class="col-md-8 icon-spaced" ng-bind-html="community.description"></div>
+
+  <div class="col-md-4 icon-spaced action-buttons">
+    <a ng-click="createNewTopic(community)" class="btn btn-block add-topic-button" id="comunity-add-topic-link" ng-if="!singleTopic"><span class="fa fa-plus"></span> Create New Topic</a>
+    <ag-follow
+      ng-if="community"
+      class="btn btn-block add-topic-button follow-group"
+      callback="updateMyGroups"
+      data-follow-text="Follow This Group"
+      data-unfollow-text="Unfollow This Group"
+      data-type="group"
+      data-item="community"
+      data-notify="toastyNotify">
+    </ag-follow>
+  </div>
+
+  <div id="communities-new-topic" class="clearfix col-md-12 topic-reply" ng-show="newTopic.createNewTopicExpanded">
+    <!--<div id="new-topic-success" data-new-topic-id="{{::newTopic.id}}" class="col-md-12" ng-if="newTopic.success" data-animation="am-fade">-->
+      <!--<i class="fa fa-check fa-5x pull-left text-success"></i>-->
+      <!--<div>-->
+        <!--<h3 class="text-success">Success!</h3>-->
+        <!--<p>Your topic has been successfully posted</p>-->
+        <!--<button type="button" class="btn btn-default pull-right" ng-click="addReply(topic)"><i class="fa fa-close"></i> Close</button>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <form name="newTopicForm" class="form" ng-if="!newTopic.success" ng-submit="submitNewTopic()" novalidate>
+      <div class="row header">
+        <h4 class="col-md-2 col-lg-4 pull-left">New Group Topic</h4>
+        <div class="col-md-2">
+          <label class="pull-right" for="newTopicCommunity"
+            class="control-label">Community:</label>
+        </div>
+        <div class="col-md-8 col-lg-6">
+          <button type="button" bs-select
+            title="'Community new topic should be placed under'"
+            data-placement="bottom"
+            id="newTopicCommunity"
+            class="form-control"
+            placeholder="Select Community..."
+            bs-options="community as community.label for community in communities | orderBy: 'label'"
+            ng-model="newTopic.community"
+            required
+          ></button>
+          <ag-help ng-if="help.length > 0" data-item="'community'" data-collection="help" class="input-group-btn"></ag-help>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="sr-only" for="newTopicTitle">Title</label>
+        <input type="text" id="newTopicTitle" class="form-control" ng-model="newTopic.label" placeholder="Create a title" required>
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="newTopicContent">Content</label>
+        <textarea ag-rich-text rows="8" id="newTopicContent" class="form-control" ng-model="newTopic.body" placeholder="Add content..." required></textarea>
+      </div>
+
+      <div ng-show="newTopic.processing" class="pull-left">
+        <span class="fa fa-spinner fa-spin"></span>
+        Saving new topic, please wait...
+      </div>
+     <span class="text-danger small">
+        <span ng-show="!newTopicForm.$valid">This field is required.</span>
+     </span>
+      <span class="text-danger pull-left" ng-if="newTopic.error"><i class="fa fa-exclamation-triangle"></i> An error occured submitting your topic</span>
+
+      <div class="pull-right">
+        <a ng-click="newTopic.createNewTopicExpanded = false">Cancel</a>
+        <button type="submit" class="btn btn-link" ng-disabled="newTopicForm.$invalid || newTopic.processing">Submit</button>
+      </div>
+    </form>
+  </div>
+  <div class="clearfix"></div>
+</div>
+
+<ag-topics-list
+  data-entity="community"
+  data-set-active-community="setActiveCommunity"
+  data-single-topic="singleTopic"
+  data-entity-type="group"
+  data-notify-topic="toastyNotifyTopic"
+></ag-topics-list>

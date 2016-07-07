@@ -1,0 +1,13 @@
+name = Statistics Counter
+description = Logs access statistics in week, month and year for your site.
+package = Statistics
+core = 7.x
+
+dependencies[] = statistics
+
+; Information added by drupal.org packaging script on 2013-08-02
+version = "7.x-1.2"
+core = "7.x"
+project = "statistics_counter"
+datestamp = "1375464981"
+

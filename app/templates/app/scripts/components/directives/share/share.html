@@ -1,0 +1,27 @@
+<span class="ag-share" id="ag-share">
+  <a ng-click="doShare()" class="btn btn-link" title="Share this"><i class="fa fa-share-square-o"></i> Share</a>
+  <div class="share-popover" id="share-popover" ng-if="showShare" ng-class="{ 'no-add-to-project': hideAddToProject }">
+    <div class="arrow"><i class="fa fa-caret-up fa-2x"></i></div> 
+    <h3 class="popover-title">
+      <button class="btn btn-link close pull-right" ng-click="doShare()"><i class="fa fa-close"></i></button>
+      Share
+    </h3>
+    <div class="popover-content">
+      <p>Copy the URL in the textbox to share this search</p>
+      <form class="form">
+        <div class="form-group">
+          <input type="text" id="shareUrl" class="form-control" ng-model="shareUrl" ng-click="selectUrl($event)" readonly>
+        </div>
+      </form>
+    </div>
+    <center ng-if="!hideAddToProject">OR</center>
+    <div ng-if="!hideAddToProject">
+      <center>
+        <button id="share-add-to-project" class="btn btn-default btn-block" ng-click="addToProject()">
+          <i class="fa fa-share-square-o"></i>
+          Add to a project
+        </button>
+      </center>
+    </div>
+  </div>
+</span>

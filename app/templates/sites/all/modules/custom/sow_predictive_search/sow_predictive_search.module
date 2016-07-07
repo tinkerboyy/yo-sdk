@@ -1,0 +1,59 @@
+<?php
+
+ /**
+ * Implements hook_menu().
+ */
+function sow_predictive_search_menu() {
+  // create autocomplete url path
+  // reachable by drupal only at https://www.example.com/sow/autocomplete
+  $items['sow/autocomplete'] = array(
+    'page callback' => '_sow_predictive_search_autocomplete',
+    'access callback' => 'user_is_logged_in',
+    'type' => MENU_CALLBACK
+  );
+  return $items;
+}
+
+ /**
+ * Implements hook_form_alter().
+ */
+function sow_predictive_search_form_alter(&$form, $form_state, $form_id) {
+  // makes sure we are pulling up the statement of work search field
+  if($form_id == 'views_exposed_form' && $form['#id'] == 'views-exposed-form-sow-search-page') {
+    // set autocomplete path
+    $form['search_api_views_fulltext']['#autocomplete_path'] = 'sow/autocomplete';
+  }
+}
+
+/**
+ * create predictive text autocomplete query
+ * @param  string $string string being searched for
+ * @return json return a json object
+ */
+function _sow_predictive_search_autocomplete($string) {
+  $matches = array();
+
+  // search logging database table
+  $query = db_select('search_logging', 'sl');
+
+  // Select rows that match the string
+  // where the search results count is greater than 0
+  // grouped by the search query and ordered by the results count
+  // only show 5
+  $return = $query
+    ->fields('sl', array('search_query', 'search_results_count'))
+    ->condition('sl.search_query', db_like($string) . '%', 'LIKE')
+    ->condition('sl.search_results_count', 0, '>')
+    ->orderBy('sl.search_results_count', 'DESC')
+    ->groupBy('sl.search_query')
+    ->range(0, 5)
+    ->execute();
+
+  // add matches to $matches
+  foreach ($return as $row) {
+    $matches[$row->search_query] = check_plain($row->search_query);
+  }
+
+  // return json object
+  drupal_json_output($matches);
+}

@@ -1,0 +1,11 @@
+name = Message View
+description = Message View Feature
+core = 7.x
+package = Organic Groups Features
+version = 7.x-1.0
+project = message_view
+dependencies[] = message
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features_exclude[dependencies][ctools] = ctools

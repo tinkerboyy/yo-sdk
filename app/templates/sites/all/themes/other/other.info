@@ -1,0 +1,30 @@
+name = Other
+description = Responsive Drupal 7 Theme. 
+core = 7.x
+engine = phptemplate
+version = 1.0.4
+
+; Define theme stylesheets.
+stylesheets[all][] = css/font-awesome.min.css
+stylesheets[all][] = css/framework.css
+stylesheets[all][] = css/style.css
+stylesheets[all][] = css/drupal.css
+
+; Define theme JS.
+scripts[] = js/plugins.js
+scripts[] = js/custom.js
+
+; Define theme regions.
+
+regions[site_nav] = Site Navigation
+regions[before_content] = Before Content
+regions[content] = Content
+regions[sidebar_primary] = Sidebar Primary
+regions[sidebar_secondary] = Sidebar Secondary
+
+; Define theme setting defaults.
+settings[ajax_loader] = 1
+settings[meta_date] = 1
+settings[meta_title] = 1
+settings[meta_tags] = 1
+

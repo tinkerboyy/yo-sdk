@@ -1,0 +1,35 @@
+<form ng-init="entityCopy = getEditCopy(entity)" name="projectEntry" ng-submit="saveProject($hide)" novalidate>
+  <div class="form-group" ng-class="{ 'has-error': projectEntry.name.$error.required }">
+    <input type="text" ng-model="project.name" class="form-control"
+      placeholder="Project Name..." name="name" title="Project Name"
+      required autofocus maxlength="225"/>
+    <span class="text-danger small">
+      <span ng-show="project.name.$error.required">Project name is required.</span>
+    </span>
+  </div>
+
+  <div class="form-group">
+    <input ag-disable-input
+      bs-datepicker
+      ng-model="project.due"
+      class="form-control"
+      placeholder="Project Due Date..."
+      name="due" 
+      title="Project Due Date"/>
+  </div>
+
+  <div class="form-group">
+    <textarea ng-model="project.description" class="form-control"
+      placeholder="Project Description..." maxlength="225" title="Project Description"></textarea>
+  </div>
+
+  <div class="form-group">
+    <textarea ng-model="project.notes" class="form-control"
+    placeholder="Project Notes..." title="Project Notes" maxlength="225"></textarea>
+  </div>
+
+  <div class="text-right actions">
+    <button class="btn btn-link" ng-click="$hide()" type="button">Cancel</button>
+    <button class="btn btn-link" ng-disabled="projectEntry.$invalid" type="submit">Save</button>
+  </div>
+</form>

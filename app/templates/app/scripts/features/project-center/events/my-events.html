@@ -1,0 +1,53 @@
+<div ag-collection="[ { resourceName: 'PrivateEvents' }]" class="my-events fullview">
+  <div class="row">
+    <div class="col-xs-12">
+      <a bs-popover
+         title="Add Event"
+         class="add-event"
+         container="body"
+         content-template="scripts/features/project-center/events/my-events-entry.html"
+         placement="right"
+         class="pull-left btn-new-entity add-event">
+        <i class="fa fa-plus-circle"></i>
+        New Event
+      </a>
+    </div>
+  </div>
+  <div class="row scrollable">
+    <ag-accordion-container class="col-xs-12">
+      <ag-accordion ng-repeat="eventEntity in privateEvents.data.collection | filter: filter | orderBy: 'start_date'"
+        more-options="{ templateUrl: 'scripts/features/project-center/events/my-events-options.html', container: 'body', placement: 'left' }">
+        <ag-accordion-header>
+          <h5>{{eventEntity.name}}</h5>
+          <p class="no-margins date-body">
+            <span>
+              <span>{{eventEntity.start_date | agDateFormat:'shortDate' }}</span>
+              <span ng-if="( eventEntity.start_date | agDateFormat:'shortDate' ) !== ( eventEntity.end_date | agDateFormat:'shortDate' )">
+                - {{ eventEntity.end_date | agDateFormat:'shortDate' }}
+              </span>
+              &nbsp;
+            </span>
+            <span>{{eventEntity.start_date | agDateFormat:'shortTime'| lowercase | stringReplace : ' ' : ''  }} -
+            {{eventEntity.end_date | agDateFormat:'shortTime'| lowercase | stringReplace : ' ' : '' }} &nbsp;</span>
+          </p>
+        </ag-accordion-header>
+        <ag-accordion-body>
+          <div class="text-muted small">
+            <div ng-if="!project && eventEntity.projectStatus == '1'">
+              <span>Project: </span>
+              <span><a class ="project-link" project-link="{{eventEntity.projectId}}">{{eventEntity.projectName}}</a></span>
+            </div>
+            <div ng-if="eventEntity.location">
+              <span>Location: </span>
+              <span>{{eventEntity.location}}</span>
+            </div>
+            <div ng-if="eventEntity.description">
+              <span>Description: </span>
+              <span>{{eventEntity.description}}</span>
+            </div>
+          </div>
+        </ag-accordion-body>
+      </ag-accordion>
+    </ag-accordion-container>
+  </div>
+</div>

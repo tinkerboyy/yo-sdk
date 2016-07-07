@@ -1,0 +1,181 @@
+<?php
+/**
+ * @file
+ * Gateway gatekeeper Access control settings.
+ */
+/**
+ * Implements hook_form_alter().
+ */
+
+function gateway_gatekeeper_form_alter(&$form, &$form_state, $form_id)
+    {
+        global $user;
+
+        // Check if the user has the 'Site Manager' role.
+        if (in_array("Site Manager", $user->roles)) {
+            if(($form_id == 'user_register_form') || ($form_id == 'user_profile_form')){
+                //Unset "Administrator" for Sitemanager Role
+                unset($form['account']['roles']['#options'][3]);
+            }
+        }
+
+    // If Public/Private field exist.
+
+        if (!empty($form['type']))
+            {
+                global $user;
+                $gttype = $form['type']['#value'];
+                $sitetypes = array(
+                    'basic_page_without_workbench',
+                    'page',
+                    'downloadable_article',
+                    'footer_content',
+                    'hallways_resources',
+                    'homepage_random_content',
+                    'help',
+                    'podcast_article',
+                    'portfolio',
+                    'webform',
+                    'team',
+                    'project_file_upload',
+                    'comparison_wizard',
+                    'contact',
+                    'pricing_table',
+                    'group',
+                    'sow_modals'
+                );
+
+                $pbtypes = array(
+                    'article',
+                    'article_file_upload',
+                    'forum',
+                    'hallways_document',
+                    'hallways_historical_prices',
+                    'hallways_transactional_platforms',
+                    'video_article',
+                    'sow'
+                );
+
+                $alltypes = array(
+                    'resources_file'
+                );
+
+                $allroles = array(
+                    'Site Manager',
+                    'Public Access Gatekeeper'
+                );
+
+                if (isset($form['field_public_private']) && in_array($gttype, $pbtypes))
+                    {
+
+                        $form['field_public_private']['#access'] = true;
+                        if (!in_array('Public Access Gatekeeper', $user->roles))
+                            {
+                                $form['field_public_private']['#disabled'] = TRUE;
+                            }
+                    }
+
+                if (isset($form['field_public_private']) && in_array($gttype, $sitetypes))
+                    {
+                        // Get global user.
+                        $form['field_public_private']['#access'] = true;
+                        if (!in_array('Site Manager', $user->roles))
+                            {
+                                $form['field_public_private']['#disabled'] = TRUE;
+                            }
+                    }
+
+                if (isset($form['field_public_private']) && in_array($gttype, $alltypes))
+                    {
+                        $form['field_public_private']['#access'] = true;
+                        if (!array_intersect($allroles, $user->roles))
+                            {
+                                $form['field_public_private']['#disabled'] = TRUE;
+                            }
+                    }
+            }
+            else
+            {
+                $gttype = 0;
+            }
+    }
+
+/**
+ * Implements hook_node_access().
+ */
+
+function gateway_gatekeeper_node_access($node, $op, $account)
+    {
+
+    // If field_public_private field exist.
+
+    if (isset($node->field_public_private))
+        {
+            $pubSettings = $node->field_public_private["und"][0]["value"];
+            if (in_array('Public User', $account->roles) && $pubSettings == 0)
+                {
+                    return NODE_ACCESS_DENY;
+                }
+        }
+    }
+/* Uncheck Public box on Node Update*/
+function gateway_gatekeeper_node_update($node) {
+    global $user;
+    $pubtypes = array(
+                    'article',
+                    'article_file_upload',
+                    'forum',
+                    'hallways_document',
+                    'hallways_historical_prices',
+                    'hallways_transactional_platforms',
+                    'resources_file',
+                    'video_article',
+                    'sow'
+                );
+
+    if (!in_array('Public Access Gatekeeper', $user->roles) && in_array($node->type, $pubtypes)){
+        if ($node->field_public_private["und"][0]["value"] == 1){
+          $new_value = 0;
+          $node->field_public_private["und"][0]["value"] = $new_value;
+          field_attach_update('node', $node);
+        }
+    }
+}
+/**
+ * [isRestricted]
+ * @param  [$array] $roles [List of current user roles]
+ * @return boolean
+ */
+function isRestricted($roles) {
+  $restricted = false;
+   if(in_array('Public User',$roles)){
+       $restricted = true;
+   }elseif(count($roles) === 1) {
+       if(in_array('authenticated user',$roles)){
+         $restricted = true;
+       }
+   }
+   return $restricted;
+}
+
+/**
+ * Implements hook_page_build().
+ */
+
+// Blocks access to all drupal node/paths. 
+// Currently blocking (Public & Authenticated users).
+function gateway_gatekeeper_page_build(&$page) {
+   global $user;
+   if(isRestricted($user->roles)){
+     $currentPath = current_path();
+     $path = explode('/', $currentPath);
+     $url = '/';
+     if($path[0] !== 'app'){
+         header('Location:'.$url, TRUE, 302);
+       // The "Location" header sends a redirect status code to the HTTP daemon. In
+      // some cases this can be wrong, so we make sure none of the code below the
+      // drupal_goto() call gets executed upon redirection.
+      drupal_exit($url);
+     }
+   }
+}

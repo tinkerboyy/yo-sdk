@@ -1,0 +1,4 @@
+name = Custom Expire Rules
+description = Custom expire rules for Hallway content
+package = Acquisition Gateway
+core = 7.x

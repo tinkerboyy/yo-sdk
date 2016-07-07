@@ -1,0 +1,20 @@
+<div class="vote-up-down-widget">
+  <center ng-if="!publicUser">
+    <a  ng-click="vote('up')" 
+        data-ag-gtm-selector="vote-up"
+        class="vote-up">
+      <span ng-class="{ 'active': item.myVote > 0 }" class="fa fa-thumbs-up up"></span>
+    </a>
+    <div class="vote-count" data-item-id="{{itemId}}">
+      <span ng-if="processing"><i class="fa fa-spin fa-spinner"></i></span>
+      <span ng-if="!processing">{{ item.votes || 0 | number}}</span>
+    </div>
+    <a  ng-click="vote('down')" 
+        data-ag-gtm-selector="vote-down"
+        class="vote-down">
+      <span ng-class="{ 'active': item.myVote < 0 }" class="fa fa-thumbs-down down"></span>
+    </a>
+    <div class="highest-voted" ng-if="item.highestVoted"><span class="fa fa-check"></span></div>
+    <div class="vote-comment">{{ text }}</div> 
+  </center>
+</div>

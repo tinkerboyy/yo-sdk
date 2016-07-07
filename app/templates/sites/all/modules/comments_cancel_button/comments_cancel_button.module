@@ -1,0 +1,51 @@
+<?php
+  /**
+   * Implementation of hook_form_alter().
+   *
+   * The function is named modulename_form_alter.
+   */
+  function comments_cancel_button_form_alter(&$form, $form_state, $form_id) {
+    //JT 9/25/14 to add Cancel button and remove Preview button from Comment form
+    // Normally a switch is used because you may want to alter more than
+    // one form and it is easy to add a new case for each form.
+    // Find out if I'm called and if the id is right...
+    //var_dump($form_id);  // Uncomment to print every form id name
+    //drupal_set_message($form_id);
+    switch ($form_id) {
+      case 'comment_node_article_form': // This is our form ID.
+      case 'comment_node_hallways_document_form':
+        //print_r($form); // Uncomment to print all form information
+        //$form['submit']['#value'] = t('Post'); //to change button text from Save to Post doesn't work
+        //$form['buttons']['submit']['#value'] = t('Post'); //to change button text from Save to Post doesn't work
+        //$form['actions']['submit']['#value'] = t('Post');to change button text from Save to Post works, see core comment.module
+      
+        //drupal_set_message($form_id);
+      
+        //unset($form['actions']['preview']); //remove Preview button or can make Preview disabled from UI
+        //Add Cancel button
+        $form['actions']['cancel'] = array(
+        '#name' => 'cancel',
+        '#type' => 'button',
+        '#value' => t('Cancel'),
+        '#access' => TRUE,
+        '#weight' => 21,
+        //'#submit' => array('comments_cancel_callback'),
+        //'#limit_validation_errors' => array(),
+        '#attributes' => array('onClick' => 'this.form.reset(); return false;'),
+        );      
+        break;
+      //case 'another_form': // This is our form ID.
+        //print_r($form); // Uncomment to print all form information
+        //$form['buttons']['submit']['#value'] = t('Post');
+        //break;
+    }//switch
+  }//function
+
+/*function comments_cancel_callback($form, &$form_state) {
+  //drupal_set_message($_GET['destination']);
+  $path = current_path();
+  drupal_set_message($path);
+  //$url = $_GET['destination'] ? $_GET['destination'] : $path;
+  drupal_goto($path);
+}*/
+?>

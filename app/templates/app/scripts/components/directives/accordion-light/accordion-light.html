@@ -1,0 +1,6 @@
+<div class="accordion-light">
+    <header ng-click="toggle()">
+      <h4 class="btn btn-link"><i class="fa fa-plus-circle" ng-class="{ 'fa-minus-circle': model.expanded, 'fa-plus-circle': !model.expanded }"></i> {{ title }}</h4>
+    </header>
+    <div class="accordion-content" ng-transclude ng-if="model.expanded"></div>
+</div>

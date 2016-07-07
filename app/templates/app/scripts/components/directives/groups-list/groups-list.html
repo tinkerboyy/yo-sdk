@@ -1,0 +1,13 @@
+<div class="ag-menu-first-child groups-list">
+  <h3>Groups</h3>
+  <nav class="communities-list left-menu ag-right-menu-content" ag-as-scrollable>
+    <ul>
+      <li ng-repeat="community in communities | orderBy: 'label'" ng-init="makeSlug(community)">
+        <a analytics-on analytics-event="Load Topics" analytics-category="Communities" analytics-label="{{ ::community.label }}" ng-click="setActiveCommunity(community.slug);" data-slug="{{::community.slug}}" ng-class="{ 'active': activeCommunity === community.slug }">
+          <i class="fa fa-3x menu-icon" ng-class="community.icon || 'fa-compass' "></i>
+          {{ ::community.label }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

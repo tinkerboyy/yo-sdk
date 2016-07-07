@@ -1,0 +1,50 @@
+<form ng-init="entityCopy = getEditCopy(entity || defaultEntity)"
+  ag-collection="[ { resourceName: 'Projects' } ]"
+  name="taskEntry"
+  class="task-entry project-center-entry">
+
+  <div class="form-group" ng-class="{ 'has-error': taskEntry.name.$error.required }">
+    <input type="text" ng-model="entityCopy.name" class="form-control"
+      placeholder="Task Name..." name="name" title="Task Name"
+      required autofocus maxlength="225"/>
+    <span class="text-danger small">
+      <span ng-show="taskEntry.name.$error.required">Task name is required.</span>
+    </span>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-error': taskEntry.due.$error.required }">
+    <input ng-model="entityCopy.due" class="form-control"
+      placeholder="Task Due Date..." name="due" title="Task Due Date" required
+      bs-datepicker disable-keyboard="true"></input>
+    <span class="text-danger small">
+      <span ng-show="taskEntry.due.$error.required">Task due date is required.</span>
+    </span>
+  </div>
+
+  <div ng-if="!project" class="form-group">
+  <label class="heavy-mute" for="project">Assign to Project (Optional)</label>
+    <select id="projects-list" title="Assign to Project" name="project" ng-model="entityCopy.projectId"
+      ng-options="item.id as item.name for item in (projects.data.collection | filter: { status: '1' }  | orderBy: '-created')"
+    class="form-control">
+      <option value="">Select</option>
+    </select>
+  </div>
+
+  <div class="actions row">
+    <div class="col-xs-12">
+      <div ng-if="!project" class="pull-left">
+        <a bs-popover
+          title="New Project"
+          content-template="scripts/features/project-center/projects/my-projects-entry.html"
+          placement="right">
+          <i class="fa fa-plus-circle"></i>
+          New Project
+        </a>
+      </div>
+      <div class="pull-right">
+        <a ng-click="$hide()" class="cancel-task">Cancel</a>
+        <a href="#" class="save-task" ng-click="taskEntry.$valid && tasks.saveAsAssociate(entityCopy, $hide)">Save</a>
+      </div>
+    </div>
+  </div>
+</form>

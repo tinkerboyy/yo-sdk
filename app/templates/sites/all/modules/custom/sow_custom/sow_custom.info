@@ -1,0 +1,4 @@
+name = SOW theme overrides
+description = Theme specific module overrides.
+core = 7.x
+package = SOW

@@ -1,0 +1,27 @@
+<div class="left-rail-header">
+    <div class="app-label">HALLWAYS</div>
+        <div class="left-rail-hallway-menu">
+            <a bs-popover title=""
+               content-template="scripts/features/gateways/gatewayHallways.html"
+               placement="bottom"
+               class="hallwayMenu"
+               target=".fa-chevron-down">
+                <div class="left-rail-hallway-menu-label">
+                    <div>
+                        {{hallway.label}}
+                    </div>
+                    <div class="menu-caret">
+                        <span class="fa fa-chevron-down"></span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="left-rail-content-wrapper">
+        <div ng-include="'scripts/features/hallways/articlelist/article-list.html'">
+        </div>
+        <div>
+            <hw-resources-block></hw-resources-block>
+        </div>
+    </div>
+</div>

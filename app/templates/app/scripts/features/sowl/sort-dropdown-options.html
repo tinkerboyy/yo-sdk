@@ -1,0 +1,53 @@
+<ul class="dropdown-menu sowl-search-sort-options" aria-labelledby="dropdownMenu1">
+	<li class="dropdown-header">Sort by:</li>
+    <li>
+    	<a ng-click="changeSortField('relevance');">
+    		<span class="fa" ng-class="{'fa-check': sort.field == 'relevance', 'fa-fw': sort.field != 'relevance'}"></span>
+    		Relevance
+
+    		<span class="sort-dir-indicator fa" ng-class="{'fa-fw': sort.field != 'relevance', 'fa-arrow-up' : sort.field == 'relevance' && !sort.reverseOrder, 'fa-arrow-down' : sort.field == 'relevance' && sort.reverseOrder}">
+    	</a>
+    </li>
+    <li>
+    	<a ng-click="changeSortField('title')">
+    		<span class="fa" ng-class="{'fa-check': sort.field == 'title', 'fa-fw': sort.field != 'title'}"></span>
+    		Alphabetically
+    		<span class="sort-dir-indicator fa" ng-class="{'fa-fw': sort.field != 'title', 'fa-arrow-up' : sort.field == 'title' && !sort.reverseOrder, 'fa-arrow-down' : sort.field == 'title' && sort.reverseOrder}">
+    	</a>
+    </li>
+		<li>
+			<a ng-click="changeSortField('created')">
+				<span class="fa" ng-class="{'fa-check': sort.field == 'created', 'fa-fw': sort.field != 'created'}"></span>
+				Date Uploaded
+				<span class="sort-dir-indicator fa" ng-class="{'fa-fw': sort.field != 'created', 'fa-arrow-up' : sort.field == 'created' && !sort.reverseOrder, 'fa-arrow-down' : sort.field == 'created' && sort.reverseOrder}">
+			</a>
+		</li>
+	  <li>
+    	<a ng-click="changeSortField('views')">
+    		<span class="fa" ng-class="{'fa-check': sort.field == 'views', 'fa-fw': sort.field != 'views'}"></span>
+    		View Count
+    		<span class="sort-dir-indicator fa" ng-class="{'fa-fw': sort.field != 'views', 'fa-arrow-up' : sort.field == 'views' && !sort.reverseOrder, 'fa-arrow-down' : sort.field == 'views' && sort.reverseOrder}">
+    	</a>
+    </li>
+    <li>
+    	<a ng-click="changeSortField('downloads')">
+    		<span class="fa" ng-class="{'fa-check': sort.field == 'downloads', 'fa-fw': sort.field != 'downloads'}"></span>
+    		Download Count
+    		<span class="sort-dir-indicator fa" ng-class="{'fa-fw': sort.field != 'downloads', 'fa-arrow-up' : sort.field == 'downloads' && !sort.reverseOrder, 'fa-arrow-down' : sort.field == 'downloads' && sort.reverseOrder}">
+    	</a>
+    </li>
+    <li>
+    	<a ng-click="changeSortField('downloads_to_views')">
+	    	<span class="fa" ng-class="{'fa-check': sort.field == 'downloads_to_views', 'fa-fw': sort.field != 'downloads_to_views'}"></span>
+    		Downloads to View Ratio
+    		<span class="sort-dir-indicator fa" ng-class="{'fa-fw': sort.field != 'downloads_to_views', 'fa-arrow-up' : sort.field == 'downloads_to_views' && !sort.reverseOrder, 'fa-arrow-down' : sort.field == 'downloads_to_views' && sort.reverseOrder}">
+    	</a>
+    </li>
+		<li>
+    	<a ng-click="changeSortField('votes')">
+	    	<span class="fa" ng-class="{'fa-check': sort.field == 'votes', 'fa-fw': sort.field != 'votes'}"></span>
+    		Vote Count
+    		<span class="sort-dir-indicator fa" ng-class="{'fa-fw': sort.field != 'votes', 'fa-arrow-up' : sort.field == 'votes' && !sort.reverseOrder, 'fa-arrow-down' : sort.field == 'votes' && sort.reverseOrder}">
+    	</a>
+    </li>
+  </ul>

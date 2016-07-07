@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Hallway Expire View  feature.
+ */
+
+include_once 'hallway_expire_view.features.inc';

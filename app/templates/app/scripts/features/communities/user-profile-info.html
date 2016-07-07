@@ -1,0 +1,17 @@
+<h1 class="DINCondensedBold ag-app-header">My Community</h1>
+<small class="profile-view-all"><a ng-click="viewAll()">View All Community Activity</a></small>
+<div class="ag-left-menu-content" ag-as-scrollable>
+  <div>
+    <ag-user-profile data-view-all="viewAll"></ag-user-profile>
+    <ag-accordion-light data-title="My Connections" id="my-connections">
+      <ag-user-search></ag-user-search>
+      <ag-my-connections></ag-my-connections>
+    </ag-accordion-light>
+    <ag-accordion-light data-title="My Groups" id="my-groups">
+      <ag-my-groups
+        data-groups="communities"
+        data-link-action="myGroupAction">
+      </ag-my-groups>
+    </ag-accordion-light>
+  </div>
+</div>

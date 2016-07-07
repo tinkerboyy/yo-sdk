@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the solution_matrix_settings feature.
+ */
+
+include_once 'solution_matrix_settings.features.inc';

@@ -1,0 +1,40 @@
+<section id ="events" class="widget feeds-widget" ng-class="{'publicStyles': publicUser}">
+  <div class="widget-header row">
+    <h5 class="feed-title-banner title-banner col-xs-8">EVENTS</h5>
+  </div>
+  <p ng-if="feeds === null || ( feeds | upcoming ) === null "><strong>Info! </strong>Sorry, there are currently no upcoming events scheduled</p>
+  <ul class="list-group" >
+     <li class="list-group-item no-outer-borders" ng-repeat="feed in feeds | orderBy: 'event.value' | upcoming ">
+        <div class="row">
+          <div class="col-xs-12">
+            <h2 class="event-title"> {{ feed.label }} </h2>
+              <p class="event-date">
+                {{ feed.event.value | agDateFormat:'fullDate' }}
+              <span ng-if="( feed.event.value | agDateFormat:'fullDate' ) !== ( feed.event.value2 | agDateFormat:'fullDate' )">
+                - {{ feed.event.value2 | agDateFormat:'fullDate' }}
+              </span>
+              </p>
+              <p class="event-time">
+                {{ feed.event.value | timezoneFilter: feed.event_timezone | agDateFormat:'shortTime' }} - {{ feed.event.value2 | timezoneFilter: feed.event_timezone | agDateFormat:'shortTime' }} - {{ feed.event_timezone }}
+              </p>
+             <div class="group-collapsible" ng-if="feed.body || feed.location">
+                <a href="" ng-click="isOpen = !isOpen">
+                  {{ !isOpen ? 'more' : 'less' }} <i ng-class="isOpen ? 'fa fa-caret-up' : 'fa fa-caret-down' "></i>
+                </a>
+                <div class="feed-group" ng-show="isOpen">
+                  <p ng-show="feed.location">
+                    <span class="feed-label">Location: </span>
+                    <span class="event-location"> {{ feed.location }} </span>
+                  </p>
+                  <p ng-show="feed.body">
+                    <span class="feed-label">Description: </span>
+                    <span ng-bind-html="feed.body | trust " class="feed-body"></span>
+                  </p>
+                </div>
+              </div>
+          </div>
+        </div>
+    </li>
+  </ul>
+</section>
+<hr class="feedRule">

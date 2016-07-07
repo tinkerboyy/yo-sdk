@@ -1,0 +1,116 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function search_logging_reports_menu() {
+  // definition for main page
+  $items['admin/sow'] = array(
+    'title' => 'SOW Search Logging',
+    'page callback' => 'search_logging_reports_page',
+    'access arguments' => array('access search_logging_reports content'),
+    );
+  $items['admin/sow/search_logging'] = array(
+    'title' => 'Statement of Work Library Search Log',
+    'description' => 'View Statement of Work library search queries and the number of results returned.',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 100,
+  );
+  $items['admin/sow/csv_export'] = array(
+    'title' => 'Statement of Work CSV Export',
+    'page callback' => 'search_logging_csv_export',
+    'access arguments' => array('access search_logging_reports content'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 101,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function search_logging_reports_permission() {
+  return array(
+    'access search_logging_reports content' => array(
+      'title' => t('Access search logging reports pages.'),
+    )
+  );
+}
+
+/**
+ * Implements search logging reports page function search_logging_reports_page()
+ */
+function search_logging_reports_page() {
+  // call the table build function
+  return search_logging_reports_table();
+}
+
+/**
+ * Implements search logging reports table creation function search_logging_reports_table()
+ */
+function search_logging_reports_table() {
+  // build the table array
+  // sections: header, default (sort), rows, and table attributes
+  $table = array(
+    'header' => array(
+      array('data' => t('Search Query'), 'field' => 'search_query'),
+      'default' => array('data' => t('Search Query Results'), 'field' => 'search_results_count', 'sort' => 'desc'),
+      array('data' => t('Created'), 'field' => 'created'),
+      ),
+    'rows' => array(),
+    'attributes' => array('id' => 'search-logging-table', 'align' => 'center'));
+
+  // get all data from the search_logging table
+  $query = db_select('search_logging', 'sl')
+    ->fields('sl');
+
+  // set table sorting for our query
+  $query = $query
+    ->extend('TableSort')
+    ->orderByHeader($table['header']);
+
+  // set pager for data returning more than 10 results
+  $query = $query->extend('PagerDefault');
+
+  // execute the query
+  $results = $query->execute()->fetchAll();
+
+  // filter through query and add data we want to display
+  foreach ($results as $id => $row) {
+    $table['rows'][] = array(
+      $row->search_query,
+      $row->search_results_count,
+      format_date($row->created, 'custom', t('F jS, Y', array(), array('context' => 'php date format'))),
+    );
+  }
+
+  // use drupals theme function to create the table and pager
+  return theme('table', $table) . theme('pager');
+}
+
+/**
+ * custom function to export data in csv format
+ */
+function search_logging_csv_export() {
+  // create headers
+  header("Content-disposition: attachment; filename=search_queries.csv");
+  header("Content-Type: application/vnd.ms-excel");
+
+  // get all data from the search_logging table
+  $records = db_query('SELECT DISTINCT(search_query) as query, MAX(search_results_count) as results_returned, count(search_query) AS count 
+                      FROM {search_logging}
+                      GROUP BY search_query
+                      ORDER BY search_results_count DESC, count DESC')->fetchAll();
+
+  // create a file pointer connected to the output stream
+  $output = fopen('php://output', 'w');
+
+  // output the column headings
+  fputcsv($output, array('Search Query', 'Results Returned', 'Number of Times Searched'), ',', '"');
+
+  // add data to csv file
+  foreach($records as $offset => $record) {
+    fputcsv($output,(array) $record);
+  }
+}

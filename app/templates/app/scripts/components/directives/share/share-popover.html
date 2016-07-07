@@ -1,0 +1,17 @@
+<div class="popover share-popover">
+  <div class="arrow" style="left: 50%;"></div> 
+  <h3 class="popover-title">
+    <button class="btn btn-link close pull-right" ng-click="$hide()"><i class="fa fa-close"></i></button>
+    Share &amp; Bookmark
+  </h3>
+  <div class="popover-content">
+    <form class="form">
+      <div class="form-group">
+        <div class="input-group">
+          <input type="text" id="shareUrl" class="form-control" ng-model="content" ng-click="selectUrl($event)" readonly>
+          <a class="input-group-addon"><i class="fa fa-copy"></i></a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<div ag-collection="[ { resourceName: 'Projects' } ]" class="my-projects fullview">
+  <h1 class="no-margins">
+    <i class="fa fa-folder"></i> My Projects
+  </h1>
+  <div class="row">
+    <div class="col-xs-12">
+      <button bs-popover
+        title="Add Project"
+        container="body"
+        viewport="'.project-center-full'"
+        content-template="scripts/features/project-center/projects/my-projects-entry.html"
+        placement="right"
+        class="pull-left btn-new-entity-primary btn btn-link no-padding">
+        <i class="fa fa-plus-circle"></i>
+        New Project
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div ng-repeat="projectEntity in projects.data.collection | filter: { status: '1' } | orderBy: '-created' track by projectEntity.id" id="Project{{ projectEntity.id }}" class="panel panel-default project-entity">
+        <div class="panel-heading">
+          <h2 class="no-margins heavy-mute">
+            <i class="fa fa-folder"></i>
+            <a ng-click="toggle(projectEntity.id)">{{ projectEntity.name }}</a>
+          </h2>
+          <span class="pull-right action-icons">
+            <button bs-popover
+              title="Edit Project"
+              content-template="scripts/features/project-center/projects/my-projects-entry.html"
+              container="body"
+              viewport="'.project-center-full'"
+              placement="left"
+              class="btn btn-link heavy-mute no-padding edit-project">
+              <i class="fa fa-fw fa-pencil"></i>
+            </button>
+            <button ng-click="projects.save({ id: projectEntity.id, status: 0 })"
+              class="btn btn-link heavy-mute no-padding delete-project" title="Remove Project">
+              <i class="fa fa-fw fa-trash-o"></i>
+            </button>
+            <button class="btn btn-link heavy-mute no-padding expand-project" ng-click="toggle(projectEntity.id)" title="{{active.entities.indexOf(projectEntity.id) !== -1 ? 'collapse' : 'expand'}}">
+              <i class="fa fa-fw {{ active.entities.indexOf(projectEntity.id) !== -1 ? 'fa-compress' : 'fa-expand' }}"></i>
+            </button>
+          </span>
+        </div>
+        <div class="panel-body my-project-body-full">
+          <div class="row">
+            <div class="col-sm-9 col-xs-8">
+              <div ng-if="projectEntity.description">
+                <strong>Description:</strong>
+                <span class="description">
+                  {{ projectEntity.description }}
+                </span>
+              </div>
+            </div>
+            <center ng-if="projectEntity.due" class="col-sm-3 col-xs-4">
+              <div>
+                <strong>Target Due Date</strong>
+                <div>{{ projectEntity.due | agDateFormat: 'mediumDate' }}</div>
+              </div>
+              <div ng-switch="(projectEntity.due | agDaysCount: 'now' : projectEntity.due) >= 0"
+               class="time-left">
+                <div ng-switch-when="true">
+                  <div>{{ (projectEntity.due | agDaysCount: 'now' : projectEntity.due) + 1 }}</div>
+                  <small class="text-muted">Days Left</small>
+                </div>
+                <span ng-switch-when="false">Expired</span>
+              </div>
+            </center>
+          </div>
+          <div class="project-details" ng-show="active.entities.indexOf(projectEntity.id) !== -1">
+            <div ng-if="projectEntity.notes">
+              <strong>Notes:</strong>
+              <span class="notes">
+                {{ projectEntity.notes }}
+              </span>
+            </div>
+            <br/>
+            <bs-tabs>
+              <bs-pane data-name="Content" data-title="Content">
+                <ag-my-project-content project="projectEntity"></ag-my-project-content>
+              </bs-pane>
+              <bs-pane data-name="Tasks" data-title="Tasks">
+                <ag-my-tasks project="projectEntity"></ag-my-tasks>
+              </bs-pane>
+               <bs-pane data-name="Events" data-title="Events">
+                <ag-my-events project="projectEntity"></ag-my-events>
+              </bs-pane>
+            </bs-tabs>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

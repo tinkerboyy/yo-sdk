@@ -1,0 +1,5 @@
+/* HIDE Text FORMAT Field in Edit Solutions */
+#edit-servicesprovided-format, #switch_edit-servicesprovided-value {
+  display: none !important;
+}
+

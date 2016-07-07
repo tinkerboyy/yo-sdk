@@ -1,0 +1,50 @@
+<form class="search-form" role="form" novalidate ng-submit="doSearch($event);" id="" accept-charset="UTF-8" bs-collapse data-start-collapsed=true>
+	<div class="hidden-xs" id="filterBox">
+		<div class="input-group">
+		  <div class="input-group-btn">
+  			<a id="search-filter-toggle" class="btn btn-default btn-filter dropdown-toggle" ng-class="{'collapsed': !filterExpanded}" ng-click="filterExpanded=!filterExpanded" data-toggle="collapse" data-parent="#filterBox" bs-collapse-toggle>
+  				<span class="fa fa-filter"></span> Filters <span class="caret"></span>
+  			</a>
+			</div>
+			<div class="form-type-textfield form-item-search-api-views-fulltext form-item form-group">
+			 <input ng-model="search" class="form-control form-text" type="text" size="30" maxlength="128" bs-options="suggestion.query as suggestion.query for suggestion in suggestions" bs-typeahead>
+			</div>
+		<div class="input-group-btn">
+			<button class="btn btn-default btn-search form-submit" id="edit-submit-sow-search" type="submit"><span class="fa fa-search"></span> Search
+			</button>
+				<a ng-click="search = ''; doSearch($event);" class="btn btn-default btn-search">View All</a>
+		</div>
+	  </div>
+	<div id="filtersCollapsePanel" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" bs-collapse-target>
+		<div class="filterMenu">
+			<div class="container text-left">
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+						<h2>Search Filter Options <br>
+							<small style="color:#fff;">Select all that apply</small>
+			            </h2>
+						<hr>
+						<div class="row" ng-repeat="i in getRows(filters.length) track by $index">
+							<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" ng-repeat="filter in filters | orderBy: 'name' | slice: $index * 3: 3">
+								<label><input type="checkbox"
+									value="{{filter.id}}"
+								    ng-checked="selectedFilters.indexOf(filter.id) > -1"
+								    ng-click="toggleSelection(filter.id)">
+
+								    <span ng-if="filter.icon" class="fa {{filter.icon}}"></span> {{filter.name}}</label>
+
+								<ul class="list-unstyled child-filters">
+									<li ng-repeat="childFilter in filter.children">
+										<label><input type="checkbox"
+											value="{{childFilter.id}}"
+										    ng-checked="selectedFilters.indexOf(childFilter.id) > -1"
+										    ng-click="toggleSelection(childFilter.id)"> {{childFilter.name}}</label>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				 </div>
+			</div>
+	  </div>
+	</div>
+</form>

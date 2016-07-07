@@ -1,0 +1,74 @@
+//Feeds Widget
+.feeds-widget {
+  margin: 10px 0 0 0;
+  height: calc(~"100% / 3.1");
+
+  h1.feed-title-banner,h2 {
+    font-size: 1em!important;
+  }
+
+  .list-group {
+    height: calc(~"100% - 22px");
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    h2.event-title {
+       margin:0;
+        font-weight:bold;
+    }
+    .feed-label {
+      font-size:11px;
+      font-weight:bold;
+    }
+    .feed-body p {
+      display: inline;
+      font-size:11px;margin:0;
+    }
+    .feed-group p {
+      line-height:15px;
+      margin:0;
+      padding:0;
+    }
+    p.event-date,
+    p.event-time,
+    span.event-location {
+        font-size:11px;margin:0;
+    }
+    .node-title {
+     font-size:1em !important;
+     margin-top:-3px !important;
+    }
+    #nodeDesc {
+      font-size:11px;
+      margin-top:-5px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+    .list-group-item {
+       margin-bottom: -10px;
+    }
+  }
+}
+
+.communities-widget .list-group-item {
+  margin-bottom: -10px;
+}
+
+.feedRule {
+  display:none;
+}
+
+.gatewayFeeds .feedRule {
+  display:block !important;
+  margin:0 -10px 0 -10px !important;
+}
+
+.gatewayFeeds .publicStyles {
+  height: calc(~"100% / 2");
+
+  .list-group {
+    height: calc(~"100% - 35px") !important;
+  }
+
+}

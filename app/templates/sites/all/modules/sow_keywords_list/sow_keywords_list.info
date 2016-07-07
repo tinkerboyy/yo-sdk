@@ -1,0 +1,10 @@
+name = SOW Keywords List
+description = SOW Keywords List
+core = 7.x
+package = Features
+version = 7.x-5.0
+project = sow_keywords_list
+dependencies[] = features
+dependencies[] = taxonomy
+features[features_api][] = api:2
+features[taxonomy][] = sow_keywords_list

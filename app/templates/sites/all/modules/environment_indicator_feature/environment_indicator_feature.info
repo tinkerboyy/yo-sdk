@@ -1,0 +1,17 @@
+name = Environment Indicator Feature
+description = Environment Indicator Feature
+core = 7.x
+package = Features
+version = 7.x-1.3
+project = environment_indicator_feature
+dependencies[] = ctools
+dependencies[] = environment_indicator
+dependencies[] = strongarm
+features[ctools][] = environment_indicator:default_environment_indicator_environments:1
+features[ctools][] = strongarm:strongarm:1
+features[environment_indicator_environment][] = development_environment
+features[environment_indicator_environment][] = prod_passive
+features[environment_indicator_environment][] = test_environment
+features[features_api][] = api:2
+features[variable][] = environment_indicator_git_support
+features[variable][] = environment_indicator_integration

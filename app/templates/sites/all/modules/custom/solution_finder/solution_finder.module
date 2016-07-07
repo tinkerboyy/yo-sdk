@@ -1,0 +1,105 @@
+<?php
+	
+	/**
+	 * @file 
+	 * Creates Acquisition Gateway Solution Finder Form Block. 
+	 */
+
+
+	/**
+	 * Implements hook_block_info().
+	 */
+	
+	
+	function solution_finder_block_info() {
+		$blocks = array();
+		//Declare to Drupal that block name 'solution_finder' is provided by our module.
+		$blocks['solution_finder'] = array(
+			'info' => t('Acquisition Gateway Solution Finder.'),
+			'status' => TRUE,
+      'cache' => DRUPAL_NO_CACHE,
+		);	
+		return $blocks;
+	}
+
+	/**
+	 * Implements hook_block_view().
+	 */
+	
+	
+	function solution_finder_block_view($delta = '') {
+	//$delta:Unique identifier for the block within the module.
+	  $block = array();
+	  switch ($delta) {
+	    case 'solution_finder':
+	      $block['subject'] = NULL;
+	      $block['content'] = theme('solution_finder_form');
+	      break;
+	  }
+	  return $block;
+	}
+
+	/**
+	 * Implements hook_help().
+	 */
+	
+	
+	function solution_finder_help($path, $arg) {
+		switch ($path) {
+		//Provide online user help at the following path admin/help#solution_finder for users.	
+		case 'admin/help#solution_finder':{
+		   $retval = '';
+		   $retval .= '<h3>' . t('About') . '</h3>';
+		   $retval .= '<p>' . t('Provides Acquisition Gateway Solution Finder Form block.') . '<p>';
+		return $retval;
+		break;
+	   }
+	 }
+	}
+
+	/**
+	 * Implements hook_permission().
+	*/
+
+	
+	function solution_finder_permission() {
+		//Define our user permissions.
+	  return array(
+	    'administer solution finder widget' =>  array(
+	      'title' => t('Administer Solution Finder Form Block.'),
+	      'description' => t('Perform administrative task on Solution Finder form block.'),
+	    ),
+	  );
+	}
+
+	/**
+	 * Implements hook_theme().
+	*/
+
+	
+	function solution_finder_theme($existing, $type, $theme, $path) {
+		//Register our modules theme implementation & provide template path.
+		  return array(
+		    'solution_finder_form' => array(
+		      'template' => 'view/solution_finder_form',
+		    ),
+  		);
+	}
+
+	
+	/**
+	 * Implements hook_node_view().
+	 */
+	
+	function solution_finder_node_view($node, $view_mode, $langcode) {
+		//Check if node type is portfolio. 	
+		if($node->type === "portfolio"){
+			//Get current path e.g. node/id
+			$path = current_path();
+			//Get path alias. e.g. /help etc.  
+			$path_alias = drupal_strtolower(drupal_lookup_path('alias',$path));
+			//Pass current path alias to js.
+			drupal_add_js(array('solution_finder' => array('hallways' => $path_alias)), array('type' => 'setting'));
+		}
+	} 
+

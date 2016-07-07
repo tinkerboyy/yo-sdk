@@ -1,0 +1,32 @@
+<div class="hallway-solution-finder" >
+<div class="widget solutions-finder">
+  <div class="default-header">
+    Featured Articles
+  </div>
+  <div class="panel-body featured-section">
+    <div class="featured-article-grid">
+        <div ng-repeat="article in articles | limitTo : 3 track by article.id "
+      ng-class="{'article slot-1': $index === 0, 'article slot-2': $index === 1, 'article slot-3': $index === 2 }" ng-if="articles">
+        <a ng-href="#/gateway/{{hallway.slug}}/{{article.id}}/{{article.label | lowercase |  kebabCase}}" ng-click="setSingleArticleView()">
+        <div class="article-new-label">
+          <span ng-if="(article.newtagexpiration | unixTimestampToDate) > currentDate">NEW</span>
+        </div>
+        <div class="default-tile" ng-class="{'desc-tile': article.shortdescription}">
+          <div class="article-label grow-sibling">{{ ::article.label | charLimitTo : 50 }}</div>
+          <div class="article-img">
+            <img ng-if="!article.image" src="../app/assets/images/default-article-tile_0_0_0.png" alt="{{article.label}}"/>
+            <img ng-if="article.image" ng-src="{{article.image.uri}}" alt="{{article.image.alt || article.image.title|| article.label}}"/>
+          </div>
+          <div ng-if="article.shortdescription" class="article-description" >
+            {{ ::article.shortdescription | charLimitTo : 140 }}
+        </div>
+        </div>
+          
+         
+          </a>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+

@@ -1,0 +1,18 @@
+<div class="col-sm-12" ng-if="categories.length === 0  || allSubcategories.length === 0 || contractTypes.length === 0 || programTypes.length == 0 || availableTo.length === 0">
+  <center>
+    <i class="fa fa-spinner fa-spin fa-4x"></i>
+    <p>Loading...</p>
+  </center>
+</div>
+
+<div id="solutions-finder-app" class="ag-app-with-sidebar" ng-if="categories.length > 0 && allSubcategories.length > 0 && contractTypes.length > 0 && programTypes.length > 0 && availableTo.length > 0 && allSolutions.length > 0">
+    <div class="ag-left-menu" id="left-column">
+      <ng-include src="'scripts/features/solutions-finder/solutions-finder-search-form.html'"></ng-include>
+
+    </div>
+    <div class="ag-main-content has-results" id="main-content">
+      <ng-include src="'scripts/features/solutions-finder/solutions-finder-results.html'"></ng-include>
+
+    </div>
+  </div>
+</div>

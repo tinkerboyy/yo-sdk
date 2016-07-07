@@ -1,0 +1,125 @@
+<form class="project-center-entry event-entry" ng-init="entityCopy = privateEvents.transformAndCopy(eventEntity || defaultEntity)"
+  ag-collection="[ { resourceName: 'Projects' } ]"
+  name="eventsEntry">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group" ng-class="{ 'has-error': eventsEntry.name.$error.required }">
+        <input type="text" ng-model="entityCopy.name" class="form-control"
+          placeholder="Event Name..." name="name" title="Event Name"
+          required autofocus maxlength="225"/>
+        <span class="text-danger small">
+          <span class="text-error" ng-show="eventsEntry.name.$error.required">Event name is required.</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group eventStartDate" ng-class="{ 'has-error': eventsEntry.startDate.$error.required }">
+        <input ag-disable-input
+          bs-datepicker
+          max-date="{{1000 * entityCopy.endDate}}"
+          ng-model="entityCopy.startDate"
+          class="form-control" placeholder="Event Start Date..." name="startDate" title="Event Start Date"
+          required/>
+        <span class="text-danger small">
+          <span class="text-error" ng-show="eventsEntry.startDate.$error.required">Event start date is required.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="col-xs-6">
+      <div class="form-group eventEndDate" ng-class="{ 'has-error': eventsEntry.endDate.$error.required }">
+        <input ag-disable-input
+          bs-datepicker
+          min-date="{{1000 * entityCopy.startDate}}"
+          ng-model="entityCopy.endDate"
+          class="form-control" placeholder="Event End Date..." name="endDate" title="Event End Date" required/>
+        <span class="text-danger small">
+          <span class="text-error" ng-show="eventsEntry.endDate.$error.required">Event end date is required.</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group eventStartTime" ng-class="{ 'has-error': eventsEntry.startTime.$error.required }">
+        <input ag-disable-input
+          bs-timepicker
+          max-time="{{entityCopy.endTime || entityCopy.endTime === 0 ? 1000 * entityCopy.endTime : null}}"
+          ng-model="entityCopy.startTime"
+          class="form-control"
+          placeholder="Event Start Time..." name="startTime" title="Event Start Time" required/>
+        <span class="text-danger small">
+          <span class="text-error" ng-show="eventsEntry.startTime.$error.required">Event start time is required.</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="col-xs-6">
+      <div class="form-group eventEndTime" ng-class="{ 'has-error': eventsEntry.endTime.$error.required }">
+        <input ag-disable-input
+          bs-timepicker
+          min-time="{{1000 * entityCopy.startTime}}"
+          ng-model="entityCopy.endTime"
+          class="form-control" placeholder="Event End Time..." name="endTime" title="Event End Time" required/>
+        <span class="text-danger small">
+          <span ng-show="eventsEntry.endTime.$error.required">Event end time is required.</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <input type="text" ng-model="entityCopy.location" class="form-control"
+          placeholder="Event Location..." name="location" title="Location" maxlength="225"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <textarea ng-model="entityCopy.description" class="form-control"
+          placeholder="Event Description..." name="description" maxlength="225" title="Event Description"></textarea>
+      </div>
+    </div>
+  </div>
+  <div ng-if="!project" class="row">
+    <div class="col-xs-12">
+      <div class="form-group">
+        <div>
+          <label class="heavy-mute" for="">Assign to Project (Optional)</label>
+          <select title="Assign to Project" name= "project" ng-model="entityCopy.projectId"
+            ng-options="item.id as item.name for item in (projects.data.collection | filter: { status: '1' } | orderBy: '-created')"
+          class="form-control">
+            <option value="">Select</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions row">
+    <div class="col-xs-12">
+      <div ng-if="!project" class="pull-left">
+        <a bs-popover
+          title="New Project"
+          content-template="scripts/features/project-center/projects/my-projects-entry.html"
+          placement="right">
+          <i class="fa fa-plus-circle"></i>
+          New Project
+        </a>
+      </div>
+      <div class="pull-right">
+        <a ng-click="$hide()" class="cancelBtn">Cancel</a>
+        <a ng-click="eventsEntry.$valid && privateEvents.saveAsAssociate(entityCopy, $hide)" class="saveBtn">Save</a>
+      </div>
+    </div>
+  </div>
+</form>
+

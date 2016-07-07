@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * Implements hook_users_export_row().
+ */
+function user_export_cas_agency_users_export_row_alter(&$row, $uid) {
+  $query = db_select('field_data_field_user_cas_agency', 'fdfuca');
+  $query->fields('fdfuca', array('field_user_cas_agency_value', 'entity_id'));
+  $query->condition('entity_id', $uid, '=');
+  $query->range(0, 1);
+
+  $result= $query->execute()->fetchAllAssoc('entity_id');
+
+  if(!empty($result)) {
+    foreach($result as $key => $value) {
+       $row['cas_agency'] = $value->field_user_cas_agency_value;
+    }
+  }
+  else {
+    $row['cas_agency'] = '';
+  }
+}

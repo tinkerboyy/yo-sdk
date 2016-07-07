@@ -1,0 +1,75 @@
+ <div>
+    <div class="result-count-pagination ag-main-content-pagination">
+      <div class="col-md-6">
+        <span class="show-results"> Showing
+          <span ng-if="viewStatus">
+            <span class="label label-default" id="results-shown">
+              {{singleSolution ? 1 : numSolutions}}
+            </span>
+          </span>
+          <span ng-if="!viewStatus" class="label label-default" id="total-results">0</span>&nbsp;
+           results of
+          <span class="label label-default">{{allSolutions.length}}</span>&nbsp;&nbsp;
+          <button type="button" id="reset-solutions"
+          class="btn btn-default btn-xs"
+          ng-click="toggleSearch(true)"
+          style="margin-top:10px; margin-bottom:10px;line-height: 1.1em;font-size:11px;">Reset</button>
+          <ag-share
+            data-params="moreSearch"
+            data-params-map=""
+            data-type="Solutions Finder Search"
+            data-title="Solutions Finder"
+            data-placement="bottom" ng-if="solutions.length"></ag-share>
+        </h4>
+        </span>
+      </div>
+      <div class="col-md-5 text-right">
+        <ag-pagination
+          data-items="sortedSolutions"
+          data-callback="setSolutions"
+          ng-if="solutions.length"
+          class ="pagination-height"
+          ng-show="viewStatus">
+        </ag-pagination>
+      </div>
+
+      <div class="col-md-1 text-right">
+        <ag-sort
+          data-sort-options="sortOptions"
+          data-current-sort="sort"
+          data-collection="solutions"
+          data-callback="setSortedSolutions"
+          ng-if="viewStatus"
+          ng-show="solutions.length > 1"
+          ng-show="viewStatus"></ag-sort>
+      </div>
+    </div>
+    <div class="col-md-12 solutions-results">
+      <div id="overfiltered-message" ng-if="solutions.length === 0" class="alert alert-info">
+        <span class="results-header"><strong>Oops, you’ve overfiltered!</strong></span>
+        <br />
+        <div class="clearfix">&nbsp;</div>
+        <span style="color: black">There are no results matching your criteria. Please adjust your criteria, reset your search, or click the “View All”
+button below to see all of the available solutions.
+        </span>
+        <br />
+        <div class="clearfix">&nbsp;</div>
+      <button ng-click="toggleSearch(true)">
+        View All
+      </button>
+
+      </div>
+      <div ng-if="viewStatus && categories.length > 0 && allSubcategories.length > 0 && contractTypes.length > 0 && programTypes.length > 0 && availableTo.length > 0">
+        <div ng-if="!singleSolution" class="solution-results-item pinned row" ng-repeat="solution in allSolutions | filter: { pinned: true }">
+            <ng-include src="'scripts/features/solutions-finder/solution.html'"></ng-include>
+        </div>
+        <div class="solution-results-item row" ng-repeat="solution in pageSolutions track by $index">
+            <ng-include src="'scripts/features/solutions-finder/solution.html'"></ng-include>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+
+</script>

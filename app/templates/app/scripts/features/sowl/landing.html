@@ -1,0 +1,46 @@
+
+<div class="sow-landing">
+    <div class="region region-content">
+        <div ng-if="loading">
+            <center>
+                <i class="fa fa-spinner fa-spin fa-4x"></i>
+                <p>Loading...</p>
+            </center>
+        </div>
+        <section id="block-boxes-sow-library-page" class="block block-boxes block-boxes-simple contextual-links-region clearfix" ng-if="categories.length > 0 && !loading">
+            <div id="boxes-box-sow_library_page" class="boxes-box">
+                <div class="boxes-box-content">
+                    <div ng-include="'scripts/features/sowl/upload-contact.html'"></div>
+
+                    <div ng-include="'scripts/features/sowl/welcome-modal.html'" style="display: block; border: 0;" class="panel panel-default sow-contrib-padding-left"></div>
+                    <!-- <div class="title-banner sow-contrib-padding-left">Explore.</div> -->
+                    <div id="catGrid">
+
+                        <div class="row" ng-repeat="i in getRows(categories.length) track by $index">
+
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 " ng-repeat="category in categories | orderBy: 'name' | slice: $index * 3: 3" ng-if="category.category_icon">
+                                <div class="panel panel-default panel-body">
+                                    <a class="text-center" data-parent="#catGrid" data-toggle="collapse" ng-click="category.expanded = !category.expanded">
+                                        <h2>
+                                            <span class="fa" ng-class="category.category_icon"></span>
+                                            <br><small>{{ category.name }}</small>
+                                        </h2>
+                                    </a>
+                                    <div class="" ng-show="category.expanded" id="cg5" animation="am-flip-x">
+                                        <ul class="list list-unstyled">
+                                            <li>
+                                                <a ng-href="{{ '#/sowl/search/label/' + category.id }}">View All</a>
+                                            </li>
+                                            <li ng-repeat="subcategory in category.children">
+                                                <a ng-href="{{ '#/sowl/search/label/' + category.id + '/sublabel/' + subcategory.id }}">{{ subcategory.name }}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section> <!-- /.block -->
+    </div>
+</div>

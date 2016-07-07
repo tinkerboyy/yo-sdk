@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Hallways Article Sorting Views feature.
+ */
+
+include_once 'hallways_article_sorting_views.features.inc';

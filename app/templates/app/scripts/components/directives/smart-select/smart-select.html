@@ -1,0 +1,28 @@
+<div class="ag-smart-select">
+  <button bs-select
+    ng-if="!multiple"
+    template="scripts/components/directives/smart-select/smart-select-dropdown.html"
+    title="title"
+    data-placement="bottom"
+    id="{{id}}"
+    class="form-control text-nowrap"
+    placeholder="- Select -"
+    bs-options="{{optionExpression}}"
+    ng-model="target[targetField]"
+    ng-change="changeCallback()"
+  ></button>
+  <button
+    ng-if="multiple"
+    bs-select
+    template="scripts/components/directives/smart-select/smart-select-dropdown.html"
+    title="title"
+    data-placement="bottom"
+    data-multiple="true"
+    id="{{id}}"
+    class="form-control text-nowrap"
+    placeholder="- Select -"
+    bs-options="{{optionExpression}}"
+    ng-model="target[targetField]"
+    ng-change="changeCallback()"
+  ></button>
+</div>

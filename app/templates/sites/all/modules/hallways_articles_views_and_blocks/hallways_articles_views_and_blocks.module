@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Hallways Articles Views and Blocks feature.
+ */
+
+include_once 'hallways_articles_views_and_blocks.features.inc';

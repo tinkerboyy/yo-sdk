@@ -1,0 +1,16 @@
+ <a  ng-click="toggleArticleView()" class="pull-right allArticleView" ng-hide="articleView" > View All</a>
+  <div class="left-rail-header-label">
+    ARTICLE INDEX
+  </div>
+<div class="left-rail-article-index " id="scrollcontainer">
+    <ul >
+      <li ng-repeat="article in articles track by article.id" ng-class="{ 'active': article.active }" >
+        <a ng-href="#/gateway/{{hallway.slug}}/{{article.id}}/{{article.label | lowercase |  kebabCase}}" id="article{{ article.id }}" ng-click="setSingleArticleView()" >{{article.label}}
+        </a>
+        <div class="article-new">
+          <span ng-if="(article.newtagexpiration | unixTimestampToDate) > currentDate" class="label label-success flag">NEW</span>
+        </div>
+      </li>
+    </ul>
+</div>
+

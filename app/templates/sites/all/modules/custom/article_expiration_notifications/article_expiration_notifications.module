@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * Implements hook_cron().
+ */
+function article_expiration_notifications_cron() {
+  $nodeTypes = array('article', 'hallways_document', 'video_article');
+
+  $query = db_select('node', 'n');
+  $query->addTag('node_access');
+  $query->leftjoin('field_data_field_expiration_date', 'b', 'n.nid = b.entity_id');
+
+  $query
+    ->fields('n', array('nid', 'title'))
+    ->condition('n.type',$nodeTypes,'IN')
+    ->condition('n.status', '1')
+    ->where('DATEDIFF(DATE_FORMAT(field_expiration_date_value, \'%Y-%m-%d\'), CURDATE()) = 1');
+
+  $query->distinct();
+
+  $result= $query->execute()->fetchAllAssoc('nid');
+
+  if(!empty($result)) {
+     $expired_nids = array_keys($result);
+     // Load all nodes in one go for better performance.
+     $expired_items = node_load_multiple($expired_nids);
+     foreach ($expired_items as $node) {
+    	rules_invoke_component('email_notification_rule_and_web_service_exp_emails', $node, 1);
+     }   
+  }
+  $query2 = db_select('node', 'n');
+  $query2->addTag('node_access');
+  $query2->leftjoin('field_data_field_expiration_date', 'b', 'n.nid = b.entity_id');
+  $query2
+    ->fields('n', array('nid', 'title'))
+    ->condition('n.type',$nodeTypes,'IN')
+    ->condition('n.status', '1')
+    ->where('DATEDIFF(DATE_FORMAT(field_expiration_date_value, \'%Y-%m-%d\'), CURDATE()) = 10');
+
+  $query2->distinct();
+
+  $result= $query2->execute()->fetchAllAssoc('nid');
+
+  if(!empty($result)) {
+     $expired_nids = array_keys($result);
+     // Load all nodes in one go for better performance.
+     $expired_items = node_load_multiple($expired_nids);
+     foreach ($expired_items as $node) {
+    	rules_invoke_component('email_notification_rule_and_web_service_exp_emails', $node, 10);
+     }   
+    }
+  $query3 = db_select('node', 'n');
+  $query3->addTag('node_access');
+  $query3->leftjoin('field_data_field_expiration_date', 'b', 'n.nid = b.entity_id');
+  $query3
+    ->fields('n', array('nid', 'title'))
+    ->condition('n.type',$nodeTypes,'IN')
+    ->condition('n.status', '1')
+    ->where('DATEDIFF(DATE_FORMAT(field_expiration_date_value, \'%Y-%m-%d\'), CURDATE()) = 30');
+
+  $query3->distinct();
+
+  $result= $query3->execute()->fetchAllAssoc('nid');
+
+  if(!empty($result)) {
+     $expired_nids = array_keys($result);
+     // Load all nodes in one go for better performance.
+     $expired_items = node_load_multiple($expired_nids);
+     foreach ($expired_items as $node) {
+    	rules_invoke_component('email_notification_rule_and_web_service_exp_emails', $node, 30);
+     }   
+    }
+}
+

@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function search_logging_schema() {
+$schema['search_logging'] = array(
+  'description' => t('This table keeps track of search queries.'),
+  'fields' => array(
+    'slid' => array(
+      'description' => t('The primary identifier for a logged search.'),
+      'type' => 'serial',
+      'unsigned' => TRUE,
+      'not null' => TRUE),
+    'uid' => array(
+      'description' => 'The {users}.uid that owns this node; initially, this is the user that created it.',
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0,
+    ),
+    'search_query' => array(
+      'description' => t('The search query being logged.'),
+      'type' => 'varchar',
+      'length' => 255,
+      'not null' => TRUE,
+      'default' => ''),
+    'search_results_count' => array(
+      'description' => t('The number of results the search returns.'),
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => TRUE,
+      'default' => 0),
+    'created' => array(
+      'description' => 'The Unix timestamp when the log was created.',
+      'type' => 'int',
+      'not null' => TRUE,
+      'default' => 0,
+    ),
+  ),
+  'indexes' => array(
+    'search_created'        => array('created'),
+    'slid'                 => array('slid'),
+    ),
+  'primary key' => array('slid'),
+  );
+
+  $schema['search_logging_count'] = array(
+    'description' => t('This table keeps track of number of times a search query has been performed.'),
+    'fields' => array(
+      'slcid' => array(
+        'description' => t('The primary identifier for a logged search count.'),
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+        ),
+      'slid' => array(
+        'description' => 'The {search_logging}.slid that owns this count.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the log count was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        ),
+      ),
+    'indexes' => array(
+      'search_count_created'        => array('created'),
+      'slcid'                 => array('slcid'),
+      'slid'                 => array('slid'),
+      ),
+    'primary key' => array('slcid'),
+    );
+
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function search_logging_install() {
+
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function search_logging_uninstall() {
+
+}

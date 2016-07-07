@@ -1,0 +1,20 @@
+
+<div ng-repeat= 'article in articles.slice( 3, articles.length)' ng-if="articles && articles.length > 3">     
+  <div class="col-xs-12 col-sm-6 article-tile " ng-class="{'col-lg-3': articleView, 'col-lg-4' : !articleView}">
+    <div class="article default-tile" ng-class="{'desc-tile': article.shortdescription}">
+    <a ng-href="#/gateway/{{hallway.slug}}/{{article.id}}/{{article.label | lowercase |  kebabCase}}" ng-click="setSingleArticleView()">
+    <div class="article-new-label">
+      <span ng-if="(article.newtagexpiration | unixTimestampToDate) > currentDate" >NEW</span>
+    </div>
+    <div class="article-label grow-sibling">{{ ::article.label }}</div>
+    <div class="article-img">
+      <img ng-if="!article.image" src="../app/assets/images/default-article-tile_0_0_0.png" alt="{{article.label}}"/>
+      <img ng-if="article.image" ng-src="{{article.image.uri}}" alt="{{article.image.alt || article.image.title|| article.label}}"/>
+    </div>
+    <div ng-if="article.shortdescription" class="article-description" >
+          {{article.shortdescription}}
+     </div>
+    </a>
+    </div>
+  </div>
+</div>

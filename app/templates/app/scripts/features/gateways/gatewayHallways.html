@@ -1,0 +1,20 @@
+<div class="hallways-nav widget" >
+	<header class="widget-header">
+		<h5 class="title-banner" ng-if="!hallwayPage">Hallways</h5>
+	</header>
+	<ag-accordion-container>
+		<ag-accordion ng-repeat="hallway in hallways | orderBy:'label' track by $index">
+	    <ag-accordion-header>
+				<i class="fa fa-fw community-icon {{ hallway.label | stringReplace : '&' : 'amp' | kebabCase }}-com-icon" ></i>
+				<h5>
+					<a ng-href="#/gateway/{{ hallway.slug }}">{{ ::hallway.label }}</a>
+				</h5>
+			</ag-accordion-header>
+			<ag-accordion-body>
+				<ul class="services">
+					<li ng-repeat = 'item in hallway.portfolioheadertextareanew.value | stripHTML | listFilter' ><span ng-bind-html="item | trust"></span></li>
+				</ul>
+	  	</ag-accordion-body>
+		</ag-accordion>
+	</ag-accordion-container>
+</div>

@@ -1,0 +1,82 @@
+<div id="user-search-modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="user search modal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="$hide()"><span
+            aria-hidden="true">&times;</span></button>
+          <h2>Connections Finder</h2>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row user-search-form-wpr">
+          <div class="form-group">
+            <div class="col-md-12" ag-loader data-target-type="page" data-requests="loader.requests"></div>
+            <form action="">
+              <div class="form-group" ng-show="!processing">
+                <div class="col-md-12">
+                  <label class="form-label" for="searchConnections"><strong>Search for connections</strong></label>
+                  <input class="user-search-input form-control"
+                     ng-model="searchText"
+                     ng-model-options="{ debounce: 200 }"
+                     type="text"
+                     id="searchConnections"
+                     ng-change="searchResults(searchText)"
+                     autofocus
+                     placeholder="Search for a user by name, agency, title or email"/>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div>
+            <div class="col-md-12">
+              <div class="user-search-message alert alert-info" role="alert" ng-if="!searchText && !processing">
+                <h3>Welcome!</h3>
+                <p>
+                  Use this feature to search for people on the Gateway and use the Follow button to add people to your connections. Connections allow you to quickly see another person's activity on the Gateway.
+                </p>
+              </div>
+          </div>
+            <div class="row user-search-list-wpr">
+              <div class="col-sm-12">
+                <div id="user-list" ng-if="searchText">
+                  <div class="col-sm-4" ng-repeat="user in pageUsers">
+                    <div class="user-search-list-item">
+                      <div class="pull-left col-md-4 img-circle">
+                        <img class="picture"
+                             ng-src="{{ ::user.picture.url || '/app/assets/images/default-user-image.jpg' }}" alt=""/>
+                      </div>
+                      <div class="col-md-0 connection-details">
+                        <div title="{{ ::user.name || user.label || user.email }}">
+                          <a class="user-search-screen-name" ng-click="$hide()" ng-href="/app/#/communities/user/{{ ::user.id }}">{{ ::user.name || user.label || user.email }}</a>
+                        </div>
+                        <div ng-class="!user.agency ? 'user-search-user-agency' : ''">
+                          <div ng-class="{ 'user-search-user-agency-text': user.agency }" title="{{ ::user.agency }}">{{ ::user.agency }}</div>
+                        </div>
+                        <ag-follow class="btn btn-follow-style follow-user"
+                                   data-type="user"
+                                   data-item="user"
+                                   data-no-icon="true">
+                        </ag-follow>
+                      </div>
+                    </div>
+                    <hr/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <ag-pagination
+              data-items="users"
+              data-callback="setUsers"
+              data-page-sizes="[15]"
+              data-page-size="15"
+              ng-if="searchText && users.length > 0"
+              ></ag-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

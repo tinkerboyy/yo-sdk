@@ -1,0 +1,40 @@
+<div class="project-center-full" >
+  <div class="row">
+    <div class="col-sm-3 col-md-2 col-lg-2 project-center-full-menu">
+      <div>
+        <h1 class="DINCondensedBold no-margins">PROJECT CENTER</h1>
+        <ul class="nav">
+          <li>
+            <a ng-class="{ 'heavy-mute': active.center !== 'projects' }" href="#/project-center/projects">
+              <i class="fa fa-folder"></i>
+              My Projects
+            </a>
+          </li>
+          <li>
+            <a ng-class="{ 'heavy-mute': active.center !== 'tasks' }" href="#/project-center/tasks">
+              <i class="fa fa-th-list"></i>
+              My Tasks
+            </a>
+          </li>
+          <li>
+            <a ng-class="{ 'heavy-mute': active.center !== 'events' }" href="#/project-center/events">
+              <i class="fa fa-calendar"></i>
+              My Events
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-offset-3 col-md-offset-2 col-lg-offset-2 col-sm-10 col-md-10 col-lg-10" ng-switch="active.center">
+      <div ng-switch-when="projects">
+        <div ng-include="'scripts/features/project-center/projects/my-projects-large.html'"></div>
+      </div>
+      <div ng-switch-when="events">
+        <div ng-include="'scripts/features/project-center/project-center-full/my-events-large.html'"></div>
+      </div>
+      <div ng-switch-when="tasks">
+        <ag-my-tasks full-view="true">&nbsp;</ag-my-tasks>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the CMS Downloadable Article feature.
+ */
+
+include_once 'cms_downloadable_article.features.inc';

@@ -1,0 +1,39 @@
+<header class="widget-header">
+  <h4 class="title-banner no-text-transform content-menu" style="display: inline-block; width: calc(100% - 70px)">What type of content would you like to add to your project?</h4>
+  <a class="pull-right" style="font-size: 15px;" ng-click="popPage()">Close<i class="fa fa-times fa-fw medium-icon"></i></a>
+</header>
+<center class="row content-container" style="position: relative; top: 30%;">
+  <center ng-if="!publicUser" class="col-xs-3">
+    <a ng-click="openFileUploadModal(projectEntity)">
+      <i class="fa fa-fw fa-upload large-icon"></i>
+      <div class="upload">File Upload</div>
+    </a>
+  </center>
+  <center class="col-xs-3">
+    <a href="/app/#/solutionsfinder">
+      <i class="fa fa-fw fa-th-large large-icon"></i>
+      <div class="solutions-finder" style="margin-top: 5px;">Solutions Finder</div>
+    </a>
+  </center>
+  <center class="col-xs-3">
+    <a href="/app/#/sowl">
+      <i class="fa fa-fw fa-bank large-icon"></i>
+      <div class="statement" style="margin-top: 5px;">Statement of</div>
+      <div class="library">Work Library</div>
+    </a>
+  </center>
+  <center class="col-xs-3">
+    <a href="/app/#/communities">
+      <i class="fa fa-fw fa-comment-o large-icon"></i>
+      <div class="statement" style="margin-top: 5px;">Community</div>
+      <div class="library">Discussion</div>
+    </a>
+  </center>
+  <center class="col-xs-3">
+    <a class="text-muted" style="color: #DDD">
+      <i class="fa fa-fw fa-asterisk large-icon"></i>
+      <div style="color:rgba(19, 3, 3, 0.75);position: relative; z-index: 2;">Coming Soon</div>
+      <div style="margin-top: 5px;">Hallways</div>
+    </a>
+  </center>
+</center>

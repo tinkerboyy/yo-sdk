@@ -1,0 +1,93 @@
+<div ag-collection="[ { resourceName: 'PrivateEvents' } ]" class="my-events">
+  <h1 class="no-margins heavy-mute"><i class="fa fa-calendar"></i> My Events</h1>
+  <div class="event-popover-container"></div>
+  <div class="row">
+    <div class="col-xs-12">
+      <button bs-popover
+        title="New Event"
+        container=".my-events .event-popover-container"
+        content-template="scripts/features/project-center/events/my-events-entry.html"
+        placement="bottom-left"
+        class="pull-left btn-new-entity btn btn-link no-padding"
+        style="margin:10px 0px">
+        <i class="fa fa-plus-circle"></i>
+        New Event
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div bs-collapse
+        start-collapsed="true"
+        allow-multiple="true"
+        animation="am-collapse"
+        class="col-xs-12">
+      <div ng-repeat="eventEntity in privateEvents.data.collection | filter: filter | orderBy: 'start_date'" class="panel panel-default event-entity" id = "container{{$index}}">
+        <div class="panel-heading" style="padding: 10px 10px 0px 10px">
+          <span>
+            <h2 class="no-margins" style="font-size: 1em; display: inline-block">
+              <i class="fa fa-calendar"></i>
+                <a ng-click="expanded = !expanded">
+                  <span class="learn-color " style="font-size: 14px; margin: 0px 0px 5px 0px">{{ eventEntity.name }}
+                  </span>
+                </a>
+            </h2>
+          </span>
+          <span class="pull-right id{{$index}}">
+            <button bs-popover
+              title="Edit Event"
+              content-template="scripts/features/project-center/events/my-events-entry.html"
+              container=".my-events .id{{$index}}"
+              placement="auto left"
+              target =".id{{$index}}"
+              viewport = "'.my-events'"
+              class="btn btn-link heavy-mute no-padding edit-event" style="vertical-align:top; line-height: 1">
+              <i class="fa fa-fw fa-pencil id{{$index}}"></i>
+            </button>
+            <button ng-click="privateEvents.save({id: eventEntity.id, status: 0}, $hide)"
+              class="delete-event btn btn-link heavy-mute no-padding"
+              style="vertical-align:top; line-height: 1">
+              <i class="fa fa-fw fa-trash-o"></i>
+            </button>
+            <button class="expand-event btn btn-link heavy-mute no-padding expandBtn" ng-click="expanded = !expanded" title="{{expanded ? 'collapse' : 'expand'}}">
+              <i class="fa fa-fw" ng-class="{'fa-expand': !expanded, 'fa-compress': expanded}"></i>
+            </button>
+          </span>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="date-body">
+                <span>
+                <span>{{eventEntity.start_date | agDateFormat:'shortDate' }}</span>
+                <span ng-if="( eventEntity.start_date | agDateFormat:'shortDate' ) !== ( eventEntity.end_date | agDateFormat:'shortDate' )">
+                  - {{ eventEntity.end_date | agDateFormat:'shortDate' }}
+                </span>
+                &nbsp;
+              </span>
+              <span>{{eventEntity.start_date | agDateFormat:'shortTime'| lowercase | stringReplace : ' ' : ''  }} -
+              {{eventEntity.end_date | agDateFormat:'shortTime'| lowercase | stringReplace : ' ' : '' }} &nbsp;</span>
+            </div>
+           </div>
+          </div>
+          <div ng-show="expanded" class="event-details">
+            <br/>
+            <div class="text-muted small">
+            <div ng-if="eventEntity.projectStatus == '1'">
+              <span>Project: </span>
+              <span><a class="project-link" ng-href="#/project-center/projects?activeEntities={{eventEntity.projectId}}">{{eventEntity.projectName}}</a></span>
+            </div>
+            <div ng-if="eventEntity.location">
+              <span>Location: </span>
+              <span>{{eventEntity.location}}</span>
+            </div>
+            <div ng-if="eventEntity.description">
+              <span>Description: </span>
+              <span>{{eventEntity.description}}</span>
+            </div>
+          </div>
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

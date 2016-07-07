@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Statistics Counter
+ */
+
+/**
+ * Implements hook_install().
+ */
+function statistics_counter_install() {
+  $t = get_t();
+  $transaction = db_transaction();
+
+  try {
+    $query = "
+      ALTER TABLE {node_counter}
+      ADD COLUMN `weekcount`  MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'The total number of times the {node} has been viewed this week.'  AFTER `daycount`,
+      ADD COLUMN `monthcount` MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'The total number of times the {node} has been viewed this month.' AFTER `weekcount`,
+      ADD COLUMN `yearcount`  BIGINT(20)   UNSIGNED NOT NULL DEFAULT '0' COMMENT 'The total number of times the {node} has been viewed this year.'  AFTER `monthcount`
+    ";
+
+    db_query($query);
+
+    // Ignore slave server temporarily to give time for the
+    // saved block to be propagated to the slave.
+    db_ignore_slave();
+  }
+  catch (Exception $e) {
+    $transaction->rollback();
+    watchdog_exception('php', $e);
+    drupal_set_message($t('Cannot create new fields'), 'error');
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function statistics_counter_uninstall() {
+  $t = get_t();
+  $transaction = db_transaction();
+
+  try {
+    $query = "
+      ALTER TABLE {node_counter} DROP COLUMN `yearcount`, DROP COLUMN `monthcount`, DROP COLUMN `weekcount`
+    ";
+
+    db_query($query);
+
+    // Ignore slave server temporarily to give time for the
+    // saved block to be propagated to the slave.
+    db_ignore_slave();
+  }
+  catch (Exception $e) {
+    $transaction->rollback();
+    watchdog_exception('php', $e);
+    drupal_set_message($t('Cannot drop fields'), 'error');
+  }
+}
+
+/**
+ * Implements hook_enable().
+ */
+function statistics_counter_enable() {
+  $query = '
+    UPDATE  {node_counter}
+    SET     weekcount = daycount,
+            monthcount = daycount,
+            yearcount = daycount
+  ';
+
+  db_query($query);
+}

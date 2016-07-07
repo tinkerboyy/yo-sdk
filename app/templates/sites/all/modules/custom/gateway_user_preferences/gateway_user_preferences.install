@@ -1,0 +1,86 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function gateway_user_preferences_schema() {
+  $schema['user_preferences'] = array(
+    'description' => t('The base table for gateway user preferences.'),
+    'fields' => array(
+      'upid' => array(
+        'description' => 'The primary identifier for a user preference.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE),
+      'uid' => array(
+        'description' => 'The user id the preference belongs to.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0),
+      'type' => array(
+        'description' => 'The type of application the user preference belongs to.(i.e - solutions_finder, sowl, communities ...)',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => ''),
+      'action' => array(
+        'description' => 'The type of action being saved. (i.e - pin, follow ...)',
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => ''),
+      'item_id' => array(
+        'description' => 'The title of this node, always treated a non-markup plain text.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0),
+      ),
+      'created' => array(
+        'description' => 'The Unix timestamp when the node was created.',
+        'type' => 'int',
+        'length' => 11,
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+    'unique keys' => array(
+      'upid' => array('upid')
+      ),
+    'primary key' => array('upid'),
+  );
+  return $schema;
+}
+
+/**
+ * Implements hook_install().
+ */
+function gateway_user_preferences_install() {
+  // Populate the user preferences table.
+  db_insert('user_preferences')
+    ->fields(array(
+      'uid' => 1267,
+      'type' => 'solutions',
+      'action' => 'pin',
+      'item_id' => 10,
+    ))
+    ->execute();
+
+  db_insert('user_preferences')
+    ->fields(array(
+      'uid' => 1267,
+      'type' => 'solutions',
+      'action' => 'pin',
+      'item_id' => 5,
+    ))
+    ->execute();
+
+    db_insert('user_preferences')
+    ->fields(array(
+      'uid' => 1267,
+      'type' => 'communities',
+      'action' => 'follow',
+      'item_id' => 129001,
+    ))
+    ->execute();
+}

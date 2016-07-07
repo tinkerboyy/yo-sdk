@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Other Documentation</title>
+<link href="http://fonts.googleapis.com/css?family=Voces" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="style.css"/>
+<script src="jquery.js"></script>
+<script src="toc.js"></script>
+</head>
+<body>
+<div id="toc">
+	
+</div>
+
+
+<div id="wrapper">
+<h2>Overview</h2>
+<p>Other is perfect for the creatives out there, the forward thinkers and those who just want a kick-ass site for their business or service. For theme support that cannot be found in this documentation, please visit our <a href="http://refaktorthemes.com/support"> support forum</a>. 
+<p>Updated: 12/23/13<br>Author: <a href="http://refaktorthemes.com" target="_blank">Refaktor</a><br>Docs powered by: <a href="https://github.com/jgallen23/toc" target="_blank">TOC</a><br>Original design by <a href="http://themeforest.net/user/
+TommusRhodus" target="_blank">
+TommusRhodus</a></p>
+<h2>Installation</h2>
+<p>There are several ways Other can be installed. For existing sites that already have content, the first method will only involve the installation and activation of the theme. The second option includes a full Drupal 7 install with the same SQL database file used to create the theme demo. Please choose which installation method works best for you and follow the instructions. We do highly recommend you perform the full install, especially if you plan on using the Commerce functionality.
+<h3>Theme Only</h3>
+Option 1:
+<ul>
+  <li>Visit yourdomain.com/admin/appearance/install</li>
+  <li>Upload the Other.zip file</li>
+  <li>Enable and set to default</li>
+</ul>
+Option 2:
+<ul>
+  <li>Extract the Other.zip file and upload via FTP to /sites/all/themes</li>
+  <li>Visit yourdomain.com/admin/appearance/</li>
+  <li>Scroll down to "DISABLED THEMES" and set and enable Other</li>
+</ul>
+
+<h3>Full Drupal Install</h3>
+<p>The following steps are designed for people that have experience manually installing Drupal and importing databases. If you do not feel comfortable performing these steps yourself, contact your server administrator for help. <strong>NOTE</strong> this option is for a completely new Drupal install. Do not import the provided SQL file into an existing Drupal database or you will lose all of your data!</p>
+<ol>
+<li>Create a database for this installation of Drupal and import the SQL file that came with the theme.</li>
+<li>Follow <a href="http://drupal.org/documentation/install/settings-file" target="_blank"> these directions</a> to create the settings.php file. Save this file somewhere so you can copy it over to the Drupal installation we have provided.</li>
+<li>Copy the entire contents of the /demo/other folder to the location on your web server where you want your site to be accessed. If you want your primary domain to point to your install of Other, copy everything to the root folder. If you want your site to be accessed as a subsection of your domain (for example: yourdomain.com/drupal) then simply rename the /demo/other folder to the desired name and upload to the root of your server. Also be sure to copy over the settings.php file mentioned in the previous step</li>
+<li>Login to your site with the username <strong>admin</strong> and the password <strong>admin</strong> and visit /admin/people to change the admin username and password.</li>
+<li>Go through the Drupal configuration found in /admin/config options and update all the necessary information to reflect your website. Also be sure to visit /admin/config/media/file-system and change the Temporary Directory.</li>
+
+</ol>
+<h2>Other Sub-Theme</h2>
+
+<p>Other comes with a shell sub-theme called Other_sub that you can use to make customizations to the style and template structure of the parent theme without having to modify the parent theme itself. This is useful if you plan on updating the parent theme as we release updates on ThemeForest. If you performed the full install you will already see Other_sub in the list of themes available. If you did the standalone install you can find the Other_sub.zip file in the root of the download files and you can install it like any other theme.</p>
+<p>There is an empty stylesheet already defined which is /css/custom.css (inside the Other_sub folder). Use this file to add all of the custom CSS that you plan on using. You can also copy any template file from the /Other/templates folder into the /Other_sub/templates folder and it will listen to the sub-themes template file first. This will allow you to update the parent theme as we make updates without losing your customizations. Just pay attention to the changelog and compare the parent theme files with yours and make any adjustments as needed.</p>
+<p>You will need to configure the sub-themes theme settings separately from the parent theme's, so visit /admin/appearance/settings/Other_sub to configure the theme settings for the sub-theme. You also need to configure the block regions separately.</p>
+</ol>  
+<h2>Menu</h2>
+<p>Other has a block region called Site Navigation which can be used to add any menu block you like. The demo simply uses the default Main Menu block but you can create a custom menu block if you like.</p>
+
+<img src="images/menu-2.png"><br/><br/>
+
+<p><strong>Note:</strong> make sure to check the "show as expanded" box on all parent items with children to ensure the dropdown menu works correctly.</p>
+
+
+<h2>Modules</h2>
+<p>Below are the modules required to fully utilize the theme:</p>
+
+<h4>General Required Modules</h4>
+<ul>
+<li><a href="http://drupal.org/project/ctools">Chaos Tools</a></li>
+<li><a href="http://drupal.org/project/views">Views</a></li>
+<li><a href="https://drupal.org/project/prev_next">Previous/Next API</a></li>
+<li><a href="https://drupal.org/project/exclude_node_title">Exclude Node Title</a></li>
+</ul>
+
+<h3>Other Content Data</h3>
+<p>If you used the "theme only" option to install the theme on an existing install that already has content we recommend you use our Other Content Data module to create the additional content types, fields and Views needed to fully utilize the theme. You will find it in the /assets folder in the download files. This module is a custom <a href="http://drupal.org/project/features" target="_blank">Features</a> module and will not run without it. We recommend copying all of the modules from the /drupal_7/sites/all/modules folder into your install if you do not already have them. After you have all the modules simply upload and activate the Other Content Data module and the content types, fields and views will automatically be created.</p>
+
+<h2>Content Types</h2>
+
+<h3>Portfolio</h3>
+<p>
+This content type can be used to create a portfolio of projects on your site. A collection of portfolio nodes can be displayed in several styles of view blocks such as <a href="http://refaktorthemes.com/other" target="_blank"> http://refaktorthemes.com/other</a> or <a href="http://refaktorthemes.com/other/gallery" target="_blank"> http://refaktorthemes.com/other/gallery</a>. Below we will outline the fields used in this content type and the different view blocks and their corresponding theme templates.
+</p>
+<h4>Fields:</h4>
+
+<img src="images/portfolio.png"><br/><br/>
+<ul>
+<li><strong>Title:</strong> The default Drupal title field.</li>
+<li><strong>Portfolio Tagline:</strong> Used as a short description for your portfolio item.</li>
+<li><strong>Portfolio Category:</strong> This is a term reference field that is linked to a vocabulary created specifically for this content type.</li>
+<li><strong>Portfolio Video:</strong> A long text field for adding video embed code such as Youtube or Vimeo.</li>
+<li><strong>Portfolio Image:</strong> The default single image for your item which is used on the main portfolio view block.</li>
+<li><strong>Portfolio Slideshow:</strong> Use this field to upload images for the slider that is used on the single portfolio nodes.</li>
+<li><strong>Portfolio Client:</strong>Used to display the client the portfolio item represents.</li>
+<li><strong>Portfolio Website:</strong>Used to display the project website.</li>
+</ul>
+
+<p><strong>Template files</strong></p>
+<ul>
+	<li>/templates/node/node--portfolio.tpl.php</li>
+	<li>/templates/page/page--node--portfolio.tpl.php</li>
+</ul>
+
+<h4>View Blocks</h4>
+
+<p><strong>Portfolio Block - Example: <a href="http://refaktorthemes.com/other" target="_blank"> http://refaktorthemes.com/other</a></strong></p>
+<p>This is the standard Portfolio style which utilizes the "Portfolio Block" view. If you are not using the full demo or did not use the Custom Content module you can use the /assets/views/portfolio-block.txt (in the root of the download files) to import this view. Then simply place the "View: Portfolio Block" in the Content region and configure the block visibility settings to your liking.</p>
+<ul>
+<p><strong>Template files:</strong></p>
+	<ul>
+		<li>/templates/node/node--view--portfolio--block.tpl.php</li>
+		<li>/templates/views/views-view--portfolio-block.tpl.php</li>
+		<li>/templates/views/views-view--unformated-portfolio-block.tpl.php</li>
+	</ul>
+	
+	<p><strong>Portfolio Filters:</strong></p>
+	<p>The Portfolio Block view includes support for an Isotope filter effect powered by Taxonomy terms. To utilize this effect visit /admin/structure/taxonomy and create a new vocabulary (example: Portfolio). After creating your vocabulary you can create the terms you wish to use to categorize your portfolio items. This taxonomy vocabulary can be linked to the Portfolio content type via a term reference field so you can select the category or categories you want to place your items into.</p>
+	
+	<p>The filters are powered by a view block called Portfolio Filters that should be added to the "Sidebar Primary" region. If you don't already have this view you can use the code /assets/views/portfolio-filters.txt to import this view block.</p>
+	
+	<p><strong>Template files:</strong></p>
+	<ul>
+	  <li>/templates/views/views-view-list--portfolio-filters.tpl.php</li>
+	  <li>/templates/views/views-view-fields--portfolio-filters.tpl.php</li>
+	</ul>
+</ul>
+
+<p><strong>Portfolio Vertical - Examples: <a href="http://refaktorthemes.com/other/gallery" target="_blank"> http://refaktorthemes.com/other/gallery</a> and <a href="http://refaktorthemes.com/other/gallery-static" target="_blank"> http://refaktorthemes.com/other/gallery-static</a></strong></p>
+<p>This is the vertical Portfolio style which utilizes the "Portfolio Vertical" view. If you are not using the full demo or did not use the Custom Content module you can use the /assets/views/portfolio-vertical.txt (in the root of the download files) to import this view. Then simply place the "View: Portfolio Vertical" or "View: Portfolio Vertical: Static" block in the Content region and configure the block visibility settings to your liking.</p>
+<ul>
+<p><strong>Template files:</strong></p>
+	<ul>
+		<li>/templates/views/views-view--portfolio-vertical.tpl.php</li>
+		<li>/templates/views/views-view--unformated-portfolio-vertical.tpl.php</li>
+	</ul>
+</ul>	
+
+<p><strong>Portfolio Horizontal - Examples: <a href="http://refaktorthemes.com/other/gallery-horizontal" target="_blank"> http://refaktorthemes.com/other/gallery-horizontal</a> and <a href="http://refaktorthemes.com/other/gallery-horizontal-static" target="_blank"> http://refaktorthemes.com/other/gallery-horizontal-static</a></strong></p>
+<p>This is the horizontal Portfolio style which utilizes the "Portfolio Vertical" view. If you are not using the full demo or did not use the Custom Content module you can use the /assets/views/portfolio-horizontal.txt (in the root of the download files) to import this view. Then simply place the "View: Portfolio Horizontal" or "View: Portfolio Horizontal: Static" block in the Content region and configure the block visibility settings to your liking.</p>
+<ul>
+<p><strong>Template files:</strong></p>
+	<ul>
+		<li>/templates/views/views-view--unformated-portfolio-horizontal.tpl.php</li>
+	</ul>
+</ul>	
+
+<h3>Team</h3>
+<p>
+This content type can be used to create a portfolio of team members on your site. A collection of team nodes can be displayed in several styles of view blocks such as <a href="http://refaktorthemes.com/other/team-vertical" target="_blank"> http://refaktorthemes.com/other/team-vertical</a> or <a href="http://refaktorthemes.com/other/team-horizontal" target="_blank"> http://refaktorthemes.com/other/team-horizontal</a>. Below we will outline the fields used in this content type and the different view blocks and their corresponding theme templates.
+</p>
+
+<p><strong>Fields:</strong></p>
+<img src="images/team.png"><br/><br/>
+<ul>
+	<li><strong>Title:</strong> The default Drupal title field.</li>
+	<li><strong>Team Date:</strong> Used for the date your team member joined.</li>
+	<li><strong>Portfolio Position:</strong> Used for the position of your team member.</li>
+	<li><strong>Team Tagline:</strong> Used as a short description for your team member.</li>
+	<li><strong>Team Image:</strong> The default single image for your item used for both the single node and the view block.</li>
+</ul>
+
+<p><strong>Template files</strong></p>
+<ul>
+	<li>/templates/node/node--team.tpl.php</li>
+	<li>/templates/page/page--node--team.tpl.php</li>
+</ul>
+
+<h4>View Blocks</h4>
+
+<p><strong>Team Vertical - Examples: <a href="http://refaktorthemes.com/other/team-vertical" target="_blank"> http://refaktorthemes.com/other/team-vertical</a>.</strong></p>
+<p>This is the vertical Team style which utilizes the "Team Vertical" view. If you are not using the full demo or did not use the Custom Content module you can use the /assets/views/team-vertical.txt (in the root of the download files) to import this view. Then simply place the "View: Team Vertical" block in the Content region and configure the block visibility settings to your liking.</p>
+<ul>
+<p><strong>Template files:</strong></p>
+	<ul>
+		<li>/templates/views/views-view--team-vertical.tpl.php</li>
+	</ul>
+</ul>	
+
+<p><strong>Team Horizontal - Examples: <a href="http://refaktorthemes.com/other/team-horizontal" target="_blank"> http://refaktorthemes.com/other/team-horizontal</a>.</strong></p>
+<p>This is the horizontal Team style which utilizes the "Team Horizontal" view. If you are not using the full demo or did not use the Custom Content module you can use the /assets/views/team-horizontal.txt (in the root of the download files) to import this view. Then simply place the "View: Team Vertical" block in the Content region and configure the block visibility settings to your liking.</p>
+
+<p><strong>Team Masonry - Examples: <a href="http://refaktorthemes.com/other/team-masonry" target="_blank"> http://refaktorthemes.com/other/team-masonry</a>.</strong></p>
+<p>This is the masonry Team style which utilizes the "Team Masonry" view. If you are not using the full demo or did not use the Custom Content module you can use the /assets/views/team-masonry.txt (in the root of the download files) to import this view. Then simply place the "View: Team Masonry" block in the Content region and configure the block visibility settings to your liking.</p>
+
+<h3>Contact</h3>
+<p>
+This content type can be used to create a contact page such as the one seen at <a href="http://refaktorthemes.com/other/contact" target="_blank"> http://refaktorthemes.com/other/contact</a>. Below we will outline the fields used in this content type nd their corresponding theme template files.
+</p>
+<p><strong>Fields:</strong></p>
+<img src="images/contact.png"><br/><br/>
+<ul>
+	<li><strong>Contact Map:</strong> A long text field to embed a Google Map iFrame (<a href="https://maps.google.com/">https://maps.google.com/</a>)</li>
+	<li><strong>Title:</strong> The default Drupal title field.</li>
+	<li><strong>Contact Tagline:</strong> Used as a short description for your contact page.</li>
+	<li><strong>Contact Info:</strong> Used for your basic contact information like address, phone number, etc.</li>
+	<li><strong>Background Image:</strong> Image upload field for an optional page body background image.</li>
+</ul>
+
+<p><strong>Template files:</strong></p>
+	<ul>
+		<li>/templates/page/page--node--contact.tpl.php</li>
+		<li>/templates/node/node--contact.tpl.php</li>
+	</ul>
+</ul>	
+
+<p><strong>Map Embed Example:</strong></p>
+<pre>&lt;iframe width=&quot;425&quot; height=&quot;350&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot; marginheight=&quot;0&quot; marginwidth=&quot;0&quot; src=&quot;https://maps.google.co.uk/maps?f=q&amp;amp;source=s_q&amp;amp;hl=en&amp;amp;geocode=&amp;amp;q=york&amp;amp;aq=&amp;amp;sll=52.8382,-2.327815&amp;amp;sspn=12.413292,18.764648&amp;amp;ie=UTF8&amp;amp;hq=&amp;amp;hnear=York,+United+Kingdom&amp;amp;t=m&amp;amp;z=13&amp;amp;ll=53.962301,-1.081884&amp;amp;output=embed&amp;iwloc=near&quot;&gt;&lt;/iframe&gt;</pre>
+
+<h3>View Page</h3>
+<p>
+This is a very basic content type that should be used for any of your pages using view blocks as it strips any margins and paddings. Below we will outline the fields used in this content type and their corresponding theme template files.
+</p>
+<p><strong>Fields:</strong></p>
+<ul>
+	<li><strong>Title:</strong> The default Drupal title field.</li>
+  <li><strong>Body:</strong> The default Drupal body field.</li>
+	<li><strong>Background Image:</strong> Image upload field for an optional page body background image.</li>
+</ul>
+
+<p><strong>Template files:</strong></p>
+	<ul>
+		<li>/templates/page/page--node--view-page.tpl.php</li>
+		<li>/templates/node/node--view-page.tpl.php</li>
+	</ul>
+</ul>	
+
+<h3>Basic Page</h3>
+<p>
+This modified version of the default page content type can be used to create all of your normal pages. Below we will outline the fields used in this content type and their corresponding theme template files.
+</p>
+<p><strong>Fields:</strong></p>
+<img src="images/basic.png"><br/><br/>
+<ul>
+	<li><strong>Title:</strong> The default Drupal title field.</li>
+	<li><strong>Body:</strong> The default Drupal body field.</li>
+	<li><strong>Background Image:</strong> Image upload field for an optional page body background image.</li>
+	<li><strong>Before Content:</strong> An image field for adding an image before the page title.</li>
+	<li><strong>Before Content Embed:</strong> A long text field that can be used for any kind of embeds such as Youtube videos. This will display before the node title and content.</li>
+	
+</ul>
+
+<p><strong>Template files:</strong></p>
+	<ul>
+		<li>/templates/page/node.tpl.php</li>
+		<li>/templates/node/page.tpl.php</li>
+	</ul>
+</ul>	
+
+<h3>Article</h3>
+<p>
+This modified version of the default article content type can be used to create all of your article nodes. Below we will outline the fields used in this content type and the different view blocks and their corresponding theme template files.
+</p>
+<p><strong>Fields:</strong></p>
+<img src="images/article.png"><br/><br/>
+<ul>
+	<li><strong>Title:</strong> The default Drupal title field.</li>
+	<li><strong>Article Tagline:</strong> The default Drupal body field.</li>
+	<li><strong>Body:</strong> The default Drupal body field.</li>
+	<li><strong>Tags:</strong> The default Drupal tags taxonomy term reference field.</li>
+	<li><strong>Image:</strong> Image upload field for an optional article image.</li>
+	<li><strong>Article Embed:</strong> A long text field that can be used for any kind of embeds such as Youtube videos. This will display before the node title and content.</li>
+	
+</ul>
+
+<p><strong>Template files:</strong></p>
+	<ul>
+		<li>/templates/page/node--article.tpl.php</li>
+		<li>/templates/node/page--node--article.tpl.php</li>
+	</ul>
+</ul>	
+
+<h4>View Blocks</h4>
+
+<p><strong>Two Columns - Examples: <a href="http://refaktorthemes.com/other/blog" target="_blank"> http://refaktorthemes.com/other/blog</a>.</strong></p>
+<p>This is the default blog style which utilizes the "Blog" view. If you are not using the full demo or did not use the Custom Content module you can use the /assets/views/blog.txt (in the root of the download files) to import this view. Then simply place the "View: Blog" block in the Content region and configure the block visibility settings to your liking.</p>
+<ul>
+<p><strong>Template files:</strong></p>
+	<ul>
+		<li>/templates/node/node--view--blog.tpl.php</li>
+		<li>/templates/views/views-view--blog.tpl.php</li>
+	</ul>
+</ul>
+
+<p><strong>Medium - Examples: <a href="http://refaktorthemes.com/other/blog-medium" target="_blank"> http://refaktorthemes.com/other/blog-medium</a>.</strong></p>
+<p>This is the medium blog style which utilizes the "Blog Medium" view. If you are not using the full demo or did not use the Custom Content module you can use the /assets/views/blog-medium.txt (in the root of the download files) to import this view. Then simply place the "View: Blog Medium" block in the Content region and configure the block visibility settings to your liking.</p>
+<ul>
+<p><strong>Template files:</strong></p>
+	<ul>
+		<li>/templates/node/node--view--blog-medium.tpl.php</li>
+		<li>/templates/views/views-view--blog-medium.tpl.php</li>
+	</ul>
+</ul>		
+
+<p><strong>Large - Examples: <a href="http://refaktorthemes.com/other/blog-large" target="_blank"> http://refaktorthemes.com/other/blog-large</a>.</strong></p>
+<p>This is the large blog style which utilizes the "Blog Large" view. If you are not using the full demo or did not use the Custom Content module you can use the /assets/views/blog-large.txt (in the root of the download files) to import this view. Then simply place the "View: Blog Large" block in the Content region and configure the block visibility settings to your liking.</p>
+<ul>
+<p><strong>Template files:</strong></p>
+	<ul>
+		<li>/templates/node/node--view--blog-medium.tpl.php</li>
+		<li>/templates/views/views-view--blog-medium.tpl.php</li>
+	</ul>
+</ul>		
+
+<h2>Image Styles</h2>
+<h4>Image Vertical:</h4>
+<p>A scale and crop of 170x650 that is used with the Portfolio Vertical and Team Vertical view blocks.</p>
+
+<h4>Image Horizontal:</h4>
+<p>A scale and crop of 900x225 that is used with the Portfolio Horizontal and Team Horizontal view blocks.</p>
+
+<h4>Image Mason:</h4>
+<p>A scale and crop of 600x380 that is used with the Portfolio Block.</p>
+
+<h2>Block Regions</h2>
+<p>Other features 5 block regions where you can add your blocks. Visit yourdomain.com/admin/structure/block to add your own content to the defined block regions. Press "Add Block" to create a new custom blog, or select an existing block from the Disabled list below the defined block regions.</p>
+
+<h2>Font Awesome</h2>
+<p>Other supports the <a href="http://fontawesome.io/3.2.1/">Font Awesome</a> font library which can be used to render various icons. For example, the following code can be used to create a simple social icons block as seen on the demo:</p>
+<pre>
+&lt;div class=&quot;social&quot;&gt;
+  &lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;icon-twitter&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+  &lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;icon-facebook-sign&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+  &lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;icon-dribbble&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+  &lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;icon-flickr&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+  &lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;icon-github&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;/div&gt;
+</pre>
+
+<h2>Thank You</h2>
+<p>Thank you very much for purchasing the Other Responsive Drupal 7 theme. Once again if you have any issues or feedback please connect via the <a href="http://themeforest.net/user/refaktor#from" target="_blank">ThemeForest author page</a>. Enjoy using Other!</p>
+</p>&copy 2013 Refaktor.
+</div>
+<script>$('#toc').toc();</script></body></html>

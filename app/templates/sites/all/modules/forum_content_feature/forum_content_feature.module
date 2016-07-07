@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Forum Content Feature feature.
+ */
+
+include_once 'forum_content_feature.features.inc';

@@ -1,0 +1,5 @@
+name = Search Logging
+description = Module that logs search queries and tracks number of times it is used.
+core = 7.x
+version = 1.0
+package = Acquisition Gateway

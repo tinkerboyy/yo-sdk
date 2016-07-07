@@ -1,0 +1,9 @@
+name = Gateway Projects
+description = Allows developers to expose db schema using schema API
+core = 7.x 
+package = Acquisition Gateway
+
+;files (Optional
+files[] = gateway_projects.info
+files[] = gateway_projects.module
+files[] = gateway_projects.install

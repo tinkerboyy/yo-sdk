@@ -1,0 +1,22 @@
+<div class="ag-file-upload">
+  <div>
+    <input  class="form-control form-file"
+            id="{{inputId}}"
+            name="{{inputName}}"
+            type="file"
+            ag-validate-file ag-file-max-size="{{maxFileSize}}"
+            ag-file-allowed-extensions="{{allowedFileExtensions}}"
+            ng-model="fileInput" style="display: none"/>
+    <!--<input type="text" id="filename" readonly="true"/>-->
+    <!--<input type="button" class="btn btn-default" ng-click="changeFile()">Change {{ type || 'file' }}</input>-->
+    <small ng-if="showValidationMessages !== 'false' && fileInputModel.model.$error.agFileMaxSize" class="text-danger">File must be less than {{formatBytes(maxFileSize)}}</small></div>
+    <small ng-if="showValidationMessages !== 'false' && fileInputModel.model.$error.agFileAllowedExtensions" class="text-danger">File extention must be one of {{allowedFileExtensions}}</small></div>
+  </div>
+
+  <div>
+    <div class="filename" title="{{ file.filename }}">{{ file.filename || userDetails.picture.filename }}</div>
+    <div>
+      <input type="button" class="btn btn-default" ng-click="changeFile()" value="{{ userDetails.picture.filename || fileInput || file.filename ? 'change file' : 'choose file' }}"/>
+    </div>
+  </div>
+</div>

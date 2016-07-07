@@ -1,0 +1,108 @@
+<div class="region region-content" ag-loader data-target-type="widget" data-text="loading document... please wait" data-requests="documentLoader.requests">
+  <div class="sowl-document-not-found" ng-if="!document">
+    <div class="sow-document-link">
+      <span><a ng-click="backToSearch()">&lt;&lt; Back to Results</a></span>
+      <span>
+        <ag-share
+          data-params="moreSearch"
+          data-params-map=""
+          data-title="Statement of Work Library"
+          title= "Share this search criteria"></ag-share>
+       </span>
+    </div>
+    <div class="alert alert-danger"><h4>Not found</h4>The document you are trying to view could not be found.</div>
+  </div>
+  <section ng-if="document" id="block-system-main" class="sow-document block block-system clearfix">
+    <div id="quick-nav-block">
+      <div id="container">
+          <div id="doc-header">
+              <div id="node-425" class="node node-sow col-xs-12 col-sm-12 col-md-12 col-lg-12" about="/content/fabs-inventory-accountability-and-sales-revised" typeof="sioc:Item foaf:Document">
+                  <!--New Vertical SOWL Template-->
+                  <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                    <div class="sow-document-link">
+                      <a ng-click="backToSearch()">&lt;&lt; Back to Results</a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="sow-type"><span ng-if="document.sow_type">{{document.sow_type}} - {{document.sow_type_name}}</span></div>
+                    <div id="header-info">
+
+                      <span>
+                        <ag-share
+                          data-params="moreSearch"
+                          class="pull-right"
+                          data-params-map=""
+                          data-hide-add-to-project="true"
+                          data-title="Share this search criteria"
+                          data-url="shareUrl">
+                        </ag-share>
+                      </span>
+                      <h3>{{document.label}}</h3>
+                      </div>
+                      <div class="rtTop">
+                        <a ng-if="document.word.url" ng-href="{{document.word.url}}" title="{{document.word.filename}}" target="_blank" class="btn btn-sm btn-primary">
+                          <span class=" fa fa-file-word-o"></span>
+                          <span class="icon-text">Download<span class="grid-hide"> MS Word Format</span></span>
+                        </a>
+                        <a ng-if="document.pdf.url" ng-href="{{document.pdf.url}}" title="{{document.pdf.filename}}" target="_blank" class="btn btn-sm btn-danger">
+                          <span class=" fa fa-file-pdf-o"></span>
+                          <span class="icon-text">Download<span class="grid-hide"> PDF Format</span></span>
+                        </a>
+
+                        <a ng-click="addToProject(document)" class="btn-new-entity ng-isolate-scope btn btn-sm btn-default" >
+                          <i class=" fa fa-share-square-o"></i>
+                          <span class="icon-text">Send this to My Projects</span>
+                        </a>
+                      </div>
+                  </div>
+                  <!--Document Details Block-->
+
+                  <div
+                    class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right" id="sow-header-details" class="panel panel-default">
+                    <div class="pull-right">
+                      <ag-vote-up-down data-text="Found this helpful" data-type="sow" data-item="document" data-collection="votes"></ag-vote-up-down>
+                    </div>
+                    <h3>Document Details</h3>
+                    <div>
+                      <h5>Views: {{document.views}}</h5>
+                      <h5>Downloads: {{document.downloads}}</h5>
+                      <span ng-if="!publicUser"  ag-collection="[ { resourceName: 'Comments', params: { 'filter[nid]': document.id }, ignoreChangedFilterOptimization: true} ]"><h5>Comments: {{comments.data.collection.length}}</h5></span>
+                      <h5>Date Uploaded: {{ document.created  | unixTimestampToDate | date:'MM/dd/yyyy'}}</h5>
+                    </div>
+                      <div class="catRow">
+                        <h5>Label: </h5>
+                        <div class="catBut" ng-repeat="category in document.categories">
+                          <a ng-href="{{ '#/sowl/search/label/' + category.tid }}" title="{{document[0]}}">
+                            <span class="fa {{$parent.icons[category.topLevelCategory]}} catBut-icon"></span>
+                            <span class="catBut-title">{{category.name}}</span>
+                          </a>
+                        </div>
+                    </div>
+                  <div>
+                  <!--End of New Vertical SOWL Template -->
+            </div>
+      </div>
+
+    <!-- End body top -->
+   <div class="clearfix">&nbsp;</div>
+    <div id="hallway-landing-pg-bottom" class="container-fluid">
+      <div class="container">
+        <div class="row">
+          <!-- #ARTICLE CONTENT Block -->
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="article-content-block">
+              <div class="field field-name-field-upload field-type-file field-label-hidden">
+              <div class="field-items">
+                <div class="field-item even">
+                  <object ag-pdf ng-if="!addToProjectModal || (addToProjectModal && !isMSIE) " data="{{ document.pdf.embed_url }}"></object>
+                </div>
+              </div>
+             </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ag-comments ng-if="document" item="document"></ag-comments>
+  </section>
+  </div>
+</div>

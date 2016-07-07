@@ -1,0 +1,13 @@
+name = Masquerade Settings
+description = Masquerade Settings
+core = 7.x
+package = Features
+version = 7.x-1.2
+project = masquerade_settings
+dependencies[] = ctools
+dependencies[] = strongarm
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[variable][] = masquerade_admin_roles
+features[variable][] = masquerade_quick_switches
+features[variable][] = masquerade_test_user

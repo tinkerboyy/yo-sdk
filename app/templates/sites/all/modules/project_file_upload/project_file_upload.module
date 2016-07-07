@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the project_file_upload feature.
+ */
+
+include_once 'project_file_upload.features.inc';

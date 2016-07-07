@@ -1,0 +1,16 @@
+name = Gateway RESTful API
+description = Acquisition Gateway RESTful API
+core = 7.x
+package = Acquisition Gateway
+dependencies[] = restful
+
+files[] = base_classes/AGDatabaseCache.php
+files[] = base_classes/AGProjectCenterDbQueryBase.php
+files[] = base_classes/AGRestfulDataProviderDbQuery.php
+files[] = base_classes/AGRestfulDataProviderSearchAPI.php
+files[] = base_classes/AGRestfulEntityBase.php
+files[] = base_classes/AGRestfulEntityBaseMultipleBundles.php
+files[] = base_classes/AGRestfulEntityBaseNode.php
+files[] = base_classes/AGRestfulEntityBaseTaxonomyTerm.php
+files[] = base_classes/AGRestfulEntityBaseUser.php
+files[] = base_classes/AGRestfulFilesUpload.php

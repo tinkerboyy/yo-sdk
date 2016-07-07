@@ -1,0 +1,19 @@
+ <h1 bs-affix data-offset-top="40" class="DINCondensedBold">TUTORIALS</h1>
+ <div id="tutorials-menu">
+  <div ng-repeat="feature in features" class="tutorials-menu-item" data-title="feature.label">
+    <a class="feature-title" ng-click="setActiveFeature(feature);">
+      <i class="pull-right fa expander" ng-class="{ 'fa-plus-circle': !feature.expanded, 'fa-minus-circle': feature.expanded }"></i>
+      <i class="fa feature-icon" ng-class="feature.icon"></i> {{ feature.label }}
+    </a>
+    <div class="feature-content" ng-if="feature.expanded">
+      <div ng-if="(tutorials | filter: { flag: feature.name }).length === 0">
+        There are currently no tutorials available for this feature. Please check back later
+      </div>
+      <ul class="tutorial-list list list-unstyled" ng-if="(tutorials | filter: { flag: feature.name }).length > 0">
+        <li ng-repeat="tutorial in tutorials | filter: { flag: feature.name }">
+          <a ng-click="loadArticle(tutorial)">{{ tutorial.label }} </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+ </div>

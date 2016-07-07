@@ -1,0 +1,35 @@
+    <!-- project tiles -->
+    <li class="col-sm-4 ag-fade-in-and-scale" ng-if="(projects.data.collection| filter: { status: '1' }).length !== 0"
+        ng-repeat="entity in activeProjects">
+      <a ng-href="#/project-center/projects?activeEntities={{entity.id}}" title="Open {{entity.name}}">
+        <div class="tile">
+          <div class="tile-header truncate">
+            <!-- <a ng-href="#/project-center/projects?activeEntities={{entity.id}}"> -->
+              {{ entity.name }}
+            <!-- </a> -->
+          </div>
+          <div class="tile-body">
+            <div class="text-center" ng-if="entity.due">
+            {{entity.due | agDateFormat: 'MMM'}}
+            <span class="fa-stack fa-2x">
+                <i class="fa fa-calendar-o fa-stack-1x"></i>
+                <strong class="fa-stack-1x calendar-text">
+                  {{entity.due | agDateFormat: 'd'}}
+                </strong>
+              </span>
+            {{entity.due | agDateFormat: 'y'}}
+              <hr/>
+            </div>
+
+            <div ng-if="entity.description == ''" class="text-center" ng-class="{ 'no-description-has-date': entity.due, 'no-description-no-date': !entity.due }">
+              <span style="display: inline-block;vertical-align: middle;">
+              <i class="fa fa-2x fa-folder center-block"></i>
+                </span>
+            </div>
+            <div class="description" ng-class="{ 'description-has-date': entity.due, 'description-no-date': !entity.due }">
+              {{entity.description}}
+            </div>
+          </div>
+        </div>
+      </a>
+    </li>

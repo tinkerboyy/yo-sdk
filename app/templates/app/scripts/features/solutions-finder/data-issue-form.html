@@ -1,0 +1,32 @@
+<form class="form form-horizontal" ng-init="processing = false" role="form" ng-submit="submitDataIssue($hide)" name="dataForm" novalidate>
+  <div class="form-group">
+    <label class="col-md-4">
+      Solution Name
+    </label>
+    <div class="col-md-8">
+      <strong>{{ ::issue.solutionName }}</strong>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4" for="issueComments">
+      Issue Details
+    </label>
+    <div class="col-md-8">
+      <textarea ng-model="issue.comments" class="form-control" id="issueComments" required></textarea>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4" for="issueEmail">
+      Your Email
+    </label>
+    <div class="col-md-8">
+      <input type="email" class="form-control" ng-model="issue.userEmail" id="issueEmail" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-12 text-right">
+      <button class="btn btn-success" ng-disabled="dataForm.$invalid || processing"><i class="fa fa-check"></i>{{ ::processing ? 'Processing...' : 'Submit Issue'}}</button>
+    </div>
+  </div>
+</form>

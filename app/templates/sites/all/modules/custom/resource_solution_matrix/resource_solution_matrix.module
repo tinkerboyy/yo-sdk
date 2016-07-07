@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Checks to see if user is anonymous.
+ */
+function is_user_anonymous() {
+  if (user_is_anonymous()) {
+    die('You are not authorized to access this url.');
+  }
+}
+
+/**
+ * Implements hook_init().
+ */
+// function resource_solution_matrix_init() {
+//   // make sure we have a logged in user
+//   is_user_anonymous();
+// }
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function resource_solution_matrix_ctools_plugin_api($owner, $api) {
+  if ($owner == 'services' && $api == 'services') {
+    return array(
+      'version' => 3,
+      'file' => 'resource_solution_matrix.services.inc'
+    );
+  }
+}

@@ -1,0 +1,20 @@
+<div class="ag-applied-filters">
+  <div bs-collapse ng-show="hasAppliedFilters">
+    <div class="title"><a bs-collapse-toggle><span class="fa" ng-class="{ 'fa-minus-circle': isActive(), 'fa-plus-circle': !isActive() }"></span> Applied Filters</a></div>
+    <div class="body" bs-collapse-target>
+      <ul ng-repeat="filterGroup in filterGroups">
+        <li ng-if="!filterGroup.options.multiple && appliedFilters[filterGroup.groupName]">
+          <a ng-click="removeAppliedFilter(filterGroup, appliedFilters[filterGroup.groupName])"><span class="fa fa-times-circle-o"></span></a>
+          <span ng-if="appliedFilters[filterGroup.groupName].id">{{filterDisplayNames[filterGroup.groupName][appliedFilters[filterGroup.groupName].id]}}</span>
+          <span ng-if="!appliedFilters[filterGroup.groupName].id">{{filterDisplayNames[filterGroup.groupName][appliedFilters[filterGroup.groupName]]}}</span>
+        </li>
+
+        <li ng-if="filterGroup.options.multiple" ng-repeat="filter in appliedFilters[filterGroup.groupName]">
+          <a ng-click="removeAppliedFilter(filterGroup, filter)"><span class="fa fa-times-circle-o"></span></a>
+          <span ng-if="filter.id">{{filterDisplayNames[filterGroup.groupName][filter.id]}}</span>
+          <span ng-if="!filter.id">{{filterDisplayNames[filterGroup.groupName][filter]}}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="content-wrapper agHallway">
+    <div class="container-fluid" ng-if="hallway">
+        <div class="row">
+            <div class="left-rail" ng-include="'scripts/features/hallways/hallways-left-rail.html'"></div>
+            <div ng-if="!singleArticle" ng-include="'scripts/features/hallways/hallways-home.html'"></div>
+            <div ng-if="singleArticle" ng-include="'scripts/features/hallways/article-page.html'"></div>
+        </div>
+    </div>
+</div>

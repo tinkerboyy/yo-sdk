@@ -1,0 +1,31 @@
+<div class="my-connections">
+    <div class="no-connections-message alert alert-info" role="alert" ng-if="connections.length <= 0">Connections allow you to quickly see another person's activity on the Gateway. Use the Add People feature or select the Follow button below a person's name to create a connection.</div>
+    <div data-target="my-connections-resizable" class="my-connections-container" ng-if="connections.length > 0" ag-accordion-select-resizable on-resize="resize($evt, $ui)" height="283">
+      <div ng-if="processing">
+        <center>
+          <i class="fa fa-spinner fa-spin fa-2x"></i>
+          Loading...
+        </center>
+      </div>
+      <ul class="my-connections-list">
+        <li class="my-connections-list-item clearfix" ng-repeat="user in connections">
+          <div class="pull-left my-connections-picture img-circle col-md-3">
+            <img class="picture" ng-src="{{ ::user.picture.url || '/app/assets/images/default-user-image.jpg' }}" alt="{{ topic.author.name }}"/>
+          </div>
+          <div class="col-md-0 connection-details">
+            <div class="my-connections-user-details" title="{{ ::user.name || user.label }}">
+              <a class="user-link" ng-href="/app/#/communities/user/{{ ::user.id }}">{{ ::user.name || user.label }}</a>
+            </div>
+            <div ng-class="!user.agency ? 'my-connections-agency' : ''">
+              <div ng-class="{ 'my-connections-agency-text': user.agency }" title="{{ ::user.agency }}">{{ ::user.agency }}</div>
+            </div>
+            <ag-follow class="btn btn-follow-style follow-user"
+                       data-type="user"
+                       data-item="user"
+                       data-no-icon="true">
+            </ag-follow>
+          </div>
+        </li>
+      </ul>
+    </div>
+</div>

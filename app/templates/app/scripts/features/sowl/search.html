@@ -1,0 +1,131 @@
+<div class="ag-main-content-pagination result-count-pagination" ng-if="results">
+  <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 result-count">
+    <span class="label label-default">{{count}}</span>&nbsp;Results Found.
+    <button type="button" id="reset-sowl" class="btn btn-default btn-xs" ng-click="viewAll()" style="margin-top:10px; margin-bottom:10px;line-height: 1.1em;font-size:11px;">Reset</button>
+    <span>
+      <ag-share
+        data-params="moreSearch"
+        data-params-map=""
+        data-title="Share this search criteria"
+        data-type="SOWL Search"
+        ng-if="results.length"
+      ></ag-share>
+    </span>
+  </div>
+
+  <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-right-block">
+    <span class="view-controls">
+      <ag-pagination
+        data-items="sortedResults"
+        data-callback="setResults"
+        class="sowl-pagination"
+        ng-if="results.length"
+      ></ag-pagination>
+    </span>
+    <span id="viewcontrols" class="view-controls">
+      <a title="Grid View" class="gridview" ng-class="{ 'active': settings.listMode === 'grid' }" ng-click="settings.listMode = 'grid'"><span class="fa fa-th fa-2x"></span></a>
+      <a title="List View" class="listview" ng-class="{ 'active': settings.listMode === 'list' }" ng-click="settings.listMode = 'list'"><span class="fa fa-list fa-2x"></span></a>
+      <ag-sort
+        data-sort-options="sortOptions"
+        data-current-sort="sort"
+        data-callback="setSortedResults"
+        data-collection="results"
+        ng-if="results.length > 0"></ag-sort>
+    </span>
+  </div>
+</div>
+
+<div ng-include="'scripts/features/sowl/welcome-modal.html'" style="display: block; border: 0;" class="panel panel-default sow-contrib-padding-left"></div>
+
+<div class="search-results-container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-8">
+      <h2 ng-if="!sowl.labelSearch">Search Results</h2>
+      <h2 ng-if="sowl.labelSearch">Label Results</h2>
+      <h3 ng-if="sowl.labelSearch">{{categoryNames[sowl.label]}}</h3>
+      <h3 class="selected-filters" ng-if="selectedFilters">
+        <ul>
+          <li ng-repeat="categoryId in selectedFilters track by $index">{{categoryNames[categoryId]}}</li>
+        </ul>
+      </h3>
+      <div id="search-results-header"></div>
+    </div>
+  </div>
+
+  <div class="region region-content">
+    <section class="block block-system clearfix" id="block-system-main" ag-loader data-target-type="widget" data-text="loading search results... please wait" data-requests="resultsLoader.requests">
+      <div ng-if="results.length === 0" class="alert alert-info">
+        <h4>No results found!</h4>
+        <p ng-if="searchError">There was an issue retrieving search results. Please try again and contact a site administrator if the issue persists.</p>
+        <p ng-if="!searchError">There were no documents matching your search criteria.</p>
+      </div>
+
+      <div class="row" ng-if="results.length > 0">
+        <div id="cvt">
+          <ul class="sowl-search-results" ng-class="{ 'list': settings.listMode === 'list', 'grid': settings.listMode === 'grid' }">
+            <li class="views-row views-row-1 views-row-odd views-row-first" ng-repeat="result in pagedResults track by $index">
+              <div class="panel panel-default panel-body">
+                <div class="list-left">
+                  <div class="sowTitleBox">
+                    <div class="sow-type"><span ng-if="result.sow_type.und[0].value">{{result.sow_type.und[0].value}} - {{result.sow_type_name}}</span></div>
+                    <a class="sowTitleLink" ng-click="viewDocument(result.id)">
+                      <div class="sowTitle">{{result.title}}</div>
+                    </a>
+                  </div>
+                  <div class="sowDesc clearfix">
+                    <div style="height: auto;" class="text p1 hide-class" ng-class="{'col col-md-11' : settings.listMode === 'list'}">
+                      {{ result.body}}
+                    </div>
+                    <div ng-if="settings.listMode === 'list'" class="col col-md-1">
+                      <ag-vote-up-down data-text="Found this helpful" data-type="sow" data-item="result"></ag-vote-up-down>
+                    </div>
+                  </div>
+                  <div class="catRow">
+                    <h5>Label: </h5>
+                    <div class="catBut" ng-repeat="label in result.category_tags">
+                      <a class="icon" title="{{label.name}}" ng-href="{{ '#/sowl/search/label/' + label.tid }}">
+                        <span class="fa {{ categoryIcons[label.tid] }}"></span>
+                        <span class="catBut-title">{{label.name}}</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="list-right">
+                  <div class="resultTools">
+                    <div class="detail-text clearfix">
+                      <div ng-if="settings.listMode === 'grid'" class="pull-right">
+                        <ag-vote-up-down data-type="sow" data-item="result"></ag-vote-up-down>
+                      </div>
+                      <p><span>Views: {{ result.views }}, </span>
+                         <span>Downloads: {{ result.downloads }}, </span>
+                         <span class="date-uploaded">Date Uploaded: {{ result.created  | unixTimestampToDate | date:'MM/dd/yyyy'}}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                    <div class="rtTop">
+                      <a ng-if="result.pdf.und.length > 0" class="btn btn-sm btn-danger" target="_blank" title="SOW PDF" ng-href="{{ result.pdf.und[0].url }}">
+                        <span class=" fa fa-file-pdf-o"></span>
+                        <span class="icon-text">
+                          Download
+                          <span class="grid-hide"> PDF Format</span>
+                        </span>
+                      </a>
+                      <a ng-if="result.word.und.length > 0" class="btn btn-sm btn-primary" target="_blank" title="SOW MS Word" href="{{ result.word.und[0].url }}">
+                        <span class=" fa fa-file-word-o"></span>
+                        <span class="icon-text">Download<span class="grid-hide"> MS Word Format</span></span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="clearfix">&nbsp;</div>
+</div>

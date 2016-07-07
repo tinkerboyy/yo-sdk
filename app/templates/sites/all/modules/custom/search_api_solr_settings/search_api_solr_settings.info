@@ -1,0 +1,5 @@
+name = Search API Solr Settings
+description = Module that helps export search api solr settings across different environments.
+core = 7.x
+version = 1.0
+package = Acquisition Gateway

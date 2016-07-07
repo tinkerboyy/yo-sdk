@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the hallways historical prices feature.
+ */
+
+include_once 'hallways_historical_prices.features.inc';

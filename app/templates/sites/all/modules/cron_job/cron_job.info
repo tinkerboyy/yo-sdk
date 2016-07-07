@@ -1,0 +1,14 @@
+name = Cron Job
+description = Cron Job
+core = 7.x
+package = Features
+version = 7.x-1.1
+project = cron_job
+dependencies[] = ctools
+dependencies[] = ultimate_cron
+features[ctools][] = ultimate_cron:ultimate_cron:3
+features[features_api][] = api:2
+features[ultimate_cron_job][] = article_expiration_notifications_cron
+features[ultimate_cron_job][] = browscap_cron
+features[ultimate_cron_job][] = custom_expire_rules_cron
+features[ultimate_cron_job][] = dblog_cron

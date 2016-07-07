@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Hallways New Articles View feature.
+ */
+
+include_once 'hallways_new_articles_view.features.inc';

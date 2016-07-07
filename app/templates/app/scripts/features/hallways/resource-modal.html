@@ -1,0 +1,93 @@
+<div id="resourcesModal" class="modal cap-modal" aria-hidden="false" style="display: block;">
+  <div class=" modal-dialog-lg">
+    <div class="modal-content">
+      <div>
+        <div ng-click="$hide()" class="close"><a data-dismiss="modal">X</a></div>
+        <div class="mheadBox app-head-box-image">
+          <div class="container">
+            <div id="b_head-box-content">
+                 <h1 id="app-name">
+                  {{ resourceBtn == 'TP' ? 'Transactional Platforms' : 'Prices Paid' }}
+                 </h1>
+            </div>
+          </div>
+        </div>
+        <!-- #LEARN-CONNECT-ACT BLOCK -->
+        <div class="container-fluid" id="r_lca">
+
+          <!-- BLOCK - LCA Bar
+          ################################################-->
+
+          <div id="b_lca-bar">
+
+            <!-- NODE - LCA State
+            ++++++++++++++++++++++++++++++++++++++++++++-->
+            <div id="lca-state">
+            <!-- default state shown in example -->
+              <div class="col-xs-12 col-sm-12">
+                <div class="progress">
+                  <div class="progress-bar" ng-class="resourceBtn === 'VPP' ? 'progress-bar-primary' : 'progress-bar-success'" style="width: 100%"></div>
+                </div>
+                <span ng-if="resourceBtn === 'VPP'"  class="lca-title">LEARN</span>
+                <span ng-if="resourceBtn === 'TP' "  class="lca-title">ACT</span>
+
+              </div>
+            </div>
+          </div>
+
+          <!--  /END BLOCK - LCA Bar
+          ###############################################-->
+
+        </div>
+        <!-- /END #LEARN-CONNECT-ACT BLOCK -->
+
+
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <span ng-if="resourceBtn === 'VPP' " ng-repeat = "hp in historical | filter: { url: '/' + hallway.slug + '/'} | orderBy:'label' track by hp.id">
+          <div class="row" >
+
+            <div class="col-sm-4">
+                <!-- if linkable title and tile as file does not exist-->
+                <b ng-show="(!hp.histlinkabletitle.title  && !hp.histtitlefilelabel)">{{hp.label}}</b>
+                <!-- if linkable title exist but with blank url field -->
+                <b ng-if="hp.histlinkabletitle.title && !hp.histlinkabletitle.url">{{hp.histlinkabletitle.title}}</b>
+                <!-- if linkable title exist with blank url field -->
+                <b ng-if="hp.histlinkabletitle.url"><a ng-href="{{hp.histlinkabletitle.url | urlFilter}}" target="_blank">{{hp.histlinkabletitle.title}}</a></b>
+                 <!-- if title as file exist -->
+                <b ng-if="hp.histtitlefilelabel"><a ng-href="{{hp.histtitleasfile.uri | stringReplace : 'private://' : '../system/files/'}}" target="_blank">{{hp.histtitlefilelabel}}</a></b>
+                <ul>
+                  <li ng-repeat="hurl in hp.histurl" class="">
+                    <a ng-href="{{hurl.uri | stringReplace : 'private://' : '../system/files/'}}">{{hurl.title}}</a></li>
+                </ul>
+                <div class="modal-fileicons">
+                  <ul>
+                    <li class="" ng-repeat="hfile in hp.histfile">
+                      <span class="file">
+                        <a ng-href="{{hfile.uri | stringReplace : 'private://' : '../system/files/' }}" type="{{hp.filemime}}">{{hfile.filename}}</a>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            <div class="col-sm-8"><div ng-bind-html="hp.body | trust"></div></div>
+            </div>
+            <hr>
+
+          </span>
+          <span ng-if="resourceBtn === 'TP' " ng-repeat = "tp in transactional | filter: { url: '/' + hallway.slug + '/'} | orderBy:'label' track by tp.id">
+            <div class="row">
+              <div class="col-sm-4">
+                <b><a ng-href="{{tp.tranurl.url | urlFilter}}" target="_blank">{{tp.label}}</a></b>
+              </div>
+              <div class="col-sm-8"><div ng-bind-html="tp.body | trust"></div>
+              </div>
+            </div>
+            <hr>
+        </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

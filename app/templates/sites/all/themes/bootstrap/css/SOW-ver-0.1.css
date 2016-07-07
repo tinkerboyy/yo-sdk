@@ -1,0 +1,452 @@
+@charset "UTF-8";
+/* CSS Document */
+/* Author: Donald Heyd */
+/* Revision Date: 10/08/14 */
+
+body {
+padding-top: 40px;
+background-color: #fff;
+}
+a{
+	outline: 0 !important;
+	color: #2D6BA0;
+}
+#welcomeModal *.modal-dialog-lg{ margin:70px 50px 0px 50px; opacity:0.92; border-radius:8px;}
+#welcomeModal *.modal-header{ 
+background-color:#000; 
+color:#fff; 
+border-bottom-left-radius:0px; 
+border-bottom-right-radius:0px;
+border-top-left-radius:0px; 
+border-top-right-radius:10px;
+display:none;
+
+}
+
+#welcomeModal *.modal-body{ 
+background-color: rgba(205,230,156,0.98); min-height:500px; border-radius:8px;  text-align:center; padding-bottom:20%;
+}
+#welcomeModal *.modal-body > h2{font-family:'DINCondensedBold'; font-size:75px;} 
+#welcomeModal *.modal-body > h2 > small{font-family:'Helvetica'; font-size:30px; font-weight:100; color:#666;}
+#welcomeModal *.modal-footer{ margin-top:0px; display:none;}
+
+
+
+
+
+
+
+
+
+
+#lca-block * .lca-title{ color:rgba(0,0,0,0.81);}
+
+/* - - FONTS - - */
+@font-face {
+    font-family: 'DINCondensedBold';
+    src: url('../fonts/DINCondensedBold/dincondensedbold.eot');
+    src: url('../fonts/DINCondensedBold/dincondensedbold.eot') format('embedded-opentype'),
+         url('../fonts/DINCondensedBold/dincondensedbold.woff2') format('woff2'),
+         url('../fonts/DINCondensedBold/dincondensedbold.woff') format('woff'),
+         url('../fonts/DINCondensedBold/dincondensedbold.ttf') format('truetype'),
+         url('../fonts/DINCondensedBold/dincondensedbold.svg#DINCondensedBold') format('svg');
+}
+.DINCondensedBold{font-family: 'DINCondensedBold';}
+/* - - FONT SIZES - - */
+/*
+h1{ font-size:50px;}
+h2{ font-size:45px;}
+h3{ font-size:38px;}
+h4{ font-size:30px;}
+h5{ font-size:25px;}
+h6{ font-size:20px;}
+p{ font-size:16px;}
+*/
+/* - - FONT STYLES - - */
+h1, h2, h3, h4, h5, h6{
+	/*font-family: "DINCondensedBold";*/
+	line-height: 1.1;
+	color: inherit;
+	font-weight:200;
+}
+
+.btn-primary{}
+a.btn-warning, button.btn-warning{ color:#fff; background-color:#000; border-color:#000; /*background-color:#DF8538;*/}
+.btn-danger{}
+.btn-success{}
+
+
+
+
+
+
+
+
+
+
+#hallway-landing-pg-top {
+	margin-bottom: 40px;
+	padding-top: 20px;
+	min-height:500px;
+	/*border-top: 1px solid #F3F3F3;*/
+}
+
+
+
+/* HALLWAY LANDING PAGE BOTTOM BLOCK */
+
+#hallway-landing-pg-bottom {
+	background-color: #F9F9F4;
+	border-top: 1px solid #ccc;
+	padding-top: 20px;
+	padding-bottom: 150px;
+	margin-top: 10px;
+}
+
+/* - - COMPONENTS -- */
+
+#headBox {
+margin-top: 0px;
+min-height:100px;
+height: auto;
+width: 100%;
+padding-top: 50px;
+padding-bottom: 50px;
+background-color: #666;
+background-size: cover;
+background-image:url(../art/hero-art/sow-header.jpg);
+background-repeat: no-repeat;
+background-position: center center;
+text-align: center;
+border-bottom:1px solid #ccc;
+
+
+
+
+
+
+
+}
+
+#headBox * h1 {
+color: #000;
+font-size: 7.5vmin;
+font-weight: 400;
+margin-top: 10px;
+padding-top: 0;
+/* font-family: 'DINCondensedBold'; */
+letter-spacing: 0.16em;
+line-height: 7.5vmin;
+font-family: 'DINCondensedBold';
+}
+#headBox * h1 a{ color:#000;}
+#headBox * h1 > small {
+color: #333;
+font-weight: 400;
+margin-top: 10px;
+padding-top: 0;
+/* font-family: 'DINCondensedBold'; */
+letter-spacing: 0.10em;
+line-height: 7.5vmin;
+font-family: 'helvetica';
+}
+#headBox * h2 {
+color: #000;
+font-size: 24px;
+font-weight: 300;
+margin-top: 10px;
+padding-top: 0;
+padding-bottom: 10px;
+}
+
+
+#searchhHeader{}	
+#searchhHeader h3{ font-weight:500;}	
+#searchhHeader h4{ font-size:14px; font-weight:500;}	
+#searchhHeader h4 small{ font-size:14px; font-weight:400; color:rgba(240,13,17,1.00);}	
+	
+/*.primary-1 {
+    background-color: #758aa8;
+}
+.primary-2 {
+    background-color: #4c678c;
+}
+.primary-0 {
+    background-color: #2c4870;
+}
+.primary-3 {
+    background-color: #142f54;
+}
+.primary-4 {
+    background-color: #051a38;
+}
+.secondary-1-1 {
+    background-color: #a370a7;
+}
+.secondary-1-2 {
+    background-color: #86468b;
+}
+.secondary-1-0 {
+    background-color: #6a266f;
+}
+.secondary-1-3 {
+    background-color: #4f0f53;
+}
+.secondary-1-4 {
+    background-color: #340138;
+}
+.secondary-2-1 {
+    background-color: #ebf7a5;
+}
+.secondary-2-2 {
+    background-color: #bfce67;
+}
+.secondary-2-0 {
+    background-color: #94a537;
+}
+.secondary-2-3 {
+    background-color: #6c7c15;
+}
+.secondary-2-4 {
+    background-color: #465200;
+}
+.complement-1 {
+    background-color: #ffdfaa;
+}
+.complement-2 {
+    background-color: #d4ad6a;
+}
+.complement-0 {
+    background-color: #aa7f39;
+}
+.complement-3 {
+    background-color: #805815;
+}
+.complement-4 {
+    background-color: #553500;
+}
+
+.color-table {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-bottom-color: -moz-use-text-color;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+    border-collapse: collapse;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-source: none;
+    border-image-width: 1 1 1 1;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: -moz-use-text-color;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: none;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: medium;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: -moz-use-text-color;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: medium;
+    border-spacing: 0;
+    border-top-color: -moz-use-text-color;
+    border-top-style: none;
+    border-top-width: medium;
+    font-size: 100%;
+    margin-bottom: 5em;
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-top: 2em;
+}
+.color-table th {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-bottom-color: -moz-use-text-color;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-source: none;
+    border-image-width: 1 1 1 1;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: -moz-use-text-color;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: none;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: medium;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: -moz-use-text-color;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: medium;
+    border-top-color: -moz-use-text-color;
+    border-top-style: none;
+    border-top-width: medium;
+    font-size: 100%;
+    font-weight: normal;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 1em;
+    padding-top: 0;
+    text-align: right;
+    vertical-align: middle;
+}
+.color-table td.sample {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-bottom-color: white;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-source: none;
+    border-image-width: 1 1 1 1;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: white;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: solid;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: 1px;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: white;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: solid;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: 1px;
+    border-top-color: white;
+    border-top-style: solid;
+    border-top-width: 1px;
+    font-size: 90%;
+    height: 6em;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 6em;
+}
+.color-table td.sample-0 {
+    width: 18em;
+}
+.color-table.small td.sample {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-bottom-color: -moz-use-text-color;
+    border-bottom-style: none;
+    border-bottom-width: medium;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-source: none;
+    border-image-width: 1 1 1 1;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: -moz-use-text-color;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: none;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: medium;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: -moz-use-text-color;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: medium;
+    border-top-color: -moz-use-text-color;
+    border-top-style: none;
+    border-top-width: medium;
+    height: 3em;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    width: 3em;
+}
+.color-table.small td.sample-0 {
+    width: 9em;
+}
+.color-table .white {
+    color: white;
+    margin-bottom: 0.2em;
+}
+.color-table .black {
+    color: black;
+    margin-top: 0.2em;
+}
+hr {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-bottom-color: silver;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-image-outset: 0 0 0 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100% 100% 100% 100%;
+    border-image-source: none;
+    border-image-width: 1 1 1 1;
+    border-left-color-ltr-source: physical;
+    border-left-color-rtl-source: physical;
+    border-left-color-value: -moz-use-text-color;
+    border-left-style-ltr-source: physical;
+    border-left-style-rtl-source: physical;
+    border-left-style-value: none;
+    border-left-width-ltr-source: physical;
+    border-left-width-rtl-source: physical;
+    border-left-width-value: medium;
+    border-right-color-ltr-source: physical;
+    border-right-color-rtl-source: physical;
+    border-right-color-value: -moz-use-text-color;
+    border-right-style-ltr-source: physical;
+    border-right-style-rtl-source: physical;
+    border-right-style-value: none;
+    border-right-width-ltr-source: physical;
+    border-right-width-rtl-source: physical;
+    border-right-width-value: medium;
+    border-top-color: -moz-use-text-color;
+    border-top-style: none;
+    border-top-width: medium;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 2em;
+}*/

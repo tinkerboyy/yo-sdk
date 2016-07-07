@@ -1,0 +1,23 @@
+<div class="modal session-expiring" id="session-expiring" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" ng-init="startTimer()">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <center>
+        <div>
+          <div class="warning-icon">
+            <i class="fa fa-3x fa-exclamation-triangle"></i>
+          </div>
+        </div>
+        <div class="warning-text">
+          Session Expiring!
+        </div>
+        <div class="warning-description">
+          <div>Your Acquisition Gateway session will expire in <strong class="text-danger">{{ timeLeft | formatMinSec }}</strong></div>
+          <div>Please save your work.</div>
+        </div>
+        <div class="warning-buttons">
+          <button class="btn btn-lg" ng-click="$hide()">OK</button>
+        </div>
+      </center>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+name = custom_date_popup expire 
+description = custom_date_popup Custom module.
+package = custom date popup expire 123
+version = "7.x-1.0"
+core = 7.x

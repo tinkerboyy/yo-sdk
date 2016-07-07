@@ -1,0 +1,99 @@
+<div class="container-fluid solution-row" ng-class="{ 'pinned-solution': solution.pinned }">
+  <div class="col-lg-1 col-md-1 col-sm-2 col-xs-3 pull-left solutionLogo text-center">
+    <img class="solutionlogo img-responsive" ng-src="/app/assets/images/seals/{{solution.managingAgencyShortName | lowercase}}.png" alt="{{solution.managingAgency}}" title="{{solution.managingAgency}}" />
+    <a class="show-more" ng-click="toggleShowMore(solution)">
+      {{ (solution.details === true) ? 'Less' : 'More' }} <i class="fa" ng-class="{ 'fa-caret-down': !solution.details, 'fa-caret-up': solution.details }"></i></a>
+  </div>
+  <div class="col-lg-5 col-md-4 col-sm-10 col-xs-9 pull-left">
+    <div class="solution-name lead">{{ solution.name }}</div>
+    <div>
+      <small class="solution-managed-by">Managed By: {{ solution.managingAgencyShortName }}</small>
+      <small class="solution-type" ng-repeat="type in solution.type" ng-class="{'program-type' : isSolutionTypeProgramType(type), 'contract-type': !isSolutionTypeProgramType(type)}">{{getShortName(type)}}</small>
+    </div>
+    <div>
+      <div ng-bind-html="solution.description | getBlurb: solution.details ? solution.description.length : 240" class="body-text"></div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-5 col-sm-offset-2 col-xs-5 col-xs-offset-3 pull-left solution-column">
+    <strong> Fee: </strong>
+    <div>{{ solution.feeInfo }}</div>
+
+    <strong>Availability:</strong>
+    <div>
+      {{ solution.availableTo }}
+      <br><em><span ng-if="solution.additionalAvailabilityInfo">({{ solution.additionalAvailabilityInfo }})</span></em>
+    </div>
+    &nbsp;
+  </div>
+
+  <div class="col-lg-1 col-md-2 col-sm-2 col-xs-4 pull-right">
+    <div class="solution-actions-box">
+      <div class="solution-actions  text-center">
+        <a class="fa-stack ag-pin" bs-dropdown="optionsDropdown" ng-click="state.currentSolution = solution" data-html="true" placement="'bottom-left'">
+          <i class="fa fa-circle-thin fa-stack-2x"></i>
+          <i class="fa fa-ellipsis-h fa-stack-1x"></i>
+        </a>
+        <ag-pin data-type="solution" data-item="solution" data-notify="notifyPinned" callback="togglePinned"></ag-pin>
+      </div>
+      <ag-vote-up-down data-type="solution" data-text="Recommend" data-item="solution" data-collection="votes" data-highest-vote="highestVote"></ag-vote-up-down>
+    </div>
+  </div>
+
+  <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 pull-right ">
+    <div class="solution-finder-button-box">
+      <div class="solution-finder-button-box-contents">
+          <a ng-if="solution.pricesPaidUrl" target="_blank" ng-href="{{solution.pricesPaidUrl}}" title="Click to see this solution's prices paid data" class="btn btn-primary btn-block btn-sm prices-paid-button"
+            ng-click="triggerAnalyticsEventForSolution('solution.clickPricesPaidUrl', solution)">Prices Paid</a>
+          <a ng-if="solution.onlineOrderingUrl" target="_blank" ng-href="{{solution.onlineOrderingUrl}}" class="btn btn-success btn-block btn-sm"
+            ng-click="triggerAnalyticsEventForSolution('solution.clickOnlineOrdering', solution)" title=" Open this solution's external website in new window">Solution Website</a>
+
+          <a ng-if="solution.termsAndConditions || solution.contractUrl" target="_blank" ng-href="{{solution.contractUrl ? solution.contractUrl : solution.termsAndConditions}}" class="btn btn-primary btn-block btn-sm solution-finder-button-width"
+            ng-class="{ 'contract-button': solution.contractUrl }"
+            ng-click="triggerAnalyticsEventForSolution(solution.contractUrl ? 'solution.clickContract' : 'solution.clickTermsAndConditions', solution)">{{ solution.contractUrl ? 'Contract' : 'T&amp;Cs' }}</a>
+      </div>
+    </div>
+  </div>
+
+  <div ng-show="solution.details" class="solution-details">
+    <div class="col-lg-offset-1 col-lg-3 col-md-3 col-md-offset-1 col-sm-4 col-sm-offset-2 col-xs-12  solution-detail" ng-show="solution.details">
+      <div>
+        <strong>Expiration Date:</strong><br>
+        {{ solution.expiration }}
+      </div>
+      <br>
+      <div>
+        <strong> Point of Contact: </strong>
+        <div ng-bind-html="solution.pocInfo | emailFormat"></div>
+      </div>
+    </div>
+
+
+    <div class="col-xs-12 col-sm-6 col-md-2 col-lg-2" ng-show="solution.details">
+
+      <strong>Categories:</strong>
+      <ul class="list-unstyled ul-parent solution-category-list">
+        <li ng-repeat="category in categories | getCategories:solution.categories | orderBy: 'name'">
+          <span class="solution-category">{{ category.name }}</span>
+          <ul class="ul-child list list-unstyled solution-subcategory">
+            <li ng-repeat="subcategory in allSubcategories | getSubCategories:solution.categories:category.id | orderBy: 'name'">
+              - <span class="solution-subcategory">{{ subcategory.name }}</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-xs-offset-0 col-xs-12 col-sm-offset-2 col-sm-10 col-lg-offset-0 col-lg-6 col-md-offset-0 col-md-6" ng-show="solution.details">
+     <strong>Offerings:</strong><br/>
+
+      <div>
+        <div ng-bind-html="solution.servicesProvided.text"></div>
+        <div ng-class="{ 'two-columns': solution.servicesProvided.offerings.length >=6 }">
+          <ul>
+            <li ng-repeat="offering in solution.servicesProvided.offerings track by $index">{{ offering }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

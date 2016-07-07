@@ -1,0 +1,265 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/*test comment */
+
+.cap-modal .mheadBox {
+    background-image: url("../art/matrix-art/sm-1.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: auto;
+    margin-top: 0;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    text-align: left;
+    width: 100%;
+	
+}
+.cap-modal .mheadBox * h1 { /*font-family: 'DINCondensedBold';*/ color:rgba(19, 3, 3, 0.7); font-size:32px; font-weight:400;}
+.cap-modal .mheadBox * h1 .fa {
+  	font-size: 7vmin;
+    margin-bottom: 0;
+    margin-right: -10px;
+	
+}
+.cap-modal input{}
+
+
+
+
+.cap-modal #r_lca > #b_lca-bar > #lca-state .progress { height:5px;}
+.cap-modal #r_lca * .lca-title {margin-top: -45px;}
+.cap-modal {min-height:100%;}
+.pivotApp{
+	width:85%;
+	margin:0 auto;}
+	.appHeader{ text-align:left;
+	padding-left:40px;}
+.cap-modal .modal-open {
+	overflow:hidden;
+}
+
+.cap-modal .modal {
+	display: none;
+	overflow: auto;
+	overflow-y: scroll;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1050;
+	-webkit-overflow-scrolling: touch;
+	outline: 0;
+	
+	
+}
+
+
+
+.cap-modal .modal-dialog {
+	
+	width: 95%;
+	min-height:90%;
+	margin: 20px auto;
+	z-index:9999;
+	
+	
+}
+
+.cap-modal .modal-content {
+	position: absolute;
+	width:100%;
+	/*height: calc(100% + 100px);*/
+	min-height:100%;
+	
+	
+
+	background-color: #fff;
+	border: 1px solid #999;
+	border: 1px solid rgba(0,0,0,0.2);
+	border-radius: 6px;
+	-webkit-box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+	box-shadow: 0 3px 9px rgba(0,0,0,0.5);
+	background-clip: padding-box;
+	outline: none;
+		
+
+		
+
+}
+
+.cap-modal .modal-backdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1040;
+	background-color: #000
+}
+
+.cap-modal .modal-backdrop.fade {
+	opacity: 0;
+	filter: alpha(opacity=0)
+}
+
+.cap-modal .modal-backdrop.in {
+	opacity: .5;
+	filter: alpha(opacity=50)
+}
+
+.cap-modal .modal-header {
+	padding: 15px;
+	border-bottom: 1px solid #e5e5e5;
+	min-height: 16.42857143px
+}
+
+.cap-modal .close a {
+	margin-top: 0;
+	margin-right:25px;
+	line-height:90px;
+	z-index:3000;
+	
+	font-size:30px;
+	font-weight:200;
+	color:#666;
+	position:relative;
+	right:20px;
+	top:0;
+	opacity: 1;
+
+
+}
+
+.cap-modal .artBookmark {
+		display: block;
+	float: left;
+	clear: right;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	color: #d9534f;
+	z-index: 1000;
+	margin-bottom: -20px;
+	font-size: 40px;
+	text-shadow: 0 2px 2px rgba(0,0,0,0.7);
+
+}
+
+.cap-modal .deleteBookmark {
+	display: block;
+	float: left;
+
+	clear: right;
+	position: absolute;
+	top: 50px;
+	left: 70px;
+	
+	z-index: 1000;
+	margin-bottom: -20px;
+	}
+.cap-modal .deleteBookmark a{font-size: 12px; 
+	 color: #d9534f;}	
+	
+.cap-modal .modal-title {
+	margin: 0;
+	line-height: 1.42857143
+}
+
+.cap-modal .modal-body {
+	position: relative;
+	padding: 0px;
+	
+}
+
+.cap-modal .modal-footer {
+	margin-top: 15px;
+	padding: 19px 20px 20px;
+	text-align: right;
+	border-top: 1px solid #e5e5e5
+}
+.cap-modal .modal-body #r_content-main > .container{ padding:0 5%;}
+.cap-modal .modal-body #r_content-main > .container > .title-banner{ margin-bottom:10px; padding-bottom:0px; }
+.cap-modal .modal-footer .btn+.btn {
+	margin-left: 5px;
+	margin-bottom: 0
+}
+
+.cap-modal .modal-footer .btn-group .btn+.btn {
+	margin-left: -1px
+}
+
+.cap-modal .modal-footer .btn-block+.btn-block {
+	margin-left: 0
+}
+
+@media (min-width:768px) {
+
+.cap-modal .modal-dialog {
+	/*width: 600px;
+	
+	margin: 5px auto 30px auto*/
+}
+
+.cap-modal .modal-content {
+	-webkit-box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+	box-shadow: 0 5px 15px rgba(0,0,0,0.5)
+}
+
+.cap-modal .modal-sm {
+	width: 300px
+}
+}
+
+@media (min-width:992px) {
+
+.cap-modal .modal-lg {
+	width: 900px
+}
+}
+
+
+/* STYLING
+==================*/
+.cap-modal div.title-banner{ padding-bottom:0; margin-bottom:0; }
+.cap-modal div.subHead{ color:rgba(19,3,3,0.4); font-size:16px; }
+.cap-modal div.title-banner + div.subHead { margin-bottom:20px;}
+
+
+.cap-modal .modal-body {color: rgba(19, 3, 3, 0.75);}
+.cap-modal .modal-body * p, .cap-modal .modal-body * li { font-size:16px; color: rgba(19, 3, 3, 0.75);}
+.cap-modal .modal-body * h1,
+.cap-modal .modal-body * h2 {
+	font-weight: 200;
+	font-size: 35px;
+	padding-top: 10px;
+	padding-bottom: 0px;
+	line-height: 1;
+	color: rgba(19, 3, 3, 0.75);
+}
+.cap-modal .modal-body h3 {
+	font-weight: 200;
+	font-size: 30px;
+	padding-top: 10px;
+	padding-bottom: 0px;
+	line-height: 1;
+	color: rgba(19, 3, 3, 0.8);
+}
+.cap-modal .modal-body h4 {
+	font-weight: 200;
+	font-size: 24px;
+	padding-top: 10px;
+	padding-bottom: 0px;
+	line-height: 1;
+	color: rgba(19, 3, 3, 0.8);
+}
+.cap-modal .modal-body h5 {
+	font-weight: 200;
+	font-size: 20px;
+	padding-top: 10px;
+	padding-bottom: 0px;
+	line-height: 1;
+	color: rgba(19, 3, 3, 0.8);
+}

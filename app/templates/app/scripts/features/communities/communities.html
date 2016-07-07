@@ -1,0 +1,13 @@
+<div id="ag-communities" class="ag-app-with-sidebar has-right-sidebar" ag-loader data-target-type="page" data-requests="pageLoader.requests">
+  <div class="my-profile ag-left-menu">
+    <div class="ag-menu-first-child" ng-include="'scripts/features/communities/user-profile-info.html'"></div>
+  </div>
+
+  <div class="topics ag-scrollable-main-content">
+    <div ng-include="'scripts/features/communities/topics.html'"></div>
+  </div>
+
+  <div class="groups-nav ag-right-menu">
+    <ag-groups-list data-community="community" data-community-slug="communitySlug" data-page-loader="pageLoader"></ag-groups-list>
+  </div>
+</div>

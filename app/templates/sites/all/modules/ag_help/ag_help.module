@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Help feature.
+ */
+
+include_once 'ag_help.features.inc';

@@ -1,0 +1,92 @@
+<div ng-if="article" class="article-page center-content center-content-nopadding center-content-full ">
+  <div class="container-fluid ">
+    <div class="row">
+      <div class="col-sm-12">
+          <a href="#/gateway/{{hallway.slug}}" class="back-to-hallway"><span class="fa fa-chevron-left"></span> Back to hallway homepage</a>
+
+        <div id="article-links" class="pull-right">
+          <a  ng-if="articles.indexOf(article) > 0"
+              ng-click="previousArticle()" class="previous-article-link">
+            <span class="fa fa-chevron-left"> </span> Previous Article
+          </a>
+          <span ng-if="(articles.indexOf(article) > 0) && (articles.indexOf(article) < (articles.length -1))">|</span>
+          <a  ng-if="articles.indexOf(article) < (articles.length -1)"
+              href="" ng-click="nextArticle()" class="next-article-link">
+            Next Article <span class="fa fa-chevron-right">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row article-header">
+      <div class="col-md-1 text-right pull-right voting-article">
+        <ag-vote-up-down class="pull-right" data-text="Found this helpful" data-type="hallwayarticles" data-item="article" data-collection="votes" data-highest-vote="highestVote" ></ag-vote-up-down>
+      </div>
+
+      <div  class="col-md-10">
+        <div class="row">
+           <h2 id="article-label">{{article.label}}</h2>
+        </div>
+        <div class="row" id="article-info">
+          <div id="authorInfo" ng-if="!publicUser">
+            <div class="img-circle picture pull-left" id="authorImg">
+              <img ng-src="{{article.author.picture.url || '/app/assets/images/default-user-image.jpg'}}" alt="{{article.author.name}}"/>
+            </div>
+            <div>
+              <a href="#/communities/user/{{article.author.uid}}" class="article-author-name">{{authorProfile.name || authorProfile.label}}</a><br>
+              <span class="article-author-jobTitle">{{authorProfile.jobTitle}} {{authorProfile.agency}} </span><br>
+              <ag-follow
+                ng-if="authorProfile"
+                class="btn btn-follow-style follow-user"
+                data-type="user" data-item="authorProfile"
+                data-no-icon="true"
+                data-id-field="id"
+                data-notify="toastyNotify">
+              </ag-follow>
+            </div>
+          </div>
+          <div id="article-post-info" >
+            Posted: {{article.created  | unixTimestampToDate | date:'MM/dd/yyyy hh:mm a'}} EST &nbsp;&nbsp;| &nbsp;&nbsp;<span ng-if="article.changed">Edited: {{article.changed | modifiedDateFilter}} </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div id="article-body">
+        <!--displays for article content type -->
+        <span  ng-if="article.body" ng-bind-html="article.body | stringReplace : '/app/gateway/' : '/app/#/gateway/' | trust"></span>
+
+        <!-- displays for video article content type -->
+        <div ng-if="article.videoarticlevideoembed" class="field field-name-field-video-embed field-type-video-embed-field field-label-hidden">
+          <div class="field-items">
+           <div class="field-item even">
+             <div class="embedded-video">
+               <div class="player">
+                 <iframe width="100%" height="700"  ng-src="{{article.videoarticlevideoembed.video_url | videoUrlFilter | trustResource}}" frameborder="0" allowfullscreen="" id="widget2"></iframe>
+               </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- displays for document content type -->
+        <span ng-if="article.documentupload">
+          <div class="field-label"><b>Document Upload:&nbsp;</b></div>
+          <iframe width="100%" height="700"  ng-src="{{file | trustResource}}" frameborder="0" allowfullscreen="" data-ng-src="{{article.documentupload.url | trustResource}}" id="widget2">{{article.documentupload.url}}</iframe>
+        </span>
+          <br>
+          <ul ng-if="article.views" class="links list-inline">
+            <li class="statistics_counter first last">
+              <br>
+              <span>{{article.views}} reads</span>
+            </li>
+          </ul>
+      </div>
+      <br class="clearArticle">
+      <ag-comments ng-if="article && !publicUser"
+         nid="article.id"
+         data-item="article"
+         data-notify-topic="toastyNotifyTopic">
+       </ag-comments>
+    </div>
+  </div>
+</div>

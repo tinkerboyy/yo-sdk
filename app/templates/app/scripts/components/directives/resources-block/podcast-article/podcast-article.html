@@ -1,0 +1,26 @@
+<div class="main-container container">
+  <header role="banner" id="page-header">&nbsp;</header>
+    <section class="col-sm-12">
+      <h1 class="page-header">{{::podcastResources.label}}</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <p ng-bind-html="podcastResources.body | trust "></p>
+        </div>
+        <div class="col-md-6">
+         <p ng-bind-html="podcastResources.description.value | trust "></p>
+          <div ng-repeat="audioGroup in podcastResources.group">
+            <ul class="podcast">
+              <label class="col-sm-2" for="{{audioGroup.field_podcast_name.und[0].safe_value}}">
+                {{::audioGroup.field_podcast_name.und[0].safe_value}}
+              </label>
+              <li>
+                <audio controls>
+                  <source ng-src="{{audioGroup.field_podcast_link_article.und[0].url | trustUrl}}" type="audio/mpeg">
+                </audio>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>

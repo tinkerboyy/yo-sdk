@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the OG Content Type Feature feature.
+ */
+
+include_once 'og_content_type_feature.features.inc';

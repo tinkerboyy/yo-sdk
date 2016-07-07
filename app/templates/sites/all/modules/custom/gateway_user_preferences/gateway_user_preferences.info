@@ -1,0 +1,4 @@
+name = Gateway User Preferences Data
+description = Acquisition Gateway User Preferences Data. This module does not have an admin interface.
+core = 7.x
+package = Acquisition Gateway

@@ -1,0 +1,37 @@
+<div ag-collection="[ { resourceName: 'ProjectEntities' } ]" class="my-project-content">
+  <div class="row">
+    <div class="col-xs-12">
+      <a bs-popover
+        container="body"
+        template-url="scripts/features/project-center/project-content/my-project-add-content-options.html"
+        placement="right"
+        class="btn-new-entity add-project-content">
+        <i class="fa fa-plus-circle"></i>
+        Add Content
+      </a>
+    </div>
+  </div>
+  <div class="row scrollable">
+    <ul class="list-group">
+      <li ng-repeat="projectContent in projectEntities.data.collection | myProjectContentFilter: filter | orderBy: '-created'" class="list-group-item no-outer-borders" style="padding: 5px">
+        <i class="fa fa-fw vertical-middle medium-icon heavy-mute" ng-class="{
+          'fa-th-large': projectContent.type === 'solution' || projectContent.type === 'Solutions Finder Search',
+          'fa-bank': projectContent.type === 'SOW Document' || projectContent.type === 'SOWL Search',
+          'fa-file': projectContent.type === 'Uploaded Document'
+        }"></i>
+        <div class="vertical-middle">
+          <a ng-click="openProjectEntity(projectContent)">{{projectContent.name}}</a>
+          <div class="text-capitalize">Type: {{projectContent.type}}</div>
+        </div>
+        <a bs-popover
+          container="body"
+          template-url="scripts/features/project-center/project-content/my-project-content-options.html"
+          placement="left"
+          class="fa-stack pull-right project-content-options">
+            <i class="fa fa-fw fa-circle-thin fa-stack-1x medium-icon"></i>
+            <i class="fa fa-fw fa-ellipsis-h fa-stack-1x medium-icon-pc-lg"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

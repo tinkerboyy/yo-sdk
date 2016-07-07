@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Cloned Default Views feature.
+ */
+
+include_once 'cloned_default_views.features.inc';

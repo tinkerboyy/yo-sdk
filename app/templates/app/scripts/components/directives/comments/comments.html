@@ -1,0 +1,89 @@
+<div class="ag-comments" data-ag-gtm-selector="comments">
+  <div class="comment-create">
+    <form name="commentForm" class="form comment-form" ng-submit="postComment(newComment);" ng-if="!commentSuccess" novalidate>
+      <h5>Comment</h5>
+      <div class="form-group">
+        <label class="sr-only">Response</label>
+        <textarea ag-rich-text class="form-control comment-body" rows="6" ng-model="newComment.body" placeholder="Enter comment..." required></textarea>
+      </div>
+
+      <div class="form-group text-right">
+        <span class="pull-left communities-processing" ng-if="topic.processing"><i class="fa fa-spin fa-spinner"></i> Processing ... please wait</span>
+        <span class="text-danger pull-left" ng-if="commentError"><i class="fa fa-exclamation-triangle"></i> An error occured submitting your comment</span>
+
+        <button type="reset" ng-click="clearComment();" class="btn btn-link cancel-comment">Clear</button>
+        <button type="submit" class="btn btn-link submit-comment" ng-disabled="commentForm.$invalid || comment.processing">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-sm-12" ng-if="processing">
+    <center>
+      <i class="fa fa-spinner fa-spin fa-4x"></i>
+      <p>Loading comments...</p>
+    </center>
+  </div>
+
+  <div ng-if="!processing" class="topic-comment col-md-12" ng-repeat="comment in comments">
+    <div class="col-md-3 col-lg-2 col-sm-3 col-height comment-user">
+      <center>
+        <div>
+          <img class="img-circle picture" ng-src="{{comment.author.picture.url || '/app/assets/images/default-user-image.jpg'}}" alt="{{comment.author.name}}"/>
+        </div>
+        <div class="topic-author-name">
+          <a ng-href="/app/#/communities/user/{{ ::comment.author.uid }}">
+            <strong title="{{ ::comment.author.name }}">{{ ::comment.author.name }}</strong>
+          </a>
+        </div>
+        <div class="comment-author-agency">{{ ::comment.author.agency }}</div>
+        <ag-follow
+          class="btn btn-follow-style follow-user"
+          data-type="user"
+          data-item="comment.author"
+          data-no-icon="true" 
+          data-id-field="uid">
+        </ag-follow>
+      </center>
+    </div>
+
+    <div class="col-md-9 col-lg-10 col-sm-9 topics-box" ng-if="!comment.editing">
+      <div class="topic-callout-arrow">
+        <i class="fa fa-caret-left"></i>
+      </div>
+      <div class="col-md-10">
+        <div class="comment-topic-title"><strong>RE: {{ ::comment.label || comment.parentTitle }}</strong></div>
+        <div class="">
+          <small>{{ ::comment.edited | agDateFormat : 'long'}}</small>
+        </div>
+        <span ng-if="data.user.id == comment.author.uid" class="actions pull-right">
+          <a class="edit-comment" ng-click="comment.editing = !comment.editing">Edit</a>
+          <a class="delete-comment" ng-if="!comment.has_children" ng-click="removeComment(comment)">Delete</a>
+        </span>
+        <div class="body-text comment-body" ng-bind-html="comment.body"></div>
+      </div>
+      <div class="col-md-2">
+        <ag-vote-up-down data-text="Found this helpful" data-type="comment" data-item="comment" data-collection="votes" data-highest-vote="highestVote" ></ag-vote-up-down>
+      </div>
+    </div>
+
+    <div class="col-md-9 col-lg-10 col-sm-9 topics-box" ng-if="comment.editing" ng-init="updatedComment = comment">
+      <div class="topic-callout-arrow">
+        <i class="fa fa-caret-left"></i>
+      </div>
+      <form name="commentEditForm" class="form comment-form" ng-submit="updateComment(updatedComment);" ng-if="!commentSuccess" novalidate>
+        <div class="form-group" ng-class="{ 'has-error': form.response.$error.required }">
+          <textarea ag-rich-text class="form-control comment-body" rows="3" ng-model="updatedComment.body"></textarea>
+          <span class="text-danger small">
+            <span ng-show="form.response.$error.required">This field is required.</span>
+          </span>
+        </div>
+        <div class="actions form-group text-right">
+          <a class="comment-cancel-edit" ng-click="comment.editing = !comment.editing">Cancel</a>
+          <button type="submit" class="btn btn-link submit-comment" ng-disabled="commentEditForm.$invalid || updatedComment.processing">Submit</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+  <div class="clearfix"></div>
+</div>

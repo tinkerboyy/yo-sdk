@@ -1,0 +1,18 @@
+<div class="left-rail-header-label">RESOURCES</div>
+<div class="text-center" id="resourceBtns">
+	<div class="clearfix">&nbsp;</div>
+	<a class="btn btn-success btn-xs" ng-click="openModalWindow('TP');" data-toggle="modal"><span class="fa fa-shopping-cart"></span>&nbsp; Buy Online</a>
+    <div class="clearfix">&nbsp;</div>
+    <a  ng-if="!publicUser" ng-click="openModalWindow('VPP');" data-toggle="modal" class="btn btn-success btn-xs"><span class="fa fa-bar-chart"></span>&nbsp; View Prices Paid</a>
+	<div class="clearfix">&nbsp;</div>
+    <span ng-if="hallway.label === 'Professional Services'">
+        <a href="#/sowl" class="btn btn-success btn-xs"><span class="fa fa-institution"></span> &nbsp;
+Statement of Work Library</a>
+     </span>
+
+</div>
+<div class="clearfix">&nbsp;</div>
+<div class="left-rail-header-label">CONTRIBUTE</div>
+<div class="text-center">
+    <a ng-click="openModal('contribute-share');" class="btn btn-warning btn-xs">Contribute &amp; Share</a>
+</div>

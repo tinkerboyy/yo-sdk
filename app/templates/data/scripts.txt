@@ -1,0 +1,17 @@
+$drush genc 20 10 --types=articles
+
+$drush genc 20 10 --types=hallways_documents
+
+$drush genc 20 10 --types=video_article
+
+$drush genc 20 10 --types=sow
+
+$drush genc 20  --types=hallways_transactional_platforms
+
+$drush genc 20  --types=hallways_historical_prices
+
+$drush genc 20 --types=events
+
+$drush genc 20 10 --types=forum
+
+$drush genc 20  --types=news_item

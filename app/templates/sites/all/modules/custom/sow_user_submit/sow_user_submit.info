@@ -1,0 +1,5 @@
+name = SOW content user submit blocks
+description = 'This module adds a modal block that allows users to upload
+statement of workcontent.'
+core = 7.x
+package = SOW

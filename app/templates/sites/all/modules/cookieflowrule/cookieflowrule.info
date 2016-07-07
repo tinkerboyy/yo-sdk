@@ -1,0 +1,11 @@
+name = cookieFlowRule
+description = This enables revised flow based on visitor cookie
+core = 7.x
+package = Features
+version = 7.x-1.0
+project = cookieflowrule
+dependencies[] = entity
+dependencies[] = php
+dependencies[] = rules
+features[features_api][] = api:2
+features[rules_config][] = rules_cookieset

@@ -1,0 +1,16 @@
+<div class="popover">
+  <div class="arrow"></div>
+  <div class="popover-content">
+    <ul class="list-group no-margins">
+      <li class="list-group-item no-outer-borders no-padding">
+        <a bs-popover
+          title="Edit Task"
+          content-template="scripts/features/project-center/tasks/my-tasks-entry.html"
+          placement="left">Edit Task</a>
+      </li>
+      <li class="list-group-item no-outer-borders no-padding">
+        <a ng-click="tasks.save({id: entity.id, status: 0}, $hide)">Remove Task</a>
+      </li>
+    </ul>
+  </div>
+</div>

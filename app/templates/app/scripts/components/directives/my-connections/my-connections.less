@@ -1,0 +1,72 @@
+.truncate-text-mixin {
+  white-space: nowrap;
+  width: 135px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.my-connections {
+  height: auto;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.my-connections-container {
+  height: 283px;
+}
+
+.my-connections-list {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .my-connections-list-item {
+    border-bottom: 1px solid #CCC;
+    list-style: none;
+    padding: 10px 0;
+
+    .my-connections-picture {
+      height: 64px;
+      width: 64px;
+      overflow: hidden;
+      margin-right: 10px;
+      padding: 0;
+      border: 2px solid #CCC;
+
+      img {
+        max-width: none !important;
+        border: none;
+      }
+
+      .user-link {
+        display: block;
+
+        .truncate-text-mixin();
+      }
+    }
+
+    a.user-link {
+      font-weight: bold;
+      font-size: .9em;
+    }
+  }
+}
+
+.my-connections-agency {
+  display: inline-block;
+  width: 135px;
+  min-height: 20px;
+}
+
+.my-connections-agency-text {
+  font-size: 12px;
+  .truncate-text-mixin();
+}
+
+.my-connections-user-details {
+  max-width: 100%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
